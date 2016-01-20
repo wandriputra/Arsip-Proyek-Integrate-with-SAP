@@ -4,7 +4,8 @@ namespace App\model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class posisi extends Model
+class jenis_dokumen extends Model
 {
     //
+    protected $table = 'jenis_dokumen';
 }

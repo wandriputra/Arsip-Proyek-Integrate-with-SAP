@@ -14,13 +14,12 @@ class CreatePersonilsTable extends Migration
     {
         Schema::create('personil', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nik');
-            $table->string('nama', 200);
+            $table->string('nik')->unique();
+            $table->string('nama_personil');
             $table->string('singkatan', 5)->nullable();
             $table->string('email', 200)->nullable();
-            $table->string('gmail', 200)->nullable();
-            $table->integer('posisi_id')->unsigned()->nullable();
             $table->integer('unit_id')->unsigned()->nullable();
+            $table->integer('jabatan_id')->unsigned()->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();
         });

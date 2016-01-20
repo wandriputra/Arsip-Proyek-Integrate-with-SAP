@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SapTabel extends Migration
+class SubJenisDokumen extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,12 @@ class SapTabel extends Migration
      */
     public function up()
     {
-        Schema::create('tabel_sap', function (Blueprint $table) {
+        Schema::create('sub_jenis_dokumen', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('po');
-            $table->string('kpp');
-            $table->string('wbs');
-            $table->string('ir');
-            $table->string('gr');
-            $table->string('sa');
+            $table->string('nama_sub',80);
+            $table->string('singkatan',10);
+            $table->integer('induk_jenis_dokumen')->unsigned()->nullable();
+            $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class SapTabel extends Migration
      */
     public function down()
     {
-        Schema::drop('tabel_sap');
+        Schema::drop('sub_jenis_dokumen');
     }
 }

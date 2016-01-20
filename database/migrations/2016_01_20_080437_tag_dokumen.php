@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdatePosisiTable extends Migration
+class TagDokumen extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class UpdatePosisiTable extends Migration
      */
     public function up()
     {
-        Schema::table('posisi', function (Blueprint $table) {
-            //
-            $table->string('nama',200)->after('id');
-            $table->string('singkatan', 5);
+        Schema::create('tag_dokumen', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nama_tag');
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,8 +27,6 @@ class UpdatePosisiTable extends Migration
      */
     public function down()
     {
-        Schema::table('posisi', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('tag_dokumen');
     }
 }

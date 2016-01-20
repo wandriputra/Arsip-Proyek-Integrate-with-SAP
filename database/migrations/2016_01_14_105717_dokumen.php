@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDokumensTable extends Migration
+class dokumen extends Migration
 {
     /**
      * Run the migrations.
@@ -14,18 +14,18 @@ class CreateDokumensTable extends Migration
     {
         Schema::create('dokumen', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nomer', 200)->unique();
-            $table->string('nama', 255);
+            $table->string('no_dokumen')->unique();
+            $table->string('nama_dokumen');
+            $table->string('file_name_pdf');
+            $table->string('lokasi_file_pdf');
+            $table->string('tag_keterangan');
             $table->integer('jenis_id')->unsigned(); //jenis_dokumen_id
-            $table->integer('asal_surat')->unsigned(); //unit_id
-            $table->integer('tujuan_surat')->unsigned(); //unit_id
-            $table->string('sap_po',50); //sap_po
-            $table->string('sap_kpp',50); //sap_kpp
-            $table->integer('tembusan_surat_1')->unsigned(); //unit_id
-            $table->integer('tembusan_surat_2')->unsigned(); //unit_id
-            $table->integer('tembusan_surat_3')->unsigned(); //unit_id
+            $table->integer('sub_jenis_id')->unsigned(); //jenis_dokumen_id
+            $table->integer('asal_surat')->unsigned(); //personil
+            $table->integer('tujuan_surat')->unsigned(); //personil
+            $table->integer('visibility_id')->unsigned(); //personil
+            $table->integer('status_id')->unsigned(); //status surat masih ada atau tidak
             $table->integer('created_by')->unsigned(); //user_id
-            $table->string('status',30);
             $table->timestamps();
         });
     }

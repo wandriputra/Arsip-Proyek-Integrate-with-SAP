@@ -14,7 +14,7 @@ class CreateUnitsTable extends Migration
     {
         Schema::create('unit', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama',200);
+            $table->string('nama_unit',200);
             $table->string('singkatan', 5);
             $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();

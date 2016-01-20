@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{url('asset/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url('asset/dist/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{url('asset/dist/css/ionicons.min.css')}}">
-    <link rel="stylesheet" href="{{url('asset/dist/css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{url('asset/dist/css/AdminLTE.css')}}">
     <link rel="stylesheet" href="{{url('asset/plugins/iCheck/square/blue.css')}}">
 
     <!--[if lt IE 9]>

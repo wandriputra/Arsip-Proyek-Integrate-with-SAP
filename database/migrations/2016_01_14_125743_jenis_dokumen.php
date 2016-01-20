@@ -14,7 +14,8 @@ class JenisDokumen extends Migration
     {
         Schema::create('jenis_dokumen', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama',100); //nama_jenis dokumen
+            $table->string('nama_jenis',80); //nama_jenis dokumen
+            $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }

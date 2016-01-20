@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePosisisTable extends Migration
+class JenisApproval extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,10 @@ class CreatePosisisTable extends Migration
      */
     public function up()
     {
-        Schema::create('posisi', function (Blueprint $table) {
+        Schema::create('jenis_approval', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nama');
+            $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ class CreatePosisisTable extends Migration
      */
     public function down()
     {
-        Schema::drop('posisi');
+        Schema::drop('jenis_approval');
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UploadRole extends Migration
+class Visibility extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class UploadRole extends Migration
      */
     public function up()
     {
-        Schema::create('upload_role', function (Blueprint $table) {
-            $table->integer('jenis_id')->unsigned();
-            $table->integer('unit_id')->unsigned();
-            $table->integer('created_by')->unsigned();
+        Schema::create('visibility', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('jenis_visibility');
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ class UploadRole extends Migration
      */
     public function down()
     {
-        Schema::drop('upload_role');
+        Schema::drop('visibility');
     }
 }

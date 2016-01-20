@@ -12,8 +12,14 @@
 */
 
 Route::group(['middleware' => 'auth'], function () {
+	Route::get('/', function(){
+		return view('home');
+	});
 	Route::controller('/sap', 'sapController');
 	Route::controller('/home', 'arsipController');
+
+	Route::controller('/dokumen', 'dokumenController');
+
 });
 
 Route::controller('/', 'userController');

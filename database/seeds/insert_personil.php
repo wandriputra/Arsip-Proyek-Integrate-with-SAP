@@ -92,6 +92,6 @@ class insert_personil extends Seeder
 			(75,	'',	'Agus Boing',	'',	21,	10,	NULL,	NULL,	NULL,	NULL,	1)";
 		// DB::insert($sql);
 			$query = "insert into personil (`id`, `nik`, `nama`, `singkatan`, `unit_id`, `posisi_id`, `email`, `gmail`, `created_at`, `updated_at`, `created_by`) VALUES ('1', '', 'Wandri Eka Putra', 'wep', '4', '9', 'wandri.putra@semenindonesia.com', 'wandri.putra@gmail.com',null,null,null)";
-			DB::insert($query);
+			// DB::insert($query);
     }
 }

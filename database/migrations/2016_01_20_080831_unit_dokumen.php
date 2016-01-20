@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RoleUser extends Migration
+class UnitDokumen extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class RoleUser extends Migration
      */
     public function up()
     {
-        Schema::create('role_user', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama_role');
+        Schema::create('unit_dokumen', function (Blueprint $table) {
+            $table->integer('sub_jenis_id')->unsigned()->nullable();
+            $table->integer('unit_id')->unsigned()->nullable();
             $table->integer('created_by')->unsigned()->nullable();
-            $table->timestamps();
         });
     }
 
@@ -27,6 +26,6 @@ class RoleUser extends Migration
      */
     public function down()
     {
-        Schema::drop('role_user');
+        Schema::drop('unit_dokumen');
     }
 }

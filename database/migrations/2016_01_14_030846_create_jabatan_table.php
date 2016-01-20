@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RoleDokumen extends Migration
+class CreateJabatanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class RoleDokumen extends Migration
      */
     public function up()
     {
-        Schema::create('role_dokumen', function (Blueprint $table) {
+        Schema::create('jabatan', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama', 40); //nama_role
+            $table->string('nama_jabatan');
+            $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class RoleDokumen extends Migration
      */
     public function down()
     {
-        Schema::drop('role_dokumen');
+        Schema::drop('jabatan');
     }
 }
