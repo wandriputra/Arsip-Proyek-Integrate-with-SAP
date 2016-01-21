@@ -37,7 +37,7 @@
           </div>
       @endif
         <p class="login-box-msg">Sign in to start your session</p>
-        <form role="form" method="POST" action="{{ url('login') }}">
+        <form role="form" method="POST" action="{{ url('/auth/login') }}">
           {!! csrf_field() !!}
           <div class="form-group">
             <input type="text" class="form-control" name="username" placeholder="Username">

@@ -26,8 +26,8 @@ class insert_user extends Seeder
     		),
     		array(
     			'id' => 2,
-    			'username' => 'admin',
-    			'password' => bcrypt('admin'),
+    			'username' => 'guest',
+    			'password' => bcrypt('guest'),
     			'status' => 'N',
                 // 'role_user_id' => '1',
                 // 'personil_id' => '1'

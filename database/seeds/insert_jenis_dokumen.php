@@ -14,10 +14,11 @@ class insert_jenis_dokumen extends Seeder
         //
         DB::table('jenis_dokumen')->delete();
 
-        $sql = "INSERT INTO `jenis_dokumen` (`id`, `nama`, `singkatan`, `created_at`, `updated_at`) VALUES
-				(1,	'Korin Pengadaan',	'KPP',	'0000-00-00 00:00:00',	'0000-00-00 00:00:00'),
-				(2,	'Porcuser Requisision',	'PR',	'0000-00-00 00:00:00',	'0000-00-00 00:00:00')";
-
+        $sql = "INSERT INTO `jenis_dokumen` (`id`, `nama_jenis`, `created_by`) VALUES
+                (1, 'Pengadaan PO', '1'),
+                (2, 'Pengadaan Non PO', '1'),
+                (3, 'SPJ', '1'),
+				(4,	'Non Pengadaan', '1')";
 		DB::insert($sql);
     }
 }

@@ -17,10 +17,10 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 	Route::controller('/sap', 'sapController');
 	Route::controller('/home', 'arsipController');
-
+	Route::controller('/personil', 'personilController');
 	Route::controller('/dokumen', 'dokumenController');
 
 });
 
-Route::controller('/', 'userController');
+Route::controller('/auth', 'userController');
 

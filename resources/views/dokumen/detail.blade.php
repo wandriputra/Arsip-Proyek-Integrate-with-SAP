@@ -2,17 +2,6 @@
 
 @section('content_main_pages')
 <!-- SELECT2 EXAMPLE -->
-<div class="row">
-	<div class="col-md-3">	
-		<div class="box box-default">
-			<div class="box-body">
-				
-			</div><!-- /.box-body -->
-		</div><!-- /.box -->
-	</div>
-	<div class="col-md-9">
-
-
 		<div class="nav-tabs-custom">            
 			<ol class="breadcrumb">
               <li><a href="#"><i class="fa fa-home"></i> AFIS</a></li>
@@ -140,8 +129,6 @@
 						</li>
 					</ul>
 				</div>
-			</div><!-- /.tab-content -->
-		</div><!-- /.nav-tabs-custom -->
-	</div>
-</div>
+			</div>
+		</div>
 @stop

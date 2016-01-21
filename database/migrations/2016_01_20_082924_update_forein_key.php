@@ -44,7 +44,13 @@ class UpdateForeinKey extends Migration
                 ->on('jabatan')                
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
+            
+            $table->foreign('atasan_id')
+                ->references('id')
+                ->on('personil')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            
             $table->foreign('created_by')
                 ->references('id')
                 ->on('user')
