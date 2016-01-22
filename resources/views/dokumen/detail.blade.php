@@ -4,10 +4,10 @@
 <!-- SELECT2 EXAMPLE -->
 		<div class="nav-tabs-custom">            
 			<ol class="breadcrumb">
-              <li><a href="#"><i class="fa fa-home"></i> AFIS</a></li>
-              <li><a href="#">Pengadaan Radio</a></li>
-              <li class="active">Korin Permintaan Pengadaan</li>
-            </ol>
+				<li><a href="#"><i class="fa fa-home"></i> AFIS</a></li>
+				<li><a href="#">Pengadaan Radio</a></li>
+				<li class="active">Korin Permintaan Pengadaan</li>
+			</ol>
             <ul class="nav nav-tabs">
 				<li class="active"><a href="#file_pdf" data-toggle="tab">File PDF</a></li>
 				<li><a href="#detail_file" data-toggle="tab">Detail</a></li>

@@ -23,4 +23,9 @@ class dokumenController extends Controller
     {
         return view('dokumen.detail');
     }
+
+    public function getFolder($value='')
+    {
+        return view('dokumen.folder');
+    }
 }

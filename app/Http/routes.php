@@ -19,8 +19,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/home', 'arsipController');
 	Route::controller('/personil', 'personilController');
 	Route::controller('/dokumen', 'dokumenController');
+	
+	Route::get('/auth/user-edit/', ['use'=>'userController', 'as'=>'edit-user']);
+	Route::get('/personil/personil-edit/', ['use'=>'userController', 'as'=>'edit-personil']);
+	Route::get('/personil/personil-hapus/', ['use'=>'userController', 'as'=>'hapus-personil']);
 
 });
 
 Route::controller('/auth', 'userController');
 
+ 

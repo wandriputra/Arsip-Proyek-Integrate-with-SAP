@@ -66,7 +66,7 @@ class userController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'username' => 'required|between:6,30',
+            'username' => 'required|between:5,30',
             'password' => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
             'role_user_id' => 'required',
@@ -104,12 +104,51 @@ class userController extends Controller
             ->addColumn('created_by', function($user){
                 return $user['user']['username'];
             })
+            ->addColumn('action', function($user){
+               return '<a href="'.route('edit-user').'/'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            })
             ->make(true);
     }
 
     public function getProfil($value='')
     {
         return view('auth.profil');
+    }
+
+    public function getUserEdit($value='')
+    {
+        $user = user::where('id', $value)->firstOrFail();
+        $personil = Personil::all();
+        $role_user = Role::all();
+        $url = 'auth/user-edit';
+        return view('auth.tambah', compact('user', 'personil', 'role_user', 'url'));
+    }
+
+    public function postUserEdit(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|between:5,30',
+            'password' => 'required|between:4,20|confirmed',
+            'password_confirmation' => 'same:password',
+            'role_user_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+          return redirect()->back()
+                      ->withErrors($validator)
+                      ->withInput();
+        }
+        $edit = $request->all();
+
+        $user = user::find($request['id']);
+        $user->username = $edit['username'];
+        $user->password = bcrypt($edit['password']);
+        $user->status = $edit['status'];
+        $user->role_user_id = $edit['role_user_id'];
+        $user->created_by = Auth::user()->id;
+        $user->personil_id = $edit['personil_id'];
+        $user->save();
+        return redirect('auth/list-user');
     }
 
 

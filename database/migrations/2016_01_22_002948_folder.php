@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUnitsTable extends Migration
+class Folder extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,13 @@ class CreateUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('unit', function (Blueprint $table) {
+        Schema::create('folder', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama_unit',200);
-            $table->string('singkatan', 5);
-            $table->integer('unit_atasan')->unsigned()->nullable();
+            $table->string('nama_folder');
+            $table->integer('folder_induk')->unsigned()->nullable();
+            $table->integer('unit_id')->unsigned()->nullable();
             $table->integer('created_by')->unsigned()->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('unit');
+        Schema::drop('folder');
     }
 }

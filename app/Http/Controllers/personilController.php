@@ -67,7 +67,58 @@ class personilController extends Controller
             })
             ->addColumn('atasan', function($personil){
             	return $personil['atasan']['nama_personil'];
-            })         
+            })
+            ->addColumn('action', function($personil){
+               return '<a href="'.route('edit-personil').'/'.$personil->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="'.route('hapus-personil').'/'.$personil->id.'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</a>';
+            })        
             ->make(true);
+    }
+
+    public function getPersonilEdit($value='')
+    {
+        $unit = Unit::all();
+        $jabatan = Jabatan::all();
+        $atasan = Personil::all();
+        $edit = Personil::where('id', $value)->firstOrFail();
+        $url = 'personil/personil-edit';
+        return view('personil.tambah', compact('unit', 'jabatan', 'atasan', 'edit', 'url'));
+    }
+
+    public function postPersonilEdit(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'nama_personil' => 'required',
+            'unit_id' => 'required',
+            'jabatan_id' => 'required',
+            'singkatan' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+          return redirect()->back()
+                      ->withErrors($validator)
+                      ->withInput();
+        }
+
+        $personil = Personil::find($request['id']);
+        $edit = $request->all();
+        $personil->nik = $edit['nik'];
+        $personil->nama_personil = $edit['nama_personil'];
+        $personil->email = $edit['email'];
+        $personil->jabatan_id = $edit['jabatan_id'];
+        $personil->singkatan = $edit['singkatan'];
+        $personil->unit_id = ($edit['unit_id']) ?  $edit['unit_id'] : 'null' ;
+        $personil->atasan_id =$edit['atasan_id'];
+
+        $personil->save();
+        return redirect('personil/list-personil');
+    }
+
+    public function getPersonilHapus($value='')
+    {
+        if($value === 1) return redirect()->back();
+        Personil::where('id',$value)->delete();
+        return redirect()->back()
+                      ->withMassage('Berhasil dihapus');
     }
 }

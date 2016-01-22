@@ -20,7 +20,10 @@ class DatabaseSeeder extends Seeder
         $this->call('insert_jenis_dokumen');
         $this->call('insert_sub_jenis_dokumen');
         $this->call('insert_personil');
-
+        
+        DB::table('user')
+            ->where('id', 1)
+            ->update(array('created_by' => 1, 'role_user_id' => 1, 'personil_id'=> 1));
         
         Model::reguard();
     }

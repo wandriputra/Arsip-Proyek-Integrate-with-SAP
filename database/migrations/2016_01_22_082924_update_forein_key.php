@@ -64,6 +64,12 @@ class UpdateForeinKey extends Migration
                 ->on('user')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->foreign('unit_atasan')
+                ->references('id')
+                ->on('unit')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
 
         Schema::table('jabatan', function($table) {
@@ -259,7 +265,51 @@ class UpdateForeinKey extends Migration
                 ->on('user')                
                 ->onDelete('cascade')
                 ->onUpdate('cascade');                
-        });              
+        });
+
+        Schema::table('folder', function (Blueprint $table) {
+            $table->foreign('folder_induk')
+                ->references('id')
+                ->on('folder')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('unit_id')
+                ->references('id')
+                ->on('unit')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('user')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');                
+        });
+
+        Schema::table('share_folders', function (Blueprint $table) {
+            $table->foreign('folder_id')
+                ->references('id')
+                ->on('folder')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('unit_id')
+                ->references('id')
+                ->on('unit')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');              
+        });
+
+        Schema::table('folder_dokumen', function (Blueprint $table) {
+            $table->foreign('folder_id')
+                ->references('id')
+                ->on('folder')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('dokumen_id')
+                ->references('id')
+                ->on('dokumen')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');              
+        });            
         
     }
 

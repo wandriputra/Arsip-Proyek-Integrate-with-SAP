@@ -67,12 +67,14 @@
         <div class="container">
           <section class="content">
             <div class="row">
-              <div class="col-md-3">  
+              <div class="col-md-3">
+              @section('sidebar_content')
                 <div class="box box-default">
                   <div class="box-body">
-                    <!-- /.box-body -->
+                  <!-- /.box-body -->
                   </div>
                 </div>
+              @show
               </div>
               <div class="col-md-9">
                   @section('content_main_pages')

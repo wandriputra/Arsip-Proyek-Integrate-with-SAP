@@ -54,6 +54,7 @@
 	            { data: 'unit', name: 'unit' },
 	            { data: 'jabatan', name: 'jabatan' },
 	            { data: 'atasan', name: 'atasan' },
+	            { data: 'action', name: 'action' }
 	        ]
 	    });
 	</script>

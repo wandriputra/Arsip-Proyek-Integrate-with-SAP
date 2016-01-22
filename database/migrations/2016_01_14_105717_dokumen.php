@@ -26,6 +26,7 @@ class dokumen extends Migration
             $table->integer('visibility_id')->unsigned(); //personil
             $table->integer('status_id')->unsigned(); //status surat masih ada atau tidak
             $table->integer('created_by')->unsigned(); //user_id
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -17,31 +17,32 @@
 			Mohon Periksa Kembali input.
 		</div>
 	@endif
-		<form method="post" class="form-horizontal" action="{{url('auth/tambah-user')}}">
+		<form method="post" class="form-horizontal" action="{{{ isset($url) ? url($url) : url('auth/tambah-user') }}}">
 		{{csrf_field()}}
+			<input type="hidden" name="id" class="form-control" value="{{{$user['id'] or ''}}}">
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Username</label>
 				<div class="col-md-5">
-					<input type="text" name="username" class="form-control">
+					<input type="text" name="username" class="form-control" value="{{{ $user['username'] or ''}}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Password</label>
 				<div class="col-md-5">
-					<input type="password" name="password" class="form-control">
+					<input type="password" name="password" class="form-control" value="">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Konfirmasi Password</label>
 				<div class="col-md-5">
-					<input type="password" name="password_confirmation" class="form-control">
+					<input type="password" name="password_confirmation" class="form-control" value="">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Personil</label>
 				<div class="col-md-5">
 					<select name="personil_id" id="" class="select-pl"  style="width: 90%;">
-						<option value=""> </option>
+						<option value="{{{ $user['personil_id'] or '' }}}">{{{ $user['personil']['nama_personil']  or ''}}} </option>
 						@foreach($personil as $personil)
 						<option value="{{$personil['id']}}">{{$personil['nama_personil']}}</option>
 						@endforeach
@@ -52,7 +53,7 @@
 				<label for="" class="col-sm-2 control-label">Role User</label>
 				<div class="col-md-5">
 					<select name="role_user_id" id="" class="select-pl" style="width: 90%;">
-						<option value=""> </option>
+						<option value="{{{ $user['role_user_id'] or '' }}}">{{{ $user['role_user']['nama_role'] or '' }}}</option>
 						@foreach($role_user as $role_user)
 						<option value="{{$role_user['id']}}">{{$role_user['nama_role']}}</option>
 						@endforeach
