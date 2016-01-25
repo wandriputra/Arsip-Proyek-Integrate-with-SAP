@@ -27,7 +27,7 @@ class personilController extends Controller
 
     public function postTambahPersonil(Request $request)
     {
-    	 $validator = Validator::make($request->all(), [
+    	$validator = Validator::make($request->all(), [
             'nama_personil' => 'required',
             'unit_id' => 'required',
             'jabatan_id' => 'required',

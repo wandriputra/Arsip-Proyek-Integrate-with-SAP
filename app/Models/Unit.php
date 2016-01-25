@@ -9,15 +9,20 @@ class Unit extends Model
     //
     protected $table ="unit";
 
-    protected $fillable = ['nama_unit', 'singkatan', 'created_by'];
+    protected $fillable = ['nama_unit', 'singkatan', 'unit_atasan', 'created_by'];
 
     public function personil($value='')
     {
     	return $this->hasMany('App\Models\Personil');
     }
 
-    public function FunctionName($value='')
+    public function atasan()
     {
-    	# code...
+        return $this->belongsTo('App\Models\Unit');
+    }
+
+    public function unit()
+    {
+        return $this->hasMany($this);
     }
 }

@@ -7,19 +7,17 @@
 @section('content_main_pages')
 <div class="box box-info">
 	<div class="box-header with-border">
-		<h3 class="box-title">List Personil</h3>
+		<h3 class="box-title">List Unit</h3>
 	</div>
 	<div class="box-body">
 	    <table class="table table-bordered" id="users-table">
 	        <thead>
 	            <tr>
 	                <th width="10px">ID</th>
-	                <th>Nik</th>
-	                <th>Nama Personil</th>
-	                <th>Email</th>
-	                <th>Unit</th>
-	                <th>Jabatan</th>
-	                <th>Atasan</th>
+	                <th>Nama Unit</th>
+	                <th>Singkatan</th>
+	                <th>Unit Atasan</th>
+	                <th></th>
 	            </tr>
 	        </thead>
 	    </table>
@@ -38,22 +36,19 @@
 	    $('#users-table').dataTable({
 	    	"paging": true,
           	"lengthChange": false,
-         	"ordering": true,
+         	"ordering": false,
         	"info": true,
          	"autoWidth": false,
 	        processing: true,
 	        serverSide: true,
 	        orderable:false,
-	        ajax: '{{url('personil/ajax-list-personil')}}',
+	        ajax: '{{url('unit/ajax-list-unit')}}',
 	        columns: [
 	            { data: 'id', name: 'id' },
-	            { data: 'nik', name: 'nik' },
-	            { data: 'nama_personil_singkatan', name: 'nama_personil_singkatan' },
-	            { data: 'email', name: 'email' },
-	            { data: 'unit', name: 'unit' },
-	            { data: 'jabatan', name: 'jabatan' },
+	            { data: 'nama_unit', name: 'nama_unit' },
+	            { data: 'singkatan', name: 'singkatan' },
 	            { data: 'atasan', name: 'atasan' },
-	            { data: 'action', name: 'action' }
+	            { data: 'action', name: 'action' },
 	        ]
 	    });
 	</script>

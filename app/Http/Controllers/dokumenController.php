@@ -7,16 +7,20 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\model\jenis_dokumen as jenis;
-use App\model\unit as unit;
+use App\Models\Jenis_dokumen as jenis;
+use App\Models\Unit as unit;
+use App\Models\Sub_jenis_dokumen as sub_jenis;
+use App\Models\Visibility;
 
 class dokumenController extends Controller
 {
     public function getUpload()
     {
-        $jenis_dokumena = jenis::all();
+        $jenis_dokumen = jenis::all();
         $unit = unit::all();
-        return view('dokumen/upload', array('jenis_dokumen' => $jenis_dokumena, 'unit'=>$unit));
+        $sub_jenis = sub_jenis::all();
+        $visibility = Visibility::all();
+        return view('dokumen/upload', compact('jenis_dokumen', 'unit', 'sub_jenis', 'visibility'));
     }
 
     public function getDetail($id='')
@@ -27,5 +31,18 @@ class dokumenController extends Controller
     public function getFolder($value='')
     {
         return view('dokumen.folder');
+    }
+
+    public function getSubJenis(Request $request)
+    {
+        $id_induk = $request['id'];
+        $sub_jenis = sub_jenis::select('id', 'nama_sub')->where('induk_jenis_dokumen', $id_induk)->get();
+        echo $sub_jenis;
+    }
+
+    public function postUploadDokumen(Request $request)
+    {
+        $file = $request->file('file_pdf');
+        $data = $request->all();
     }
 }

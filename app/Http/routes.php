@@ -23,6 +23,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/auth/user-edit/', ['use'=>'userController', 'as'=>'edit-user']);
 	Route::get('/personil/personil-edit/', ['use'=>'userController', 'as'=>'edit-personil']);
 	Route::get('/personil/personil-hapus/', ['use'=>'userController', 'as'=>'hapus-personil']);
+	Route::get('/unit/unit-edit/', ['use'=>'unitController', 'as'=>'edit-unit']);
+	Route::get('/unit/unit-hapus/', ['use'=>'unitController', 'as'=>'hapus-unit']);	
+	Route::get('/jabatan/jabatan-edit/', ['use'=>'jabatanController', 'as'=>'edit-jabatan']);
+	Route::get('/jabatan/jabatan-hapus/', ['use'=>'jabatanController', 'as'=>'hapus-jabatan']);
+
+	Route::controller('/unit', 'unitController');
+	Route::controller('/jabatan', 'jabatanController');
 
 });
 

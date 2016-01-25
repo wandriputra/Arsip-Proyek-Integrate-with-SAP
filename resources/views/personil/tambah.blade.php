@@ -72,7 +72,7 @@
 						@foreach($atasan as $atasan)
 						<option value="{{$atasan['id']}}">{{$atasan['nama_personil']}}</option>
 						@endforeach
-					</select> <a href="{{url('atasan/tambah-atasan')}}"><i class="fa fa-fw fa-plus"></i></a>
+					</select> <a href="{{url('personil/tambah-personil')}}"><i class="fa fa-fw fa-plus"></i></a>
 				</div>
 			</div>
 	</div>
