@@ -11,7 +11,8 @@
 	            <h3 class="box-title">Upload Dokumen Arsip</h3>
             </div>
 			<div class="box-body">
-				<form class="form-horizontal" method="post" action="{{url('dokumen/upload-dokumen')}}">
+				<form class="form-horizontal" method="post" action="{{url('dokumen/upload')}}" enctype="multipart/form-data">
+					{{csrf_field()}}
 					<div class="box-body">
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Jenis Dokumen</label>
@@ -36,15 +37,13 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Porcuser Requisision</label>
 							<div class="col-sm-6">
-								<select class="form-control select2" name="pr" style="width: 100%;">
-								</select>
+								<input class="form-control" name="pr">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Porcuser Orser</label>
 							<div class="col-sm-6">
-								<select class="form-control select2" name="po" style="width: 100%;">
-								</select>
+								<input class="form-control" name="po">
 							</div>
 						</div>												
 						<div class="form-group">

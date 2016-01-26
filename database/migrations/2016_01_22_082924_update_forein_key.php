@@ -90,12 +90,6 @@ class UpdateForeinKey extends Migration
 
         Schema::table('dokumen', function (Blueprint $table) {
             //
-            $table->foreign('jenis_id')
-                ->references('id')
-                ->on('jenis_dokumen')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
             $table->foreign('sub_jenis_id')
                 ->references('id')
                 ->on('sub_jenis_dokumen')
@@ -104,25 +98,19 @@ class UpdateForeinKey extends Migration
 
             $table->foreign('asal_surat')
                 ->references('id')
-                ->on('personil')
+                ->on('unit')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('tujuan_surat')
                 ->references('id')
-                ->on('personil')
+                ->on('unit')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('visibility_id')
                 ->references('id')
                 ->on('visibility')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
-            $table->foreign('status_id')
-                ->references('id')
-                ->on('status_dokumen')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 

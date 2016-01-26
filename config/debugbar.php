@@ -82,7 +82,7 @@ return array(
      */
 
     'collectors' => array(
-        'phpinfo'         => true,  // Php version
+        'phpinfo'         => false,  // Php version
         'messages'        => true,  // Messages
         'time'            => true,  // Time Datalogger
         'memory'          => true,  // Memory usage
@@ -91,16 +91,16 @@ return array(
         'db'              => true,  // Show database (PDO) queries and bindings
         'views'           => true,  // Views with their data
         'route'           => true,  // Current route information
-        'laravel'         => false, // Laravel version and environment
-        'events'          => false, // All events fired
-        'default_request' => false, // Regular or special Symfony request logger
+        'laravel'         => true, // Laravel version and environment
+        'events'          => true, // All events fired
+        'default_request' => true, // Regular or special Symfony request logger
         'symfony_request' => true,  // Only one can be enabled..
         'mail'            => true,  // Catch mail messages
-        'logs'            => false, // Add the latest log messages
-        'files'           => false, // Show the included files
-        'config'          => false, // Display config settings
-        'auth'            => false, // Display Laravel authentication status
-        'gate'            => false, // Display Laravel Gate checks
+        'logs'            => true, // Add the latest log messages
+        'files'           => true, // Show the included files
+        'config'          => true, // Display config settings
+        'auth'            => true, // Display Laravel authentication status
+        'gate'            => true, // Display Laravel Gate checks
         'session'         => true,  // Display session data
     ),
 
@@ -115,23 +115,23 @@ return array(
 
     'options' => array(
         'auth' => array(
-            'show_name' => false,   // Also show the users name/email in the debugbar
+            'show_name' => true,   // Also show the users name/email in the debugbar
         ),
         'db' => array(
             'with_params'       => true,   // Render SQL with the parameters substituted
-            'timeline'          => false,  // Add the queries to the timeline
-            'backtrace'         => false,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
+            'timeline'          => true,  // Add the queries to the timeline
+            'backtrace'         => true,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
             'explain' => array(            // EXPERIMENTAL: Show EXPLAIN output on queries
-                'enabled' => false,
+                'enabled' => true,
                 'types' => array('SELECT'), // array('SELECT', 'INSERT', 'UPDATE', 'DELETE'); for MySQL 5.6.3+
             ),
             'hints'             => true,    // Show hints for common mistakes
         ),
         'mail' => array(
-            'full_log' => false
+            'full_log' => true
         ),
         'views' => array(
-            'data' => false,    //Note: Can slow down the application, because the data can be quite large..
+            'data' => true,    //Note: Can slow down the application, because the data can be quite large..
         ),
         'route' => array(
             'label' => true  // show complete route on bar

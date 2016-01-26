@@ -4,9 +4,9 @@
 <!-- SELECT2 EXAMPLE -->
 		<div class="nav-tabs-custom">            
 			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-home"></i> AFIS</a></li>
-				<li><a href="#">Pengadaan Radio</a></li>
-				<li class="active">Korin Permintaan Pengadaan</li>
+				<li><a href="#"><i class="fa fa-home"></i> {{$dokumen->unit_asal->nama_unit}}</a></li>
+				<li><a href="#">{{$dokumen->sub_jenis_dokumen->jenis_dokumen->nama_jenis}}</a></li>
+				<li class="active">{{$dokumen['nama_dokumen']}}</li>
 			</ol>
             <ul class="nav nav-tabs">
 				<li class="active"><a href="#file_pdf" data-toggle="tab">File PDF</a></li>
@@ -15,42 +15,40 @@
             </ul>
             <div class="tab-content">
 				<div class="active tab-pane" id="file_pdf">
-					<object data="{{url('/data/test.pdf')}}" type="application/pdf" width="100%" height="600">
-						alt : <a href="{{url('/data/test.pdf')}}">test.pdf</a>
+					<object data="{{url('/dokumen/file')}}/{{$dokumen['id']}}" type="application/pdf" width="100%" height="600">
+						alt : <a href="{{url('/dokumen/file')}}/{{$dokumen['id']}}">test.pdf</a>
 					</object>
 				</div><!-- /.tab-pane -->
 				<div class="tab-pane" id="detail_file">
 					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Nama</th>
-							</tr>
-						</thead>
 						<tbody>
 							<tr>
 								<td>ID Dokumen</td>
-								<td>01</td>
+								<td>{{$dokumen['id']}}</td>
 							</tr>
 							<tr>
 								<td>Jenis Dokumen</td>
-								<td>Korin Permintaan Pengadaan (KPP)</td>
+								<td>{{$dokumen->sub_jenis_dokumen->jenis_dokumen->nama_jenis}} / {{$dokumen->sub_jenis_dokumen->nama_sub}} ({{$dokumen->sub_jenis_dokumen->singkatan}})</td>
+							</tr>
+							<tr>
+								<td>Nama Pengadaan</td>
+								<td></td>
 							</tr>
 							<tr>
 								<td>Nama Dokumen</td>
-								<td>Korin Permintaan Pengadaan Radio HT 100 Unit</td>
+								<td>{{$dokumen['nama_dokumen']}}</td>
 							</tr>
 							<tr>
 								<td>Nomor Dokumen</td>
-								<td>PIND6/KRN/ICT/001</td>
+								<td>{{$dokumen['no_dokumen']}}</td>
 							</tr>
 							<tr>
-								<td>Nomer PR</td>
-								<td><a href="">7201230</a></td>
+								<td>Asal Dokumen</td>
+								<td><a href="">{{$dokumen->unit_asal->nama_unit}}</a></td>
 							</tr>
 							<tr>
-								<td>Nomer PO</td>
-								<td><a href="">7201230</a></td>
+								<td>Tujuan Dokumen</td>
+								<td><a href="">{{$dokumen->unit_tujuan->nama_unit}}</a></td>
 							</tr>
 							<tr>
 								<td>Nomer PO</td>
@@ -64,70 +62,92 @@
 					</table>
 				</div><!-- /.tab-pane -->
 				<div class="tab-pane" id="dokumen_terkait">
-					<!-- The timeline -->
-					<ul class="timeline timeline-inverse">
-						<li>
-							<div class="timeline-item">
-								<h3 class="timeline-header">Dokumen Pengadaan</h3>
-								<div class="timeline-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="box box-default box-solid collapsed-box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Pra Pengadaan</h3>
+									<div class="box-tools pull-right">
+										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+									</div><!-- /.box-tools -->
+								</div><!-- /.box-header -->
+								<div class="box-body no-padding">
 									<table class="table">
-										<thead>
-											<tr>
-												<th>Jenis</th>
-												<th>No Dokumen</th>
-												<th>Nama</th>
-												<th>Upload</th>
-											</tr>
-										</thead>
 										<tbody>
+											@foreach($level_sub as $value)
 											<tr>
-												<td>PO</td>
-												<td><a href="">Po 070402342</a></td>
-												<td>Nama Dokumen asdada</td>
-												<td>Procurement</td>
+												<td>{{$value->sub_jenis_dokumen->nama_sub}} ({{$value->sub_jenis_dokumen->singkatan}})</td>
+												<td><a href="{{url('dokumen/detail/')}}">{{$dokumen['no_dokumen']}}</a></td>
+												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 											</tr>
+											@endforeach
 										</tbody>
 									</table>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="timeline-item">
-								<h3 class="timeline-header">Dokumen Pengadaan</h3>
-								<div class="timeline-body">
+									</div>
+							</div><!-- /.box -->
+						</div><!-- /.col -->
+						<div class="col-md-12">
+							<div class="box box-default box-solid collapsed-box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Dokumen Pengadaan</h3>
+									<div class="box-tools pull-right">
+										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+									</div><!-- /.box-tools -->
+								</div><!-- /.box-header -->
+								<div class="box-body no-padding">
 									<table class="table">
-										<thead>
-											<tr>
-												<th>Jenis</th>
-												<th>No Dokumen</th>
-												<th>Nama</th>
-												<th>Upload</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>PO</td>
-												<td><a href="">Po 070402342</a></td>
-												<td>Nama Dokumen asdada</td>
-												<td>Procurement</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="timeline-item">
-								<h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-								<div class="timeline-body">
-									<img src="http://placehold.it/150x100" alt="..." class="margin">
-									<img src="http://placehold.it/150x100" alt="..." class="margin">
-									<img src="http://placehold.it/150x100" alt="..." class="margin">
-									<img src="http://placehold.it/150x100" alt="..." class="margin">
-								</div>
-							</div>
-						</li>
-					</ul>
+									<tbody>
+										<tr>
+											<th style="width: 10px">#</th>
+											<th>Task</th>
+											<th>Progress</th>
+											<th style="width: 40px">Label</th>
+										</tr>
+										<tr>
+											<td>1.</td>
+											<td>Update software</td>
+											<td>
+											<div class="progress progress-xs">
+											<div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+											</div>
+											</td>
+											<td><span class="badge bg-red">55%</span></td>
+										</tr>
+										<tr>
+											<td>2.</td>
+											<td>Clean database</td>
+											<td>
+											<div class="progress progress-xs">
+											<div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+											</div>
+											</td>
+											<td><span class="badge bg-yellow">70%</span></td>
+										</tr>
+										<tr>
+										<td>3.</td>
+										<td>Cron job running</td>
+										<td>
+										<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+										</div>
+										</td>
+										<td><span class="badge bg-light-blue">30%</span></td>
+										</tr>
+										<tr>
+										<td>4.</td>
+										<td>Fix and squish bugs</td>
+										<td>
+										<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-success" style="width: 90%"></div>
+										</div>
+										</td>
+										<td><span class="badge bg-green">90%</span></td>
+										</tr>
+									</tbody></table>
+									</div>
+							</div><!-- /.box -->
+						</div><!-- /.col -->
+					</div><!-- /.row -->
 				</div>
 			</div>
 		</div>
