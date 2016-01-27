@@ -29,6 +29,15 @@
 			</a>
 		</div>
 		@endforeach
+
+		@foreach($file as $val)
+		<div class="col-md-2">
+			<a href="{{url('dokumen/detail/')}}/{{$val->id}}">
+				<img src="{{url('data/pdf.png')}}" alt="" width="100%">
+				<p class="folder-name text-center">{{$val->nama_dokumen}}</p>
+			</a>
+		</div>
+		@endforeach
 	</div>
 	<div class="box-footer">
 		
