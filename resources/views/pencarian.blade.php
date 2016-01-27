@@ -6,7 +6,7 @@
 		font-weight: normal;
 	}
 	.padding-gambar{
-		padding-top: 10px;
+		padding-top: 0px;
 	}
 </style>
 @stop
@@ -29,8 +29,8 @@
 				<li>
 					<div class="row">
 						<a href="http://localhost/arsip_indarung6/dokumen/detail/4" class="link-pencarian">
-						<div class="col-sm-1">
-							<img src="{{url('data/folder.png')}}" alt="" width="60%" class="padding-gambar">
+						<div class="col-sm-2">
+							<img src="{{url('data/folder.png')}}" alt="" width="100%" class="padding-gambar">
 						</div>
 						<div class="col-sm-9">
 							<h5 class="header">Dokumen Pengadaan</h3> PR NO: 7213123 <br> PO NO: 12312334</p>
@@ -40,9 +40,9 @@
 				</li>
 				<li>
 					<div class="row">
-						<a href="http://localhost/arsip_indarung6/pencarian" class="link-pencarian">
-						<div class="col-sm-1">
-							<img src="{{url('data/folder.png')}}" alt="" width="60%" class="padding-gambar">
+						<a href="http://localhost/arsip_indarung6/dokumen/detail/2" class="link-pencarian">
+						<div class="col-sm-2">
+							<img src="{{url('data/pdf.png')}}" alt="" width="100%" class="padding-gambar">
 						</div>
 						<div class="col-sm-9">
 							<h5 class="header">Dokumen Pengadaan</h3> PR NO: 7213123 <br> PO NO: 12312334</p>

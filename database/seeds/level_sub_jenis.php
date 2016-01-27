@@ -12,14 +12,12 @@ class level_sub_jenis extends Seeder
     public function run()
     {
         //
-		DB::table('level_dokumen')->delete();
+        DB::table('level_sub_dokumen')->delete();
 
-    	$level = [
-                    array('id' => 1, 'nama_level' => 'user'),
-                    array('id' => 2, 'nama_level' => 'procurement'),
-                    array('id' => 3, 'nama_level' => 'log_wh'),
-                    array('id' => 4, 'nama_level' => 'accounting'),];
+       $sql = [
+            array('level_id'=>'1','sub_jenis_id' => '1'),
+            array('level_id'=>'1','sub_jenis_id' => '2')];
 
-     	DB::table('level_dokumen')->insert($level);
+     	DB::table('level_sub_dokumen')->insert($sql);
     }
 }

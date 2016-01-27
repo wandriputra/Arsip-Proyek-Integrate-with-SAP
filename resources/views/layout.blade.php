@@ -70,9 +70,8 @@
               <div class="col-md-3">
               @section('sidebar_content')
                 <div class="box box-default">
-                  <div class="box-header with-border">
-                  </div>
                   <div class="box-body">
+                    <p class="text-center">Menu Aplikasi</p>
                     <ul class="nav nav-stacked">
                       <li>
                         <a href="{{url('pencarian')}}"><i class="fa fa-search"></i> Pencarian</a>

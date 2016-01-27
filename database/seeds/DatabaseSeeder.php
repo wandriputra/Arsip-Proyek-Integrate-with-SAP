@@ -17,12 +17,13 @@ class DatabaseSeeder extends Seeder
         $this->call('insert_role');
         $this->call('insert_unit');
         $this->call('insert_jabatan');
-        $this->call('level_sub_jenis');
+        $this->call('insert_level_dokumen');
         $this->call('insert_jenis_dokumen');
         $this->call('insert_sub_jenis_dokumen');
         $this->call('insert_personil');
         $this->call('status_dokumen');
         $this->call('visibility');
+        $this->call('level_sub_jenis');
         
         DB::table('user')
             ->where('id', 1)

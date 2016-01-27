@@ -31,7 +31,7 @@
 									@foreach($sub_jenis as $sub_jenis)
 										<option value="{{$sub_jenis['id']}}">({{$sub_jenis['singkatan']}}) {{$sub_jenis['nama_sub']}}</option>
 									@endforeach
-								</select> <a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
+								</select> <a href="{{url('data/insert-sub-jenis')}}"><i class="fa fa-fw fa-plus"></i></a>
 							</div>
 						</div>
 						<div class="form-group">
@@ -53,7 +53,7 @@
                       			<p class="help-block">*Dokumen hanya dokumen final Format File PDF</p>
                     		</div>
                     	</div>
-                    	<div class="form-group">
+                    	<!-- <div class="form-group">
                       		<label for="exampleInputFile" class="col-sm-2 control-label">No File</label>
                       		<div class="col-sm-5">
                       			<input type="text" id="no_file" class="form-control">
@@ -70,7 +70,7 @@
                     		<div class="col-sm-1">
                     			<i class='fa fa-check bg-green'></i>
                     		</div>
-                    	</div>
+                    	</div> -->
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Asal Surat</label>
 							<div class="col-sm-6">

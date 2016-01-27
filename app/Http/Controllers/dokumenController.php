@@ -13,12 +13,15 @@ use App\Models\Level_dokumen;
 use App\Models\Sub_jenis_dokumen;
 use App\Models\Visibility;
 use App\Models\Dokumen;
+use App\Models\Dokumen_pr;
+use App\Models\Dokumen_po;
 
 use Auth;
 use Validator;
 use Storage;
 use File;
 use Response;
+
 
 class dokumenController extends Controller
 {
@@ -33,16 +36,19 @@ class dokumenController extends Controller
         return view('dokumen/upload', compact('jenis_dokumen', 'unit', 'sub_jenis', 'visibility'));
     }
 
-    public function getDetail($id='', $pr='')
+    public function getDetail($id='', $pr='', $po='')
     {
         if($id === '') return redirect("folder");
         $dokumen = Dokumen::find($id)->firstOrFail();
         $sub_jenis = Sub_jenis_dokumen::all();
-        $user =  Level_dokumen::find('1')->sub_jenis_dokumen()->get();
-        $procurement =  Level_dokumen::find('2')->sub_jenis_dokumen()->get();
-        $log_wh =  Level_dokumen::find('3')->sub_jenis_dokumen()->get();
-        $accounting =  Level_dokumen::find('4')->sub_jenis_dokumen()->get(); 
-        return view('dokumen.detail', compact('dokumen', 'sub_jenis', 'user', 'procurement', 'log_wh', 'accounting'));
+        
+        $user_sebelum_pengadaan = Level_dokumen::find('1')->sub_jenis_dokumen()->get();
+        $user_setelah_pengadaan = Level_dokumen::find('2')->sub_jenis_dokumen()->get();
+        $procurement = Level_dokumen::find('3')->sub_jenis_dokumen()->get();
+        $log_wh = Level_dokumen::find('4')->sub_jenis_dokumen()->get();
+        $accounting = Level_dokumen::find('5')->sub_jenis_dokumen()->get();
+
+        return view('dokumen.detail', compact('dokumen', 'sub_jenis', 'user_sebelum_pengadaan', 'user_setelah_pengadaan','procurement', 'log_wh', 'accounting'));
     }
 
     public function getSubJenis(Request $request)
@@ -67,10 +73,27 @@ class dokumenController extends Controller
         $data['sub_jenis_id'] = $data['sub_jenis_dokumen'];
         $data['visibility_id'] = $data['visibility'];
         $data['lokasi_file_pdf'] = $this->lokasi_file($data);
-        $dataupload = $this->uploadfile($data, $file);
         $dokumen = Dokumen::create($data);
-        
-        return redirect("dokumen/detail/$dokumen->id");
+        $this->insertDokumenPRPO($dokumen, $data['pr'], $data['po']);
+        if($dokumen){
+            $dataupload = $this->uploadfile($data, $file);
+            return redirect("dokumen/detail/$dokumen->id");
+        }
+        return redirect()->back();
+    }
+
+    private function insertDokumenPRPO($value='', $pr='', $po='')
+    {
+        $data['dokumen_id'] = $value->id;
+        $data['pr'] = $pr;
+        $data['po'] = $po;
+        if ($po!='') {
+            $po = Dokumen_po::create($data);
+            return true; 
+        }elseif($pr!=''){
+            $pr = Dokumen_pr::create($data);
+            return true;
+        }
     }
 
     private function fileRename($value)
