@@ -4,7 +4,10 @@
     <li><a href="{{url('/dokumen/detail')}}">Detail Dokumen</a></li>
     <li><a href="{{url('/dokumen/upload')}}">View Personil</a></li>
     <li class="divider"></li>
-    <li><a href="{{url('/dokumen/folder')}}">Folder</a></li>
+    <li><a href="{{url('/folder')}}">Folder</a></li>
+    <li class="divider"></li>
+    <li><a href="{{url('/data/insert-sub-jenis')}}">Insert Sub Jenis Dokumen</a></li>
+    <li><a href="{{url('/data/list-sub-jenis')}}">List Sub Jenis Dokumen</a></li>
   </ul>
 </li>
 <li class="dropdown">
@@ -26,7 +29,18 @@
 @parent
   <div class="box box-default">
     <div class="box-body">
-    <!-- /.box-body -->
+      <p class="text-muted text-center">Group Dokumen</p>
+      <ul class="list-group list-group-unbordered">
+        <li class="list-group-item">
+          <a class="" href="">Group By Pengadaan</a>
+        </li>
+        <li class="list-group-item">
+          <a class="" href="">Group By</a>
+        </li>
+        <li class="list-group-item">
+          <a class="" href="">Group By</a>
+        </li>
+      </ul>
     </div>
   </div>
 @stop

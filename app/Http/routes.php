@@ -19,6 +19,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/home', 'arsipController');
 	Route::controller('/personil', 'personilController');
 	Route::controller('/dokumen', 'dokumenController');
+	Route::controller('/unit', 'unitController');
+	Route::controller('/jabatan', 'jabatanController');
+	Route::controller('/folder', 'folderController');
+	Route::controller('/pencarian', 'pencarianController');
+	Route::controller('/data', 'datamasterController');
 	
 	Route::get('/auth/user-edit/', ['use'=>'userController', 'as'=>'edit-user']);
 	Route::get('/personil/personil-edit/', ['use'=>'userController', 'as'=>'edit-personil']);
@@ -28,8 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/jabatan/jabatan-edit/', ['use'=>'jabatanController', 'as'=>'edit-jabatan']);
 	Route::get('/jabatan/jabatan-hapus/', ['use'=>'jabatanController', 'as'=>'hapus-jabatan']);
 
-	Route::controller('/unit', 'unitController');
-	Route::controller('/jabatan', 'jabatanController');
+
 
 });
 

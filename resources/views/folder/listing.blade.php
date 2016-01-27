@@ -16,29 +16,19 @@
 		<li class="active">Korin Permintaan Pengadaan</li>
 	</ol>
 	<div class="box-header with-border">
-		<h3 class="box-title">nama folder</h3>
-		<button type="button" class="btn btn-success btn-xs pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New Folder</button>
+		<h3 class="box-title">{{Auth::user()->personil->unit->nama_unit}}</h3>
+		<button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New Folder</button>
 	</div>
 
 	<div class="box-body">
+		@foreach($folder as $val)
 		<div class="col-md-2">
-			<a href="" >
+			<a href="{{url('folder/index')}}/{{$val->id}}">
 				<img src="{{url('data/folder.png')}}" alt="" width="100%">
-				<p class="folder-name">Lorem ipsum asd asd </p>
+				<p class="folder-name text-center">{{$val->nama_folder}}</p>
 			</a>
 		</div>
-		<div class="col-md-2">
-			<a href="" >
-				<img src="{{url('data/folder.png')}}" alt="" width="100%">
-				<p class="folder-name">Lorem ipsum asd asd </p>
-			</a>
-		</div>
-		<div class="col-md-2">
-			<a href=""  >
-				<img src="{{url('data/folder.png')}}" alt="" width="100%">
-				<p class="folder-name">Lorem ipsum asd asd </p>
-			</a>
-		</div>
+		@endforeach
 	</div>
 	<div class="box-footer">
 		
@@ -56,17 +46,21 @@
 			<h4 class="modal-title">Tambah Folder</h4>
 		</div>
 		<div class="modal-body">
-			<form action="" method="post" class="form-horizontal">
+			<form action="{{url('folder/new-folder')}}" method="post" class="form-horizontal">
 				<div class="form-group">
-					<label for="" class="form-label">Nama Folder</label>
-					<div class="col-md-4">
-						<input type="text" class="form-control">
+					<div class="col-md-10">
+					{{csrf_field()}}
+					<input type="hidden" name="unit_id" value="{{Auth::user()->personil->unit->id}}">
+					<input type="hidden" name="folder_induk" value="{{{$id}}}">
+						<input type="text" name="nama_folder" class="form-control" placeholder="Nama Folder">
 					</div>
+					<div class="col-md-2">
+						<button type="submit" class="btn btn-success" width='100%'>Buat</button>
+					</div>
+				</div>
 			</form>
-		</div>
+    	</div>
     </div>
-
-  </div>
 </div>
 	
 @stop

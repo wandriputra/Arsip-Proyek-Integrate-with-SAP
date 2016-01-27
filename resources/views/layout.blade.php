@@ -70,8 +70,20 @@
               <div class="col-md-3">
               @section('sidebar_content')
                 <div class="box box-default">
+                  <div class="box-header with-border">
+                  </div>
                   <div class="box-body">
-                  <!-- /.box-body -->
+                    <ul class="nav nav-stacked">
+                      <li>
+                        <a href="{{url('pencarian')}}"><i class="fa fa-search"></i> Pencarian</a>
+                      </li>
+                      <li>
+                        <a href="{{url('folder')}}"><i class="fa fa-folder"></i> Folder</a>
+                      </li>
+                      <li>
+                        <a href="{{url('dokumen/upload')}}"><i class="fa fa-upload"></i> Upload Dokumen</a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               @show
@@ -90,9 +102,9 @@
       <footer class="main-footer">
         <div class="container">
           <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.0
+            <b>Version</b> Alpha Development.
           </div>
-          <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+          <strong>Copyright &copy; 2016-2017 <a href="http://indarung6.semenpadang.co.id">Proyek Indarung VI</a>.</strong> All rights reserved.
         </div><!-- /.container -->
       </footer>
       @show

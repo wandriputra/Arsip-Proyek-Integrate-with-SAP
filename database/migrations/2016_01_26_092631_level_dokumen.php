@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class LevelSubJenis extends Migration
+class LevelDokumen extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,15 @@ class LevelSubJenis extends Migration
      */
     public function up()
     {
-        Schema::create('level_sub_jenis', function (Blueprint $table) {
+        Schema::create('level_dokumen', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_level');
-            $table->integer('sub_jenis_id')->unsigned()->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('level_sub_dokumen', function (Blueprint $table) {
+            $table->integer('level_id')->unsigned()->nullable();
+            $table->integer('sub_jenis_id')->unsigned()->nullable();
         });
     }
 
@@ -27,6 +31,6 @@ class LevelSubJenis extends Migration
      */
     public function down()
     {
-        Schema::drop('level_sub_jenis');
+        Schema::drop('level_dokumen');
     }
 }

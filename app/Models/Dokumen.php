@@ -38,4 +38,9 @@ class Dokumen extends Model
     {
         return $this->belongsTo('App\Models\Unit', 'tujuan_surat');
     }
+
+    public function folder()
+    {
+        return $this->belongsToMany('App\Models\Folder', 'folder_dokumen', 'dokumen_id', 'folder_id');
+    }
 }

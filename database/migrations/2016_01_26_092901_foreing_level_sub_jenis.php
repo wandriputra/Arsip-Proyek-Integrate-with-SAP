@@ -12,13 +12,18 @@ class ForeingLevelSubJenis extends Migration
      */
     public function up()
     {
-        Schema::table('level_sub_jenis', function (Blueprint $table) {
+        Schema::table('level_sub_dokumen', function (Blueprint $table) {
             //
-             $table->foreign('sub_jenis_id')
+             $table->foreign('level_id')
                 ->references('id')
-                ->on('level_sub_jenis')                
+                ->on('level_dokumen')                
                 ->onDelete('cascade')
-                ->onUpdate('cascade');        
+                ->onUpdate('cascade');
+            $table->foreign('sub_jenis_id')
+                ->references('id')
+                ->on('sub_jenis_dokumen')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');  
         });
     }
 

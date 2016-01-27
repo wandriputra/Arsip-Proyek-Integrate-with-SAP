@@ -26,4 +26,9 @@ class Sub_jenis_dokumen extends Model
     {
         return $this->hasMany('App\Models\Dokumen');
     }
+
+    public function level_dokumen()
+    {
+        return $this->belongsToMany('App\Models\Level_dokumen', 'level_sub_dokumen', 'sub_jenis_id', 'level_id');
+    }
 }
