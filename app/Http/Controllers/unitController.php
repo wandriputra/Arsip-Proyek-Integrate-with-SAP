@@ -37,7 +37,7 @@ class unitController extends Controller
         }
         $input = $request->only(['nama_unit', 'singkatan', 'unit_atasan', 'created_by']);
         Unit::create($input);
-        return redirect('unit/list-unit');
+        return redirect()->back();
     }
 
     public function getListUnit($value='')

@@ -16,6 +16,7 @@ use App\Models\Dokumen;
 use App\Models\Dokumen_pr;
 use App\Models\Dokumen_po;
 use App\Models\Folder;
+use App\Models\Actifity;
 
 use Auth;
 use Validator;
@@ -30,11 +31,11 @@ class dokumenController extends Controller
 
     public function getUpload()
     {
-        $jenis_dokumen = jenis::all();
+        $actifity = Actifity::all();
         $unit = unit::all();
         $sub_jenis = Sub_jenis_dokumen::all();
         $visibility = Visibility::all();
-        return view('dokumen/upload', compact('jenis_dokumen', 'unit', 'sub_jenis', 'visibility'));
+        return view('dokumen/upload', compact('actifity', 'unit', 'sub_jenis', 'visibility'));
     }
 
     public function getDetail($id='', $pr='', $po='')
@@ -43,13 +44,7 @@ class dokumenController extends Controller
         $dokumen = Dokumen::find($id)->firstOrFail();
         $sub_jenis = Sub_jenis_dokumen::all();
         
-        $user_sebelum_pengadaan = Level_dokumen::find('1')->sub_jenis_dokumen()->get();
-        $user_setelah_pengadaan = Level_dokumen::find('2')->sub_jenis_dokumen()->get();
-        $procurement = Level_dokumen::find('3')->sub_jenis_dokumen()->get();
-        $log_wh = Level_dokumen::find('4')->sub_jenis_dokumen()->get();
-        $accounting = Level_dokumen::find('5')->sub_jenis_dokumen()->get();
-
-        return view('dokumen.detail', compact('dokumen', 'sub_jenis', 'user_sebelum_pengadaan', 'user_setelah_pengadaan','procurement', 'log_wh', 'accounting'));
+        return view('dokumen.detail', compact('dokumen', 'sub_jenis'));
     }
 
     public function getSubJenis(Request $request)
@@ -124,7 +119,7 @@ class dokumenController extends Controller
 
     private function insertFolder($value='', $dokumen='')
     {
-        $data['unit_id'] = $value['asal_surat'];
+        $data['unit_id'] = $value['unit_asal'];
         $data['nama_folder'] = Sub_jenis_dokumen::where('id',$value['sub_jenis_id'])->firstOrFail()->nama_sub;
         $data['created_by'] = $value['created_by'];
         
@@ -161,7 +156,7 @@ class dokumenController extends Controller
     }
     
     private function lokasi_file($value){
-        $unit_asal = unit::find($value['asal_surat']);
+        $unit_asal = unit::find($value['unit_asal']);
         $folder1 = $unit_asal['nama_unit'] ;
         $sub = Sub_jenis_dokumen::find($value['sub_jenis_dokumen']);
         $folder2 = $sub['nama_sub'].'('.$sub['singkatan'].')';
@@ -170,7 +165,7 @@ class dokumenController extends Controller
 
     public function getFile($id){
         $data = Dokumen::where('id', $id)->firstOrFail();
-        $lokasi = $data->lokasi_file_pdf.'/'.$data->file_name_pdf;
+        $lokasi = $data->lokasi_file_pdf.$data->file_name_pdf;
         $file = Storage::disk('local')->get($lokasi);
         return  response($file, 200)
               ->header('Content-Type', 'application/pdf');

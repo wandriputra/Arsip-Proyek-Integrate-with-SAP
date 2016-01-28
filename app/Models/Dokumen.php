@@ -12,13 +12,11 @@ class Dokumen extends Model
 
 	protected $table = 'dokumen';
 
-	protected $fillable = ['no_dokumen', 'nama_dokumen', 'file_name_pdf', 'lokasi_file_pdf', 'tag_keterangan', 'sub_jenis_id', 'asal_surat', 'tujuan_surat', 'visibility_id', 'created_by'];
+	protected $fillable = ['no_dokumen', 'nama_dokumen', 'file_name_pdf', 'lokasi_file_pdf', 'tag_keterangan', 'sub_jenis_id', 'unit_asal', 'unit_tujuan', 'visibility_id', 'created_by'];
 
 	public static $rules = [
     	'jenis_dokumen' => 'required',
     	'sub_jenis_dokumen' => 'required',
-    	'pr' => 'required',
-    	'po' => 'required',
     	'file_pdf' => 'required'
     ];
 
@@ -29,19 +27,19 @@ class Dokumen extends Model
         return $this->belongsTo('App\Models\Sub_jenis_dokumen', 'sub_jenis_id');
     }
 
-    public function unit_asal()
+    public function asal_surat()
     {
-        return $this->belongsTo('App\Models\Unit', 'asal_surat');
+        return $this->belongsTo('App\Models\Unit', 'unit_asal');
     }
     
-    public function unit_tujuan()
+    public function tujuan_surat()
     {
-        return $this->belongsTo('App\Models\Unit', 'tujuan_surat');
+        return $this->belongsTo('App\Models\Unit', 'unit_tujuan');
     }
 
     public function folder()
     {
-        return $this->belongsToMany('App\Models\Folder', 'folder_dokumen', 'folder_id', 'dokumen_id');
+        return $this->belongsToMany('App\Models\Folder', 'folder_dokumen', 'dokumen_id', 'folder_id');
     }
 
     public function dokumen_pr()

@@ -26,30 +26,65 @@
 	<div class="box-body">
 		<div id="hasil-pencarian">
 			<ul class="nav nav-stacked">
+
 				<li>
-					<div class="row">
-						<a href="http://localhost/arsip_indarung6/dokumen/detail/4" class="link-pencarian">
-						<div class="col-sm-2">
-							<img src="{{url('data/folder.png')}}" alt="" width="100%" class="padding-gambar">
-						</div>
-						<div class="col-sm-9">
-							<h5 class="header">Dokumen Pengadaan</h3> PR NO: 7213123 <br> PO NO: 12312334</p>
+					<a href="http://localhost/arsip_indarung6/dokumen/detail/4">
+						<div class="row">
+							<div class="col-md-2">
+								<img src="{{url('data/folder.png')}}" alt="" width="100%">
 							</div>
-						</a>
-					</div>
+							<div class="col-md-10">
+								<h5 class="header">Dokumen Pengadaan</h5> PR NO: 7213123 <br> PO NO: 12312334</p>
+							</div>
+						</div>
+					</a>
 				</li>
+				@foreach($dokumen as $dokumen)
 				<li>
-					<div class="row">
-						<a href="http://localhost/arsip_indarung6/dokumen/detail/2" class="link-pencarian">
-						<div class="col-sm-2">
-							<img src="{{url('data/pdf.png')}}" alt="" width="100%" class="padding-gambar">
-						</div>
-						<div class="col-sm-9">
-							<h5 class="header">Dokumen Pengadaan</h3> PR NO: 7213123 <br> PO NO: 12312334</p>
+					<a href="{{url('dokumen/detail')}}/{{$dokumen['id']}}" class="link-pencarian">
+						<div class="row">
+							<div class="col-md-2">
+								<img src="{{url('data/pdf.png')}}" alt="" width="100%">
 							</div>
-						</a>
-					</div>
+							<div class="col-md-10">
+								<table class="table-hover">
+									<tr>
+										<td>Nama File</td>
+										<td>:</td>
+										<td>{{$dokumen['no_dokumen']}}</td>
+									</tr>
+									<tr>
+										<td>Nama Pengadaan</td>
+										<td>:</td>
+										<td>{{$dokumen['nama_dokumen']}}</td>
+									</tr>
+									<tr>
+										<td>WBS Area</td>
+										<td>:</td>
+										<td>{{$dokumen['created_at']}}</td>
+									</tr>
+									<tr></tr>
+									<tr>
+										<td>No PR :</td>
+										<td>No PO : </td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>{{$dokumen->dokumen_pr->pr}}</td>										
+										<td>{{$dokumen->dokumen_pr->pr}}</td>
+										<td></td>									
+									</tr>
+									<tr>
+										<td>{{$dokumen->dokumen_pr->pr}}</td>
+										<td>{{$dokumen->dokumen_pr->pr}}</td>
+										<td></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</a>
 				</li>
+				@endforeach
 			</ul>
 		</div>
 	</div>

@@ -10,7 +10,7 @@ class Sub_jenis_dokumen extends Model
 
     protected $table = 'sub_jenis_dokumen';
 
-    protected $fillable = ['nama_sub', 'singkatan', 'induk_jenis_dokumen', 'created_by'];
+    protected $fillable = ['nama_sub', 'singkatan', 'actifity_id', 'created_by'];
 
     public function jenis_dokumen()
     {

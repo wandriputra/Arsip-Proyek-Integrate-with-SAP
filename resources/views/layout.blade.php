@@ -36,9 +36,9 @@
               <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                   @if(Auth::user()->role_user->nama_role === 'Administrator')
-                    @include('_template.admin.header_menu')
+                    @include('_include.admin_menu')
                   @elseif(Auth::user()->role_user->nama_role === 'Uploader HRGA')
-                    @include('_template.uploader.header_menu')
+                    @include('_include.uploader_menu')
                   @endif
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -77,7 +77,10 @@
                         <a href="{{url('pencarian')}}"><i class="fa fa-search"></i> Pencarian</a>
                       </li>
                       <li>
-                        <a href="{{url('folder')}}"><i class="fa fa-folder"></i> Folder</a>
+                        <a href="{{url('folder')}}"><i class="fa fa-folder-o"></i> Dokumen Pengadaan</a>
+                      </li>
+                      <li>
+                        <a href="{{url('folder')}}"><i class="fa fa-folder"></i> Folder Dokumen Unit</a>
                       </li>
                       <li>
                         <a href="{{url('dokumen/upload')}}"><i class="fa fa-upload"></i> Upload Dokumen</a>

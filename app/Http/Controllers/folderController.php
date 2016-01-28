@@ -22,13 +22,18 @@ class folderController extends Controller
     	}else {
     		$folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', $id)->get();
     	}
-        $file = $this->getFilePengadaan();
+        $file = $this->getFilePengadaan($id);
+
         return view('folder.listing', compact('folder', 'id', 'breadcumb', 'file'));
     }
 
-    private function getFilePengadaan($value='')
+    private function getFilePengadaan($id='')
     {
-        $dokumen = Dokumen::where('asal_surat', Auth::user()->personil->unit->id)->get();
+        $dokumen = Dokumen::whereHas('folder', function($q) use ($id){
+            $q->where('unit_id', Auth::user()->personil->unit->id)
+            ->where('id', $id);
+        })
+        ->where('unit_asal', Auth::user()->personil->unit->id)->get();
         return $dokumen;
     }
 

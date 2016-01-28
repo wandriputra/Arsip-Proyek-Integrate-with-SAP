@@ -20,8 +20,8 @@ class dokumen extends Migration
             $table->string('lokasi_file_pdf');
             $table->string('tag_keterangan');
             $table->integer('sub_jenis_id')->unsigned(); //jenis_dokumen_id
-            $table->integer('asal_surat')->unsigned(); //personil
-            $table->integer('tujuan_surat')->unsigned(); //personil
+            $table->integer('unit_asal')->unsigned(); //personil
+            $table->integer('unit_tujuan')->unsigned()->nullable(); //personil
             $table->integer('visibility_id')->unsigned(); //personil
             $table->integer('created_by')->unsigned(); //user_id
             $table->softDeletes();

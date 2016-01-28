@@ -25,4 +25,9 @@ class Unit extends Model
     {
         return $this->hasMany($this);
     }
+
+    public function dokumen()
+    {
+        return $this->hasMany('App\Models\Dokumen', 'unit_asal');
+    }
 }

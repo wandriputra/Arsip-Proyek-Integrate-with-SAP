@@ -4,8 +4,8 @@
 <!-- SELECT2 EXAMPLE -->
 		<div class="nav-tabs-custom">            
 			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-home"></i> {{$dokumen->unit_asal->nama_unit}}</a></li>
-				<li><a href="#">{{$dokumen->sub_jenis_dokumen->jenis_dokumen->nama_jenis}}</a></li>
+				<li><a href="#"><i class="fa fa-home"></i> {{$dokumen->asal_surat->nama_unit}}</a></li>
+				<li><a href="#"></a></li>
 				<li class="active">{{$dokumen['nama_dokumen']}}</li>
 			</ol>
             <ul class="nav nav-tabs">
@@ -30,7 +30,7 @@
 							</tr>
 							<tr>
 								<td>Jenis Dokumen</td>
-								<td>{{$dokumen->sub_jenis_dokumen->jenis_dokumen->nama_jenis}} / {{$dokumen->sub_jenis_dokumen->nama_sub}} ({{$dokumen->sub_jenis_dokumen->singkatan}})</td>
+								<td>{{$dokumen->sub_jenis_dokumen->singkatan}} / {{$dokumen->sub_jenis_dokumen->nama_sub}} ({{$dokumen->sub_jenis_dokumen->singkatan}})</td>
 							</tr>
 							<tr>
 								<td>Nama Pengadaan</td>
@@ -46,11 +46,11 @@
 							</tr>
 							<tr>
 								<td>Asal Dokumen</td>
-								<td><a href="">{{$dokumen->unit_asal->nama_unit}}</a></td>
+								<td><a href="">{{$dokumen->asal_surat->nama_unit}}</a></td>
 							</tr>
 							<tr>
 								<td>Tujuan Dokumen</td>
-								<td><a href="">{{$dokumen->unit_tujuan->nama_unit}}</a></td>
+								<td><a href="">{{$dokumen->tujuan_surat->nama_unit}}</a></td>
 							</tr>
 							@if($dokumen->dokumen_pr->pr != null)
 							<tr>
@@ -88,26 +88,24 @@
 									<h4>Dokumen Setelah Pengadaan</h4>
 									<table class="table table-bordered">
 										<tbody>
-											@foreach($user_sebelum_pengadaan as $val)
+											
 											<tr>
-												<td>{{$val->nama_sub}}</td>
-												<td><a href="{{url('dokumen/detail/')}}">{{$dokumen['no_dokumen']}}</a></td>
+												<td></td>
+												<td><a href="{{url('dokumen/detail/')}}"></a></td>
 												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 											</tr>
-											@endforeach
 										</tbody>
 									</table>
 
 									<h4>Dokumen Setelah Pengadaan</h4>
 									<table class="table table-bordered">
 										<tbody>
-											@foreach($user_setelah_pengadaan as $val)
+											
 											<tr>
-												<td>{{$val->nama_sub}}</td>
-												<td><a href="{{url('dokumen/detail/')}}">{{$dokumen['no_dokumen']}}</a></td>
+												<td></td>
+												<td><a href="{{url('dokumen/detail/')}}"></a></td>
 												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 											</tr>
-											@endforeach
 										</tbody>
 									</table>
 
@@ -127,26 +125,24 @@
 									<h4>Dokumen RFQ</h4>
 									<table class="table table-bordered">
 										<tbody>
-											@foreach($user_sebelum_pengadaan as $val)
+											
 											<tr>
-												<td>{{$val->nama_sub}}</td>
-												<td><a href="{{url('dokumen/detail/')}}">{{$dokumen['no_dokumen']}}</a></td>
+												<td></td>
+												<td><a href="{{url('dokumen/detail/')}}"></a></td>
 												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 											</tr>
-											@endforeach
 										</tbody>
 									</table>
 
 									<h4>Dokumen Annwizing</h4>
 									<table class="table table-bordered">
 										<tbody>
-											@foreach($user_setelah_pengadaan as $val)
+											
 											<tr>
-												<td>{{$val->nama_sub}}</td>
-												<td><a href="{{url('dokumen/detail/')}}">{{$dokumen['no_dokumen']}}</a></td>
+												<td></td>
+												<td><a href="{{url('dokumen/detail/')}}"></a></td>
 												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 											</tr>
-											@endforeach
 										</tbody>
 									</table>
 
@@ -165,13 +161,12 @@
 
 									<table class="table table-bordered">
 										<tbody>
-											@foreach($log_wh as $val)
+											
 											<tr>
-												<td>{{$val->nama_sub}}</td>
-												<td><a href="{{url('dokumen/detail/')}}">{{$dokumen['no_dokumen']}}</a></td>
+												<td></td>
+												<td><a href="{{url('dokumen/detail/')}}"></a></td>
 												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 											</tr>
-											@endforeach
 										</tbody>
 									</table>
 
@@ -189,13 +184,12 @@
 								<div class="box-body">
 									<table class="table table-bordered">
 										<tbody>
-											@foreach($accounting as $val)
+											
 											<tr>
-												<td>{{$val->nama_sub}}</td>
-												<td><a href="{{url('dokumen/detail/')}}">{{$dokumen['no_dokumen']}}</a></td>
+												<td></td>
+												<td><a href="{{url('dokumen/detail/')}}"></a></td>
 												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 											</tr>
-											@endforeach
 										</tbody>
 									</table>
 

@@ -96,13 +96,13 @@ class UpdateForeinKey extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('asal_surat')
+            $table->foreign('unit_asal')
                 ->references('id')
                 ->on('unit')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('tujuan_surat')
+            $table->foreign('unit_tujuan')
                 ->references('id')
                 ->on('unit')
                 ->onDelete('cascade')
@@ -132,9 +132,9 @@ class UpdateForeinKey extends Migration
 
         Schema::table('sub_jenis_dokumen', function (Blueprint $table) {
             //
-            $table->foreign('induk_jenis_dokumen')
+            $table->foreign('actifity_id')
                 ->references('id')
-                ->on('jenis_dokumen')
+                ->on('actifity')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
@@ -217,23 +217,18 @@ class UpdateForeinKey extends Migration
                 ->onUpdate('cascade');                
         }); 
 
-        Schema::table('lampiran_dokumen', function (Blueprint $table) {
+        Schema::table('tembusan_dokumen', function (Blueprint $table) {
             //
-            $table->foreign('personil_id')
-                ->references('id')
-                ->on('personil')                
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->foreign('dokumen_upload_id')
+            $table->foreign('dokumen_id')
                 ->references('id')
                 ->on('dokumen')                
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreign('created_by')
+            $table->foreign('unit_id')
                 ->references('id')
-                ->on('user')                
+                ->on('unit')                
                 ->onDelete('cascade')
-                ->onUpdate('cascade');                
+                ->onUpdate('cascade');               
         });
 
         Schema::table('dokumen_has_tag', function (Blueprint $table) {
@@ -295,6 +290,19 @@ class UpdateForeinKey extends Migration
             $table->foreign('dokumen_id')
                 ->references('id')
                 ->on('dokumen')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');              
+        });
+
+        Schema::table('actifity', function (Blueprint $table) {
+            $table->foreign('unit_id')
+                ->references('id')
+                ->on('unit')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('jenis_id')
+                ->references('id')
+                ->on('jenis_dokumen')                
                 ->onDelete('cascade')
                 ->onUpdate('cascade');              
         });            
