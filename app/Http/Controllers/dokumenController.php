@@ -15,6 +15,7 @@ use App\Models\Visibility;
 use App\Models\Dokumen;
 use App\Models\Dokumen_pr;
 use App\Models\Dokumen_po;
+use App\Models\Folder;
 
 use Auth;
 use Validator;
@@ -73,8 +74,13 @@ class dokumenController extends Controller
         $data['sub_jenis_id'] = $data['sub_jenis_dokumen'];
         $data['visibility_id'] = $data['visibility'];
         $data['lokasi_file_pdf'] = $this->lokasi_file($data);
+
         $dokumen = Dokumen::create($data);
+
+        //dokumen pengadaan
         $this->insertDokumenPRPO($dokumen, $data['pr'], $data['po']);
+        $this->insertFolder($data, $dokumen);
+
         if($dokumen){
             $dataupload = $this->uploadfile($data, $file);
             return redirect("dokumen/detail/$dokumen->id");
@@ -94,6 +100,52 @@ class dokumenController extends Controller
             $pr = Dokumen_pr::create($data);
             return true;
         }
+    }
+
+    private function folder_exist($data='')
+    {
+        $folder =  Folder::where('unit_id', $data['unit_id'])->where('nama_folder', $data['nama_folder'])->get();
+        foreach ($folder as $key => $value) {
+            $id = $value->id;
+            return $id;
+        }
+        return false;
+    }
+
+    private function folder_induk($data='')
+    {
+        $folder =  Folder::where('nama_folder', 'Dokumen Pengadaan')->where('unit_id', $data['unit_id'])->get();
+        foreach ($folder as $key => $value) {
+            $id = $value->id;
+            return $id;
+        }
+        return false;
+    }
+
+    private function insertFolder($value='', $dokumen='')
+    {
+        $data['unit_id'] = $value['asal_surat'];
+        $data['nama_folder'] = Sub_jenis_dokumen::where('id',$value['sub_jenis_id'])->firstOrFail()->nama_sub;
+        $data['created_by'] = $value['created_by'];
+        
+        $folder = $this->folder_exist($data);
+        $folder_atasan = $this->folder_induk($data);
+        
+        if($folder_atasan == false){
+            $data['nama_folder'] = "Dokumen Pengadaan";
+            $atasan = Folder::create($data);
+            $folder_atasan = $atasan->id;
+        }
+
+        //true
+        if($folder == false){
+            $data['folder_induk'] = $folder_atasan;
+            $data['nama_folder'] = Sub_jenis_dokumen::where('id',$value['sub_jenis_id'])->firstOrFail()->nama_sub;
+            $folder = Folder::create($data);
+        }
+
+        $dokumen->folder()->attach($folder);
+        return true;
     }
 
     private function fileRename($value)

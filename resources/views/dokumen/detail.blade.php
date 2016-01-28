@@ -62,11 +62,11 @@
 								<td>Nomer PO</td>
 								<td><a href="">{{$dokumen->dokumen_po->po}}</a></td>
 							</tr>
+							@endif
 							<tr>
 								<td>Status</td>
 								<td><span class="btn-success btn-xs">Verifed</span></td>
 							</tr>
-							@endif
 						</tbody>
 					</table>
 				</div><!-- /.tab-pane -->

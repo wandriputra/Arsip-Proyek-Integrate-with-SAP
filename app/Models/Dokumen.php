@@ -41,7 +41,7 @@ class Dokumen extends Model
 
     public function folder()
     {
-        return $this->belongsToMany('App\Models\Folder', 'folder_dokumen', 'dokumen_id', 'folder_id');
+        return $this->belongsToMany('App\Models\Folder', 'folder_dokumen', 'folder_id', 'dokumen_id');
     }
 
     public function dokumen_pr()

@@ -18,7 +18,7 @@ class folderController extends Controller
     {
     	if ($id=='') {
     		$folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', null)->get();
-    		$breadcumb[0] = Auth::user()->personil->unit->nama_unit;
+    		// $breadcumb[0] = Auth::user()->personil->unit->nama_unit;
     	}else {
     		$folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', $id)->get();
     	}
@@ -32,7 +32,15 @@ class folderController extends Controller
         return $dokumen;
     }
 
-    //usesr lain masih bisa create folder dengan indexs induk folder 
+    public function getTest($value='')
+    {
+        $dokumen = Dokumen::all();
+        foreach ($dokumen->folder as $value) {
+            dd($value->nama_folder);
+        }
+    }
+
+    //user lain masih bisa create folder dengan indexs induk folder 
     // yang bukan unitnya jadi ada folder yang akan hilang
     public function postNewFolder(Request $request)
     {
