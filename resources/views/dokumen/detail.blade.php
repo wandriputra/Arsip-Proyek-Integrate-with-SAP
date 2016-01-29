@@ -29,16 +29,20 @@
 								<td>{{$dokumen['id']}}</td>
 							</tr>
 							<tr>
+								<td>Sub Jenis Dokumen</td>
+								<td>{{$dokumen->sub_jenis_dokumen->actifity->nama_actifity}}</td>
+							</tr>
+							<tr>
 								<td>Jenis Dokumen</td>
 								<td>{{$dokumen->sub_jenis_dokumen->singkatan}} / {{$dokumen->sub_jenis_dokumen->nama_sub}} ({{$dokumen->sub_jenis_dokumen->singkatan}})</td>
 							</tr>
 							<tr>
 								<td>Nama Pengadaan</td>
-								<td></td>
+								<td>{{}}</td>
 							</tr>
 							<tr>
 								<td>Nama Dokumen</td>
-								<td>{{$dokumen['nama_dokumen']}}</td>
+								<td>{{$dokumen['nama_dokumen'] or 'kosong'}}</td>
 							</tr>
 							<tr>
 								<td>Nomor Dokumen</td>
@@ -50,19 +54,16 @@
 							</tr>
 							<tr>
 								<td>Tujuan Dokumen</td>
-								<td><a href="">{{$dokumen->tujuan_surat->nama_unit}}</a></td>
+								<td><a href="">{{$dokumen->tujuan_surat->nama_unit or '-'}}</a></td>
 							</tr>
-							@if($dokumen->dokumen_pr->pr != null)
 							<tr>
 								<td>Nomer PR</td>
-								<td><a href="">{{$dokumen->dokumen_pr->pr}}</a></td>
+								<td><a href="">{{$dokumen->dokumen_pr->pr or 'Belum ada PR' }}</a></td>
 							</tr>
-							@elseif($dokumen->dokumen_po->po != null)
 							<tr>
 								<td>Nomer PO</td>
-								<td><a href="">{{$dokumen->dokumen_po->po}}</a></td>
+								<td><a href="">{{$dokumen->dokumen_po->po or 'Belum ada PO' }}</a></td>
 							</tr>
-							@endif
 							<tr>
 								<td>Status</td>
 								<td><span class="btn-success btn-xs">Verifed</span></td>

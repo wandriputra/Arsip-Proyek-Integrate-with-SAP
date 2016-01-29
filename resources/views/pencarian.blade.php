@@ -75,8 +75,8 @@
 										<td></td>									
 									</tr>
 									<tr>
-										<td>{{$dokumen->dokumen_pr->pr}}</td>
-										<td>{{$dokumen->dokumen_pr->pr}}</td>
+										<td>{{$dokumen->dokumen_po->po}}</td>
+										<td>{{$dokumen->dokumen_po->po}}</td>
 										<td></td>
 									</tr>
 								</table>

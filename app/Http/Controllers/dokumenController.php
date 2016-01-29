@@ -17,6 +17,7 @@ use App\Models\Dokumen_pr;
 use App\Models\Dokumen_po;
 use App\Models\Folder;
 use App\Models\Actifity;
+use App\Models\Papi;
 
 use Auth;
 use Validator;
@@ -28,6 +29,11 @@ use Response;
 class dokumenController extends Controller
 {
     private $status_id = '1'; //dokumen belum di hapus
+    private $papi;
+
+    function __construct($foo = null) {
+        $this->papi = new Papi;
+    }
 
     public function getUpload()
     {
@@ -35,7 +41,9 @@ class dokumenController extends Controller
         $unit = unit::all();
         $sub_jenis = Sub_jenis_dokumen::all();
         $visibility = Visibility::all();
-        return view('dokumen/upload', compact('actifity', 'unit', 'sub_jenis', 'visibility'));
+        $pr = $this->papi->getPR();
+        $po = $this->papi->getPO();
+        return view('dokumen/upload', compact('actifity', 'unit', 'sub_jenis', 'visibility', 'pr', 'po'));
     }
 
     public function getDetail($id='', $pr='', $po='')

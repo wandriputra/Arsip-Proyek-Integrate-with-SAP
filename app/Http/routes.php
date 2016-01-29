@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/folder', 'folderController');
 	Route::controller('/pencarian', 'pencarianController');
 	Route::controller('/data', 'datamasterController');
+	Route::controller('/papi', 'papiController');
 	
 	Route::get('/auth/user-edit/', ['use'=>'userController', 'as'=>'edit-user']);
 	Route::get('/personil/personil-edit/', ['use'=>'userController', 'as'=>'edit-personil']);

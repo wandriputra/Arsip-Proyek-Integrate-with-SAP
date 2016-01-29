@@ -22,6 +22,11 @@ class Sub_jenis_dokumen extends Model
     	return $this->hasMany('App\Models\User');
     }
 
+    public function actifity()
+    {
+        return $this->belongsTo('App\Models\actifity', 'actifity_id');
+    }
+
     public function dokumen()
     {
         return $this->hasMany('App\Models\Dokumen');
