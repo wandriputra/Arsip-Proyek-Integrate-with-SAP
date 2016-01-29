@@ -48,10 +48,10 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label">No PR</label>
 							<div class="col-sm-3">
-								<input class="form-control" name="po">
-								<!-- <select class="form-control pr" name="pr" style="width: 90%;">
+								<!-- <input class="form-control" name="pr"> -->
+								<select class="form-control pr" name="pr" style="width: 90%;">
 									
-								</select> -->
+								</select>
 							</div>
 						</div>
 						<div class="form-group">
@@ -156,15 +156,15 @@
 			// return json;
 			// })();
 
-			// $('.pr').select2({
-			// 	ajax: {
-			// 		url: 'http://papi.semenpadang.co.id/frontend/web/index.php?r=arsip/pr',
-			// 		delay : 2000,
-			// 		processResults: function (data) {
-			// 			console.log(data);
-			// 		}
-			// 	}
-			// });
+			$('.pr').select2({
+				ajax: {
+					url: 'http://papi.semenpadang.co.id/frontend/web/index.php?r=arsip/pr',
+					delay : 2000,
+					processResults: function (data) {
+						console.log(data);
+					}
+				}
+			});
 
 			// $('#file_pdf')change(function(){
 			// 	file = $('#file_pdf').val();

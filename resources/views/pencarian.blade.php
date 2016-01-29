@@ -34,7 +34,7 @@
 								<img src="{{url('data/folder.png')}}" alt="" width="100%">
 							</div>
 							<div class="col-md-10">
-								<h5 class="header">Dokumen Pengadaan</h5> PR NO: 7213123 <br> PO NO: 12312334</p>
+								<h5 class="header">Nama Pengadaan</h5> PR NO: 7213123 <br> PO NO: 12312334</p>
 							</div>
 						</div>
 					</a>
