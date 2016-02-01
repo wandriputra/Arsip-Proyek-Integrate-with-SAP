@@ -42,6 +42,7 @@ class personilController extends Controller
                       ->withInput();
         }
         $input = $request->only(['nik', 'nama_personil', 'email', 'singkatan', 'unit_id', 'jabatan_id', 'atasan_id', 'created_by']);
+        $input['atasan_id'] = ($input['atasan_id'] != '') ? $input['atasan_id'] : null ;
         Personil::create($input);
         return redirect('personil/list-personil');
     }

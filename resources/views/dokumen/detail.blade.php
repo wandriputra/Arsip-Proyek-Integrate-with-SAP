@@ -79,14 +79,14 @@
 							<!-- User Unit Sebelum dan Sesudah Pengadaan -->
 							<div class="box box-default box-solid collapsed-box">
 								<div class="box-header with-border">
-									<a href="#" data-widget="collapse"><h3 class="box-title">Pra Pengadaan</h3></a>
+									<a href="#" data-widget="collapse"><h3 class="box-title">Dokumen User</h3></a>
 									<div class="box-tools pull-right">
 										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
 									</div><!-- /.box-tools -->
 								</div><!-- /.box-header -->
 								<div class="box-body">
 
-									<h4>Dokumen Setelah Pengadaan</h4>
+									<h4>KPP User</h4>
 									<table class="table table-bordered">
 										<tbody>
 											
@@ -98,7 +98,7 @@
 										</tbody>
 									</table>
 
-									<h4>Dokumen Setelah Pengadaan</h4>
+									<h4>Dokumen Setelah PO</h4>
 									<table class="table table-bordered">
 										<tbody>
 											

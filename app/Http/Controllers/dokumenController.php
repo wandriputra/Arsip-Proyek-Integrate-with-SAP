@@ -78,6 +78,8 @@ class dokumenController extends Controller
         $data['visibility_id'] = $data['visibility'];
         $data['lokasi_file_pdf'] = $this->lokasi_file($data);
 
+       $data['unit_tujuan'] = ($data['unit_tujuan'] != '') ? $data['unit_tujuan'] : null ;
+
         $dokumen = Dokumen::create($data);
 
         //dokumen pengadaan

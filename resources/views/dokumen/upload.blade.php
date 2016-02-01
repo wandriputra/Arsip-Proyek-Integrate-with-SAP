@@ -39,8 +39,8 @@
 						</div>						
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Sub Jenis Dokumen</label>
-							<div class="col-sm-6">
-								<select class="form-control select2" name="sub_jenis_dokumen" style="width: 90%;">
+							<div class="col-sm-7">
+								<select class="form-control select2" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
 									@foreach($sub_jenis as $sub_jenis)
 										<option value="{{$sub_jenis['id']}}">({{$sub_jenis['singkatan']}}) {{$sub_jenis['nama_sub']}}</option>
 									@endforeach
@@ -169,33 +169,61 @@
 			// return json;
 			// })();
 
-			$('.pr').select2({
-				ajax: {
-					url: "{{url('papi/ajax-pr')}}",
-					dataType: 'json',
-					results: function (data) {
-			            return {results: data};
-			        }
-				}
-			});
-
-			// $('#asal_surat').change(funcftion(){
-			// 	updateMenu('actifity');
+			// $('.pr').select2({ 150.30:80
+			// 	ajax: {
+			// 		url: "{{url('papi/ajax-pr')}}",
+			// 		dataType: 'json',
+			// 		results: function (data) {
+			//             return {results: data};
+			//         }
+			// 	}
 			// });
 
+			$('#asal_surat').change(function(){
+				unit_id = $('#asal_surat').val();
+				$('#actifity option').remove();
+				$.getJSON("{{url('data/ajax-actifity')}}"+"/"+unit_id, function(data) {
+					var options = '<option value="" selected>.....</option>';
+				    for (var i = 0; i < data.length; i++) {
+						options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
+					}
+					$('#actifity').append(options);
+					$('#actifity').select2();
+				});
+			});
 
-			// function updateMenu(menu, departemen, user, prosesbisnis, section) {
-			// 	// body...
-			// 	console.log('sukses!');
-			// 	$('#'+menu+' option').remove();
-			// 	$.getJSON("/ajax/"+menu+"/"+departemen+"/"+user+"/"+prosesbisnis+"/"+section, function(data) {
-			// 		var options = '<option>.....</option>';
-			// 	    for (var i = 0; i < data.length; i++) {
-			// 			options += '<option value="' + data[i].id + '">('+ data[i].kode +') ' + data[i].nama + '</option>';
-			// 		}
-			// 		$('#'+menu).append(options);
-			// 	});
-			// }
+			$('#actifity').change(function(){
+				actifity_id = $('#actifity').val();
+				$('#sub_jenis_dokumen option').remove();
+				$.getJSON('{{url("data/ajax-sub-jenis-dokumen")}}'+"/"+actifity_id, function(data) {
+					var options = '<option value="" selected>.....</option>';
+				    for (var i = 0; i < data.length; i++) {
+						options += '<option value="' + data[i].id + '">' + data[i].nama_sub + '</option>';
+					}
+					$('#sub_jenis_dokumen').append(options);
+					$('#sub_jenis_dokumen').select2();
+				});
+			});
+
+
+			function updateMenu(menu, id) {
+				// body...
+				console.log('sukses!');
+				$('#'+menu+' option').remove();
+				if (menu == 'actifity') {
+					url = "{{url('data/ajax-actifity')}}";
+				} else if (menu == 'sub_jenis_dokumen'){
+					url = "{{url('data/ajax-sub-jenisdokumen')}}";
+				};
+				$.getJSON(url+"/"+id, function(data) {
+					var options = '<option value="" selected>.....</option>';
+				    for (var i = 0; i < data.length; i++) {
+						options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
+					}
+					$('#'+menu).append(options);
+					$("#"+menu).select2();
+				});
+			}
 
 			// $('#file_pdf')change(function(){
 			// 	file = $('#file_pdf').val();

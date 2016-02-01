@@ -12,4 +12,9 @@ class Actifity extends Model
     protected $fillable = ['nama_actifity', 'jenis_id', 'created_by', 'unit_id'];
 
     protected $rule = ['nama_actifity' => 'required'];
+
+    public function unit()
+    {
+    	return $this->belongsTo('App\Models\Unit', 'unit_id');
+    }
 }

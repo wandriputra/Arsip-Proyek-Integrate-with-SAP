@@ -21,7 +21,7 @@
 			<input type="hidden" name="prev_url" value="{{URL::previous()}}">
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Unit Dokumen</label>
-				<div class="col-md-6">
+				<div class="col-md-8">
 					<select name="unit_id" class="form-control select2" id="" style="width: 90%;">
 						@foreach($unit as $unit)
 						<option value="{{$unit['id']}}" @if(Auth::user()->personil->unit->id == $unit['id']) {{'selected'}} @endif >({{$unit['singkatan']}}) {{$unit['nama_unit']}}</option>
