@@ -17,18 +17,20 @@
 					<div class="box-body">
 						<div class="form-group">
 							<label for="" class="col-sm-3 control-label">Asal Surat</label>
-							<div class="col-md-6">
-								<select name="unit_asal" class="form-control select2" id="" style="width: 90%;">
+							<div class="col-md-8">
+								<select name="unit_asal" class="form-control select2" id="asal_surat" style="width: 90%;">
 									@foreach($unit as $asal_surat)
-									<option value="{{$asal_surat['id']}}" @if(Auth::user()->personil->unit->id == $asal_surat['id']) {{'selected'}} @endif >({{$asal_surat['singkatan']}}) {{$asal_surat['nama_unit']}}</option>
+										@if($asal_surat['id'] != '1')
+										<option value="{{$asal_surat['id']}}" @if(Auth::user()->personil->unit->id == $asal_surat['id']) {{'selected'}} @endif >({{$asal_surat['singkatan']}}) {{$asal_surat['nama_unit']}}</option>
+										@endif
 									@endforeach
 								</select> <a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Actifity</label>
-							<div class="col-sm-6">
-								<select class="form-control select2" name="actifity" style="width: 90%;">
+							<div class="col-sm-7">
+								<select class="form-control select2" name="actifity" id="actifity" style="width: 90%;">
 									@foreach($actifity as $actifity)
 										<option value="{{$actifity['id']}}">{{$actifity['nama_actifity']}}</option>
 									@endforeach
@@ -100,7 +102,9 @@
 								<select name="unit_tujuan" class="form-control select2" id="" style="width: 90%;">
 									<option value="" selected></option>
 									@foreach($unit as $tujuan_surat)
-									<option value="{{$tujuan_surat['id']}}">({{$tujuan_surat['singkatan']}}) {{$tujuan_surat['nama_unit']}}</option>
+										@if($tujuan_surat['id'] != '1')
+											<option value="{{$tujuan_surat['id']}}">({{$tujuan_surat['singkatan']}}) {{$tujuan_surat['nama_unit']}}</option>
+										@endif
 									@endforeach
 								</select> <a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
 							</div>
@@ -174,6 +178,24 @@
 			        }
 				}
 			});
+
+			// $('#asal_surat').change(funcftion(){
+			// 	updateMenu('actifity');
+			// });
+
+
+			// function updateMenu(menu, departemen, user, prosesbisnis, section) {
+			// 	// body...
+			// 	console.log('sukses!');
+			// 	$('#'+menu+' option').remove();
+			// 	$.getJSON("/ajax/"+menu+"/"+departemen+"/"+user+"/"+prosesbisnis+"/"+section, function(data) {
+			// 		var options = '<option>.....</option>';
+			// 	    for (var i = 0; i < data.length; i++) {
+			// 			options += '<option value="' + data[i].id + '">('+ data[i].kode +') ' + data[i].nama + '</option>';
+			// 		}
+			// 		$('#'+menu).append(options);
+			// 	});
+			// }
 
 			// $('#file_pdf')change(function(){
 			// 	file = $('#file_pdf').val();

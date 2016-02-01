@@ -39,7 +39,7 @@ class datamasterController extends Controller
     	$data = $request->all();
         $data['created_by'] = $this->created_by;
     	$sub_jenis = Sub_jenis_dokumen::create($data);
-    	return redirect('data/list-sub-jenis');
+    	return redirect($data['prev_url']);
     }
 
     public function getListSubJenis($value='')
@@ -73,7 +73,8 @@ class datamasterController extends Controller
     {
         $data = $request->all();
         $sub_jenis = Actifity::create($data);
-        return redirect('data/list-actifity');
+        return redirect($data['prev_url']);
+        // return redirect('data/list-actifity');
     }
 
 }

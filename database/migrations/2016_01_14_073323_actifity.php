@@ -14,7 +14,7 @@ class Actifity extends Migration
     {
         Schema::create('actifity', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama_actifity', 100);
+            $table->string('nama_actifity', 100)->unique();
             $table->integer('unit_id')->unsigned()->nullable();
             $table->integer('jenis_id')->unsigned()->nullable();
             $table->timestamps();

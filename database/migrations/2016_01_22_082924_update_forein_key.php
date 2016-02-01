@@ -265,7 +265,12 @@ class UpdateForeinKey extends Migration
                 ->references('id')
                 ->on('user')                
                 ->onDelete('cascade')
-                ->onUpdate('cascade');                
+                ->onUpdate('cascade');
+            $table->foreign('jenis_dokumen_id')
+                ->references('id')
+                ->on('jenis_dokumen')                
+                ->onDelete('cascade')
+                ->onUpdate('cascade');               
         });
 
         Schema::table('share_folders', function (Blueprint $table) {

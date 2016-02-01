@@ -18,6 +18,7 @@
 	@endif
 		<form method="post" class="form-horizontal" action="{{{ isset($url) ? url($url) : url('data/tambah-actifity')}}}">
 			{{csrf_field()}}
+			<input type="hidden" name="prev_url" value="{{URL::previous()}}">
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Unit Dokumen</label>
 				<div class="col-md-6">

@@ -38,7 +38,7 @@
 							</tr>
 							<tr>
 								<td>Nama Pengadaan</td>
-								<td>{{}}</td>
+								<td></td>
 							</tr>
 							<tr>
 								<td>Nama Dokumen</td>

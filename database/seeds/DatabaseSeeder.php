@@ -19,10 +19,11 @@ class DatabaseSeeder extends Seeder
         $this->call('insert_jabatan');
         // $this->call('insert_level_dokumen');
         $this->call('insert_jenis_dokumen');
-        // $this->call('insert_sub_jenis_dokumen');
         $this->call('insert_personil');
         $this->call('status_dokumen');
         $this->call('visibility');
+        $this->call('insert_actifity');
+        $this->call('insert_sub_jenis_dokumen');
         // $this->call('level_sub_jenis');
         
         DB::table('user')

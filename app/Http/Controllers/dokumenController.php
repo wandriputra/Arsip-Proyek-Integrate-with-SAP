@@ -96,6 +96,7 @@ class dokumenController extends Controller
         $data['dokumen_id'] = $value->id;
         $data['pr'] = $pr;
         $data['po'] = $po;
+        $data['jenis_dokumen_id'] = "1";
         if ($po!='') {
             $po = Dokumen_po::create($data);
             return true; 
@@ -107,7 +108,7 @@ class dokumenController extends Controller
 
     private function folder_exist($data='')
     {
-        $folder =  Folder::where('unit_id', $data['unit_id'])->where('nama_folder', $data['nama_folder'])->get();
+        $folder =  Folder::where('unit_id', $data['unit_id'])->where('nama_folder', $data['nama_folder'])->where('jenis_dokumen_id', '1')->get();
         foreach ($folder as $key => $value) {
             $id = $value->id;
             return $id;
