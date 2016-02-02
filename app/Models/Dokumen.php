@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use DB;
+
 class Dokumen extends Model
 {
     //
@@ -50,5 +52,18 @@ class Dokumen extends Model
     public function dokumen_po()
     {
         return $this->hasOne('App\Models\Dokumen_po', 'dokumen_id');
+    }
+
+    public function scopeFindGlobal($query, $key)
+    {
+        $dokumen = DB::table("dokumen")
+            ->leftJoin("dokumen_po", "dokumen.id", "=", "dokumen_po.dokumen_id")
+            ->leftJoin("dokumen_pr", "dokumen.id", "=", "dokumen_pr.dokumen_id")
+            ->where("file_name_pdf", "like", "%$key%")
+            ->orWhere("po" , "like", "%$key%")
+            ->orWhere("pr", "like", "%$key%")
+            ->select('*', 'dokumen.id as id_dokumen')
+            ->paginate(2);
+        return $dokumen;
     }
 }

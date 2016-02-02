@@ -18,10 +18,10 @@ class insert_unit extends Seeder
         INSERT INTO `unit` (`id`, `nama_unit`, `singkatan`, `created_by`) VALUES
         (1, 'Semua Unit',  'All', '1'),
         (2,	'Deputy Project Director',	'DPD', '1'),
-        (3,	'SM Engineering and Construction',	'ENC', '1'),
-        (4,	'SM Procurement and Supporting Function',	'PSF', '1'),
+        (3,	'GM Engineering and Construction',	'ENC', '1'),
+        (4,	'GM Procurement and Supporting Function',	'PSF', '1'),
         (5,	'SM Accounting, Finance and Information System',	'AFIS', '1'),
-        (6,	'SM Civil Construction',	'CC', '1'),
+        (6,	'SM Civil Construction', 'CC', '1'),
         (7,	'SM Civil Engineering',	'CE', '1'),
         (8,	'SM Electrical and Instrument Engineering',	'EIE', '1'),
         (9,	'SM Electrical and Instrument Construction',	'EIC', '1'),
@@ -39,5 +39,14 @@ class insert_unit extends Seeder
         (21, 'Tamu Perusahaan', 'TAMU', '1')";
 
         DB::insert($sql);
+
+        $sub_jenis = [
+            array('id'=>'22','nama_unit' => 'Logistic', 'singkatan'=> 'Log', 'unit_atasan'=> '11', 'created_by'=>'1'),
+            array('id'=>'23','nama_unit' => 'Warehouse', 'singkatan'=> 'Wh', 'unit_atasan'=> '11', 'created_by'=>'1'),
+            array('id'=>'24','nama_unit' => 'ICT', 'singkatan'=> 'Ict', 'unit_atasan'=> '5', 'created_by'=>'1'),
+            array('id'=>'25','nama_unit' => 'Accounting', 'singkatan'=> 'Acc', 'unit_atasan'=> '5', 'created_by'=>'1'),
+            ];
+
+        DB::table('unit')->insert($sub_jenis);
     }
 }

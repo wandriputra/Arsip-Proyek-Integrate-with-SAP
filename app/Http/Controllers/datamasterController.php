@@ -17,11 +17,6 @@ use Datatables;
 
 class datamasterController extends Controller
 {
-    private $created_by;
-
-    function __construct() {
-        $this->created_by = Auth::user()->id;
-    }
 
     public function getInsertJenisDokumen()
     {
@@ -37,7 +32,7 @@ class datamasterController extends Controller
     public function postInsertSubJenis(Request $request)
     {
     	$data = $request->all();
-        $data['created_by'] = $this->created_by;
+        $data['created_by'] = Auth::user()->id;
     	$sub_jenis = Sub_jenis_dokumen::create($data);
     	return redirect($data['prev_url']);
     }

@@ -8,86 +8,48 @@
 	.padding-gambar{
 		padding-top: 0px;
 	}
+	.padding-form-pencarian{
+		padding: 20px;
+	}
+	.find-result{
+		padding-bottom: -10px;
+		border-width: 1px 0px 0px;
+		border-style: solid none none;
+		border-color: #EEE -moz-use-text-color -moz-use-text-color;
+	}
 </style>
 @stop
 
 @section('content_main_pages')
 <div class="box box-primary">
 	<div class="box-header">
-		<form action="#" method="get" class="">
-			<div class="input-group">
-				<input name="q" class="form-control" id="form-pencarian" placeholder="Pencarian..." type="text">
+		<form action="{{url('pencarian')}}" method="get" class="form-horizontal">
+			<div class="input-group col-md-offset-1 col-md-10 padding-form-pencarian">
+				<input name="q" class="form-control" id="form-pencarian" type="text" value="{{$input or ''}}">
 				<span class="input-group-btn">
-					<button type="submit" name="search" id="search-btn" class="btn btn-flat bg-blue"><i class="fa fa-search"></i></button>
+					<button type="submit" id="search-btn" class="btn btn-flat bg-blue"><i class="fa fa-search"></i> Cari</button>
 				</span>
 			</div>
 		</form>
 	</div>
 	<div class="box-body">
 		<div id="hasil-pencarian">
-			<ul class="nav nav-stacked">
-
-				<li>
-					<a href="http://localhost/arsip_indarung6/dokumen/detail/4">
-						<div class="row">
-							<div class="col-md-2">
-								<img src="{{url('data/folder.png')}}" alt="" width="100%">
-							</div>
-							<div class="col-md-10">
-								<h5 class="header">Nama Pengadaan</h5> PR NO: 7213123 <br> PO NO: 12312334</p>
-							</div>
-						</div>
-					</a>
-				</li>
-				@foreach($dokumen as $dokumen)
-				<li>
-					<a href="{{url('dokumen/detail')}}/{{$dokumen['id']}}" class="link-pencarian">
-						<div class="row">
-							<div class="col-md-2">
-								<img src="{{url('data/pdf.png')}}" alt="" width="100%">
-							</div>
-							<div class="col-md-10">
-								<table class="table-hover">
-									<tr>
-										<td>Nama File</td>
-										<td>:</td>
-										<td>{{$dokumen['no_dokumen']}}</td>
-									</tr>
-									<tr>
-										<td>Nama Pengadaan</td>
-										<td>:</td>
-										<td>{{$dokumen['nama_dokumen']}}</td>
-									</tr>
-									<tr>
-										<td>WBS Area</td>
-										<td>:</td>
-										<td>{{$dokumen['created_at']}}</td>
-									</tr>
-									<tr></tr>
-									<tr>
-										<td>No PR :</td>
-										<td>No PO : </td>
-										<td></td>
-									</tr>
-									<tr>
-										<td>{{$dokumen->dokumen_pr->pr or 'Belum Ada PR'}}</td>										
-										<td>{{$dokumen->dokumen_pr->pr or 'Belum Ada PO'}}</td>
-										<td></td>									
-									</tr>
-									<tr>
-										<td>{{$dokumen->dokumen_po->po or 'Belum Ada PR'}}</td>
-										<td>{{$dokumen->dokumen_po->po or 'Belum Ada PO'}}</td>
-										<td></td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</a>
-				</li>
-				@endforeach
-			</ul>
+			@if($input == '')
+				<p class="text-center"><i>.: Ketikkan Keyword Untuk Memulai Pencarian :.</i></p>
+			@else
+				@include($include)
+			@endif
 		</div>
 	</div>
+	<div class="box-footer clearfix">
+      <ul class="pagination pagination-sm no-margin pull-right">
+        <li><a href="#">«</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">»</a></li>
+      </ul>
+    </div>
 </div>
 @stop
 
@@ -97,6 +59,10 @@
 		$('#form-pencarian').change(function(){
 			console.log($('#form-pencarian').val());
 		})
-	});	
+	});
+
+	$('#form-pencarian').change(function(){
+		// $.get
+	})
 </script>
 @stop
