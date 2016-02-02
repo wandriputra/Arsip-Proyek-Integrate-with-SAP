@@ -89,8 +89,8 @@ class datamasterController extends Controller
 
     public function getAjaxSubJenisDokumen($value='')
     {
-        $actifity = Sub_jenis_dokumen::select('id', 'nama_sub')->where('actifity_id', $value)->get();
-        return response()->json($actifity);
+        $sub_jenis = Sub_jenis_dokumen::select('id', 'nama_sub')->where('actifity_id', $value)->get();
+        return response()->json($sub_jenis);
     }
 
 }
