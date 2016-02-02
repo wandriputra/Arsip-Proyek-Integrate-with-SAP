@@ -20,18 +20,12 @@ class insert_user extends Seeder
     			'username' => 'root',
     			'password' => bcrypt('root'),
     			'status' => 'A',
-                // 'role_user_id' => '1',
-                // 'personil_id' => '1'
-    			// 'created_by' => 'null',
     		),
     		array(
     			'id' => 2,
     			'username' => 'guest',
     			'password' => bcrypt('guest'),
     			'status' => 'N',
-                // 'role_user_id' => '1',
-                // 'personil_id' => '1'
-    			// 'created_by' => '1',
     		)];
 
      	DB::table('user')->insert($user);
