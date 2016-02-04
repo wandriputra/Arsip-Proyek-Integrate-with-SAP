@@ -15,7 +15,7 @@ class SubJenisDokumen extends Migration
         Schema::create('sub_jenis_dokumen', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_sub',80);
-            $table->string('singkatan',10)->unique();
+            $table->string('singkatan',10)->nullable();
             $table->integer('actifity_id')->unsigned()->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();

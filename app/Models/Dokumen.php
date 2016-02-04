@@ -62,8 +62,8 @@ class Dokumen extends Model
             ->where("file_name_pdf", "like", "%$key%")
             ->orWhere("po" , "like", "%$key%")
             ->orWhere("pr", "like", "%$key%")
-            ->select('*', 'dokumen.id as id_dokumen')
-            ->paginate(2);
+            ->select('*', 'dokumen.id as id_dokumen');
+            // ->paginate(2);
         return $dokumen;
     }
 }

@@ -31,9 +31,7 @@
 							<label class="col-sm-3 control-label">Actifity</label>
 							<div class="col-sm-7">
 								<select class="form-control select2" name="actifity" id="actifity" style="width: 90%;">
-									@foreach($actifity as $actifity)
-										<option value="{{$actifity['id']}}">{{$actifity['nama_actifity']}}</option>
-									@endforeach
+									
 								</select> <a href="{{url('data/tambah-actifity')}}"><i class="fa fa-fw fa-plus"></i></a>
 							</div>
 						</div>						
@@ -41,36 +39,58 @@
 							<label class="col-sm-3 control-label">Sub Jenis Dokumen</label>
 							<div class="col-sm-7">
 								<select class="form-control select2" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
-									@foreach($sub_jenis as $sub_jenis)
-										<option value="{{$sub_jenis['id']}}">({{$sub_jenis['singkatan']}}) {{$sub_jenis['nama_sub']}}</option>
-									@endforeach
+									
 								</select> <a href="{{url('data/insert-sub-jenis')}}"><i class="fa fa-fw fa-plus"></i></a>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group hide" id="pr_select">
 							<label class="col-sm-3 control-label">No PR</label>
-							<div class="col-sm-3">
+							<div class="col-sm-5">
 								<!-- <input class="form-control" name="pr"> -->
 								<select class="form-control select2" name="pr">
-								<option value="" selected></option>
+									<option value="" selected></option>
 								@foreach($pr as $pr)
 									<option value="{{$pr}}">{{$pr}}</option>
 								@endforeach
 								</select>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group hide" id="po_select">
 							<label class="col-sm-3 control-label">No PO</label>
-							<div class="col-sm-3">
+							<div class="col-sm-5">
 								<!-- <input class="form-control select2" name="po"> -->
 								<select class="form-control select2" name="po">
-									<option value="" selected></option>
+										<option value="" selected></option>
 									@foreach($po as $po)
-										<option value="{{$po}}">{{$po}}</option>
+										<option value="{{$po->po}}">{{$po->po}}</option>
 									@endforeach
 								</select>
 							</div>
-						</div>												
+						</div>
+						<div class="form-group hide" id="gr_select">
+							<label class="col-sm-3 control-label">No GR</label>
+							<div class="col-sm-5">
+								<!-- <input class="form-control select2" name="po"> -->
+								<select class="form-control select2" name="po">
+										<option value="" selected></option>
+									@foreach($po as $po)
+										<option value="{{$po->po}}">{{$po->po}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="form-group hide" id="cd_select">
+							<label class="col-sm-3 control-label">No Clearing Document</label>
+							<div class="col-sm-5">
+								<!-- <input class="form-control select2" name="po"> -->
+								<select class="form-control select2" name="po">
+										<option value="" selected></option>
+									@foreach($po as $po)
+										<option value="{{$po->po}}">{{$po->po}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
 						<div class="form-group">
                       		<label for="exampleInputFile" class="col-sm-3 control-label">File input</label>
                       		<div class="col-sm-9">
@@ -182,20 +202,33 @@
 			$('#asal_surat').change(function(){
 				unit_id = $('#asal_surat').val();
 				$('#actifity option').remove();
-				$.getJSON("{{url('data/ajax-actifity')}}"+"/"+unit_id, function(data) {
+				$('#sub_jenis_dokumen option').remove();
+				$.getJSON("{{url('dokumen/ajax-actifity')}}"+"/"+unit_id, function(data) {
 					var options = '<option value="" selected>.....</option>';
 				    for (var i = 0; i < data.length; i++) {
 						options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
 					}
 					$('#actifity').append(options);
 					$('#actifity').select2();
+					if (unit_id != 19 && unit_id != 11 && unit_id != 22 && unit_id != 25) {
+						$("#pr_select").removeClass('hide');
+						$("#po_select").addClass('hide');
+						$("#gr_select").addClass('hide');
+						$("#cd_select").addClass('hide');
+					}else if(unit_id != 23 ){
+						$("#pr_select").addClass('hide');
+						$("#pr_select").removeClass('hide');
+						$("#gr_select").addClass('hide');
+						$("#cd_select").addClass('hide');
+						$("#po_select").removeClass('hide');
+					};
 				});
 			});
 
 			$('#actifity').change(function(){
 				actifity_id = $('#actifity').val();
 				$('#sub_jenis_dokumen option').remove();
-				$.getJSON('{{url("data/ajax-sub-jenis-dokumen")}}'+"/"+actifity_id, function(data) {
+				$.getJSON('{{url("dokumen/ajax-sub-jenis-dokumen")}}'+"/"+actifity_id, function(data) {
 					var options = '<option value="" selected>.....</option>';
 				    for (var i = 0; i < data.length; i++) {
 						options += '<option value="' + data[i].id + '">' + data[i].nama_sub + '</option>';
@@ -205,25 +238,6 @@
 				});
 			});
 
-
-			function updateMenu(menu, id) {
-				// body...
-				console.log('sukses!');
-				$('#'+menu+' option').remove();
-				if (menu == 'actifity') {
-					url = "{{url('data/ajax-actifity')}}";
-				} else if (menu == 'sub_jenis_dokumen'){
-					url = "{{url('data/ajax-sub-jenisdokumen')}}";
-				};
-				$.getJSON(url+"/"+id, function(data) {
-					var options = '<option value="" selected>.....</option>';
-				    for (var i = 0; i < data.length; i++) {
-						options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
-					}
-					$('#'+menu).append(options);
-					$("#"+menu).select2();
-				});
-			}
 
 			// $('#file_pdf')change(function(){
 			// 	file = $('#file_pdf').val();

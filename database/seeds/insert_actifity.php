@@ -15,8 +15,10 @@ class insert_actifity extends Seeder
 		DB::table('actifity')->delete();
 
     	$level = [
+                // User
                 array('id' => 1, 'nama_actifity' => 'KPP User', 'unit_id' => '1', 'jenis_id'=> '1'),
                 array('id' => 2, 'nama_actifity' => 'Dokumen User Setelah PO', 'unit_id' => '1', 'jenis_id'=> '1'),
+               // Procurement
                 array('id' => 3, 'nama_actifity' => 'RFQ', 'unit_id' => '19', 'jenis_id'=> '1'),
                 array('id' => 4, 'nama_actifity' => 'Aanwijzing', 'unit_id' => '19', 'jenis_id'=> '1'),
                 array('id' => 5, 'nama_actifity' => 'Dokumen Penawaran', 'unit_id' => '19', 'jenis_id'=> '1'),
@@ -28,6 +30,17 @@ class insert_actifity extends Seeder
                 array('id' => 11, 'nama_actifity' => 'Proposal PO', 'unit_id' => '19', 'jenis_id'=> '1'),
                 array('id' => 12, 'nama_actifity' => 'Tanda Tangan PO dan Kontrak', 'unit_id' => '19', 'jenis_id'=> '1'),
                 array('id' => 13, 'nama_actifity' => 'Kick off Meeting', 'unit_id' => '19', 'jenis_id'=> '1'),
+                // Kontrak
+                array('id' => 14, 'nama_actifity' => 'Contract Drafting', 'unit_id' => '22', 'jenis_id'=> '1'),
+                array('id' => 15, 'nama_actifity' => 'Contract Monitoring', 'unit_id' => '22', 'jenis_id'=> '1'),
+                array('id' => 16, 'nama_actifity' => 'Contract Closing', 'unit_id' => '22', 'jenis_id'=> '1'),
+                // Warehouse
+                array('id' => 17, 'nama_actifity' => 'Pembuatan PR stock', 'unit_id' => '23', 'jenis_id'=> '1'),
+                array('id' => 18, 'nama_actifity' => 'Penerimaan Barang', 'unit_id' => '23', 'jenis_id'=> '1'),
+                array('id' => 19, 'nama_actifity' => 'Penyimpanan Barang', 'unit_id' => '23', 'jenis_id'=> '1'),
+                array('id' => 20, 'nama_actifity' => 'Pengeluaran Barang', 'unit_id' => '23', 'jenis_id'=> '1'),
+                array('id' => 21, 'nama_actifity' => 'Mutasi Barang (Plan to Plan)', 'unit_id' => '23', 'jenis_id'=> '1'),
+                array('id' => 22, 'nama_actifity' => 'PO Outstanding', 'unit_id' => '23', 'jenis_id'=> '1'),
                 ];
 
      	DB::table('actifity')->insert($level);

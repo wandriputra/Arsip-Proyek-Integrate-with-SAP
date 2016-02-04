@@ -72,20 +72,6 @@ class datamasterController extends Controller
         // return redirect('data/list-actifity');
     }
 
-    public function getAjaxActifity($unit_id)
-    {
-        if ($unit_id != 19 && $unit_id != 11) {
-            $actifity = Actifity::select('id', 'nama_actifity')->where('unit_id', '1')->get();
-        }else {
-            $actifity = Actifity::select('id', 'nama_actifity')->where('unit_id', $unit_id)->get();
-        }
-        return response()->json($actifity);
-    }
 
-    public function getAjaxSubJenisDokumen($value='')
-    {
-        $sub_jenis = Sub_jenis_dokumen::select('id', 'nama_sub')->where('actifity_id', $value)->get();
-        return response()->json($sub_jenis);
-    }
 
 }

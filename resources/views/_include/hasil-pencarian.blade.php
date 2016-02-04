@@ -2,12 +2,16 @@
 	<li>
 		<a href="http://localhost/arsip_indarung6/dokumen/detail/4">
 			<div class="row">
-				<div class="col-md-2">
-					<img src="{{url('data/folder.png')}}" alt="" width="100%">
-				</div>
-				<div class="col-md-10">
-					<h5 class="header">Nama Pengadaan</h5> PR NO: 7213123 <br> PO NO: 12312334</p>
-				</div>
+				<a href="{{url('dokumen/folder-pengadaan')}}">
+					<div class="col-md-2">
+						<img src="{{url('data/folder.png')}}" alt="" width="100%">
+					</div>
+				</a>
+				<a href="{{url('dokumen/folder-pengadaan')}}">
+					<div class="col-md-10">
+						<h5 class="header">Nama Pengadaan</h5> PR NO: 7213123 <br> PO NO: 12312334</p>
+					</div>
+				</a>
 			</div>
 		</a>
 	</li>

@@ -18,6 +18,7 @@ use App\Models\Dokumen_po;
 use App\Models\Folder;
 use App\Models\Actifity;
 use App\Models\Papi;
+use App\Models\Sap;
 
 use Auth;
 use Validator;
@@ -41,9 +42,10 @@ class dokumenController extends Controller
         $unit = unit::all();
         $sub_jenis = Sub_jenis_dokumen::all();
         $visibility = Visibility::all();
-        $pr = $this->papi->getPR();
-        $po = $this->papi->getPO();
-        return view('dokumen/upload', compact('actifity', 'unit', 'sub_jenis', 'visibility', 'pr', 'po'));
+        $pr = Sap::select('purchase_requisition as pr')->groupBy('purchase_requisition')->get();
+        $po = Sap::select('purchase_order as po')->groupBy('purchase_order')->get();
+        var_dump($pr,$po);
+        // return view('dokumen/upload', compact('actifity', 'unit', 'sub_jenis', 'visibility', 'pr', 'po'));
     }
 
     public function getDetail($id='', $pr='', $po='')
@@ -180,5 +182,26 @@ class dokumenController extends Controller
         $file = Storage::disk('local')->get($lokasi);
         return  response($file, 200)
               ->header('Content-Type', 'application/pdf');
+    }
+
+    public function getFolderPengadaan($value='')
+    {
+        return view('_include.folder_pencarian');
+    }
+
+    public function getAjaxActifity($unit_id)
+    {
+        if ($unit_id != 19 && $unit_id != 11 && $unit_id != 22 && $unit_id != 23 && $unit_id != 25) {
+            $actifity = Actifity::select('id', 'nama_actifity')->where('unit_id', '1')->get();
+        }else {
+            $actifity = Actifity::select('id', 'nama_actifity')->where('unit_id', $unit_id)->get();
+        }
+        return response()->json($actifity);
+    }
+
+    public function getAjaxSubJenisDokumen($value='')
+    {
+        $sub_jenis = Sub_jenis_dokumen::select('id', 'nama_sub')->where('actifity_id', $value)->get();
+        return response()->json($sub_jenis);
     }
 }

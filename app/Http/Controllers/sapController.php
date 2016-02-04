@@ -9,8 +9,6 @@ use Illuminate\Database\Migrations\Migration;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\model\Sap as Sap;
-
 use File;
 use Storage;
 use Excel;
@@ -33,14 +31,28 @@ class sapController extends Controller
     	$file1 = $request->file('format1');
         $format = $file1->getClientOriginalExtension();
     	$filename = $request['format1'];
-		Excel::load($file1, function($reader){
-			$this->data = $reader->all()->toArray();
-		});
-        if ($format === 'csv') {
-            $this->makeMigrationCsv();
-        }else{
-            $this->makeMigrationXls();
+        if (Schema::hasTable('sap_')) {
+            Schema::drop('sap_');
         }
+        Excel::filter('chunk')->load($file1)->chunk(250, function($results) {
+                $this->data = $results->all()->toArray();
+                if ($format === 'csv') {
+                    $this->makeMigrationCsv();
+                }else{
+                    $this->makeMigrationXls();
+                }
+            }
+        });
+		// Excel::load($file1, function($reader){
+		// 	$this->data = $reader->all()->toArray();
+		// });
+  //       if ($format === 'csv') {
+  //           $this->makeMigrationCsv();
+  //       }else{
+  //           $this->makeMigrationXls();
+  //       }
+        // var_dump($this->data);
+
         return redirect('/sap/view-upload-data');
     }
 
@@ -59,9 +71,6 @@ class sapController extends Controller
     }
 
     private function makeMigrationCsv(){
-    	if (Schema::hasTable('sap_')) {
-    		Schema::drop('sap_');
-    	}
         //create table csv
     	Schema::create('sap_', function (Blueprint $table) {
             $table->increments('id');
@@ -72,15 +81,14 @@ class sapController extends Controller
     	});
 
         DB::table('sap_')->delete();
-        foreach (array_chunk($this->data, 1000) as $value) {
+        foreach ($this->data as $value) {
             DB::table('sap_')->insert($value);
         }
+        return true;
+        
     }
 
     private function makeMigrationXls(){
-        if (Schema::hasTable('sap_')) {
-            Schema::drop('sap_');
-        }
         //create table excel pakai 
         Schema::create('sap_', function (Blueprint $table) {
             $table->increments('id');
@@ -90,9 +98,10 @@ class sapController extends Controller
         });
 
         DB::table('sap_')->delete();
-        foreach (array_chunk($this->data[0], 1000) as $value) {
+        foreach ($this->data[0] as $value) {
             DB::table('sap_')->insert($value);
         }
+        return true;
     }
 
 
