@@ -81,7 +81,7 @@ class insert_sub_jenis_dokumen extends Seeder
             // Procurement Kick Off Meeting
             array('id' => '54', 'nama_sub'=> 'Undangan Kick off Meeting' ,'singkatan' => '', 'actifity_id'=>'13', 'created_by'=>'1'),
             array('id' => '55', 'nama_sub'=> 'Dokumen Kontrak** yang telah ditandatangani oleh pejabat berwenang' ,'singkatan' => '', 'actifity_id'=>'13', 'created_by'=>'1'),
-            array('id' => '56
+            // array('id' => '56
         ];
         DB::table('sub_jenis_dokumen')->insert($array);
     }

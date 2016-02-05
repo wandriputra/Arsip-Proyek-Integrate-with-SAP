@@ -15,6 +15,7 @@
     <li><a href="{{url('/auth/list-user')}}">List User</a></li>
     <li class="divider"></li>
     <li><a href="{{url('sap/upload-excel')}}">Upload File SAP</a></li>
+    <li><a href="{{url('dokumen/list-dokumen')}}">List File</a></li>
   </ul>
 </li>
 <li class="dropdown">

@@ -47,9 +47,29 @@ class insert_role extends Seeder
     		),
     		array(
     			'id' => 7,
-    			'nama_role' => 'Uploader HRGA',
+    			'nama_role' => 'HRGA',
                 'created_by' => '1'
     		),
+            array(
+                'id' => 8,
+                'nama_role' => 'Procurement',
+                'created_by' => '1'
+            ),
+            array(
+                'id' => 9,
+                'nama_role' => 'Logistic',
+                'created_by' => '1'
+            ),
+            array(
+                'id' => 10,
+                'nama_role' => 'Warehouse',
+                'created_by' => '1'
+            ),
+            array(
+                'id' => 11,
+                'nama_role' => 'Accounting',
+                'created_by' => '1'
+            ),
     	];
 
 

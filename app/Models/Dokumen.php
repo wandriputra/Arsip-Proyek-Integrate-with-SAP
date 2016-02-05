@@ -66,4 +66,27 @@ class Dokumen extends Model
             // ->paginate(2);
         return $dokumen;
     }
+
+    public function scopeDokumenPR($query, $pr)
+    {
+        $dokumen_id = DB::table('dokumen')
+            ->Join("dokumen_pr", "dokumen.id", "=", "dokumen_pr.dokumen_id")
+            ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
+            ->where("dokumen_pr.pr", "=", $pr)
+            ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id');
+
+        return $dokumen_id;
+    }
+
+    public function scopeDokumenPO($query, $po)
+    {
+        $dokumen_id = DB::table('dokumen')
+            ->Join("dokumen_po", "dokumen.id", "=", "dokumen_po.dokumen_id")
+            ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
+            ->where("dokumen_po.po", "=", $po)
+            ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id');
+
+        return $dokumen_id;
+    }
+
 }

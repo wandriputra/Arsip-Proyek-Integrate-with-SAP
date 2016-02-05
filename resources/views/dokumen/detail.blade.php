@@ -85,117 +85,73 @@
 									</div><!-- /.box-tools -->
 								</div><!-- /.box-header -->
 								<div class="box-body">
+								@foreach($sub_jenis as $sub_jenis)
+									@foreach($dokumen_with_pr as $dok_pr)
 
-									<h4>KPP User</h4>
-									<table class="table table-bordered">
-										<tbody>
-											
-											<tr>
-												<td></td>
-												<td><a href="{{url('dokumen/detail/')}}"></a></td>
-												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
-											</tr>
-										</tbody>
-									</table>
+										@if($sub_jenis->id == $dok_pr->sub_jenis_id)
 
-									<h4>Dokumen Setelah PO</h4>
-									<table class="table table-bordered">
-										<tbody>
-											
-											<tr>
-												<td></td>
-												<td><a href="{{url('dokumen/detail/')}}"></a></td>
-												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
-											</tr>
-										</tbody>
-									</table>
+										<div class="box box-default collapsed-box">
+											<div class="box-header with-border">
+												<h4 class="box-title">{{$sub_jenis->nama_sub}}</h4>
+												<div class="box-tools pull-right">
+													<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+												</div><!-- /.box-tools -->
+											</div><!-- /.box-header -->
+											<div class="box-body">
+												<table class="table table-bordered">
+													<tbody>
+<!-- 														<tr>
+															<td class="text-center">Nama Dokumen</td>
+															<td class="text-center">No Dokumen</td>
+														</tr> -->
+													@foreach($dokumen_with_pr as $dok_pr_cetak)
+														@if($sub_jenis->id == $dok_pr_cetak->sub_jenis_id)
+														<tr>
+															<td>{{$dok_pr_cetak->nama_dokumen}}</td>
+															<td><a href="{{url('dokumen/detail/')}}/{{$dok_pr_cetak->dokumen_id}}">{{$dok_pr_cetak->no_dokumen}}</a></td>
+															<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
+														</tr>
+														@endif
+													@endforeach
+													</tbody>
+												</table>
+											</div>
+										</div>
+											<?php break; ?>
+										@endif
 
+									@endforeach
+								@endforeach
 								</div>
 							</div>
 							
-							<!-- procurement dokumen -->
+							@foreach($unit_po as $unit)
 							<div class="box box-default box-solid collapsed-box">
 								<div class="box-header with-border">
-									<a href="#" data-widget="collapse"><h3 class="box-title">Procurement</h3></a>
+									<a href="#" data-widget="collapse"><h3 class="box-title">{{$unit->nama_unit}}</h3></a>
 									<div class="box-tools pull-right">
 										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
 									</div><!-- /.box-tools -->
 								</div><!-- /.box-header -->
 								<div class="box-body">
-
-									<h4>Dokumen RFQ</h4>
+						
+									<h5><b></b></h5>
 									<table class="table table-bordered">
 										<tbody>
-											
-											<tr>
-												<td></td>
-												<td><a href="{{url('dokumen/detail/')}}"></a></td>
-												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
-											</tr>
-										</tbody>
-									</table>
 
-									<h4>Dokumen Annwizing</h4>
-									<table class="table table-bordered">
-										<tbody>
-											
 											<tr>
 												<td></td>
-												<td><a href="{{url('dokumen/detail/')}}"></a></td>
+												<td><a href="{{url('dokumen/detail/')}}/"></a></td>
 												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 											</tr>
+
 										</tbody>
 									</table>
 
 								</div>
 							</div>
+							@endforeach
 
-							<!-- Logistik & Warehouse -->
-							<div class="box box-default box-solid collapsed-box">
-								<div class="box-header with-border">
-									<a href="#" data-widget="collapse"><h3 class="box-title">Logistic & Warehouse</h3></a>
-									<div class="box-tools pull-right">
-										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-									</div><!-- /.box-tools -->
-								</div><!-- /.box-header -->
-								<div class="box-body">
-
-									<table class="table table-bordered">
-										<tbody>
-											
-											<tr>
-												<td></td>
-												<td><a href="{{url('dokumen/detail/')}}"></a></td>
-												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
-											</tr>
-										</tbody>
-									</table>
-
-								</div>
-							</div>
-
-							<!-- Accounting -->
-							<div class="box box-default box-solid collapsed-box">
-								<div class="box-header with-border">
-									<a href="#" data-widget="collapse"><h3 class="box-title">Accounting</h3></a>
-									<div class="box-tools pull-right">
-										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-									</div><!-- /.box-tools -->
-								</div><!-- /.box-header -->
-								<div class="box-body">
-									<table class="table table-bordered">
-										<tbody>
-											
-											<tr>
-												<td></td>
-												<td><a href="{{url('dokumen/detail/')}}"></a></td>
-												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
-											</tr>
-										</tbody>
-									</table>
-
-								</div>
-							</div>
 						</div><!-- /.col -->
 
 					</div><!-- /.row -->

@@ -41,8 +41,7 @@ class sapController extends Controller
                 }else{
                     $this->makeMigrationXls();
                 }
-            }
-        });
+            });
 		// Excel::load($file1, function($reader){
 		// 	$this->data = $reader->all()->toArray();
 		// });

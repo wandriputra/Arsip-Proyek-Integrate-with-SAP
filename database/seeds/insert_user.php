@@ -15,19 +15,9 @@ class insert_user extends Seeder
         DB::table('user')->delete();
 
     	$user = [
-    		array(
-    			'id' => 1,
-    			'username' => 'root',
-    			'password' => bcrypt('root'),
-    			'status' => 'A',
-    		),
-    		array(
-    			'id' => 2,
-    			'username' => 'guest',
-    			'password' => bcrypt('guest'),
-    			'status' => 'N',
-    		)];
-
+    		array('id' => 1,'username' => 'root','password' => bcrypt('root'),'status' => 'A',),
+    		array('id' => 2,'username' => 'guest','password' => bcrypt('guest'),'status' => 'N',)];
+            
      	DB::table('user')->insert($user);
     }
 }
