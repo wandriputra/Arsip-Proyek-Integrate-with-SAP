@@ -57,12 +57,8 @@
 								<td><a href="">{{$dokumen->tujuan_surat->nama_unit or '-'}}</a></td>
 							</tr>
 							<tr>
-								<td>Nomer PR</td>
-								<td><a href="">{{$dokumen->dokumen_pr->pr or 'Belum ada PR' }}</a></td>
-							</tr>
-							<tr>
-								<td>Nomer PO</td>
-								<td><a href="">{{$dokumen->dokumen_po->po or 'Belum ada PO' }}</a></td>
+								<td>Nomer {{$dokumen->dokumen_sap->type}}</td>
+								<td><a href="@if($dokumen->dokumen_sap->no_sap) {{url('dokumen/no_sap')}}/{{$dokumen->dokumen_sap->type}}/{{$dokumen->dokumen_sap->no_sap}} @else {{url('dokumen/edit/')}}/{{$dokumen['id']}} @endif ">{{$dokumen->dokumen_sap->no_sap or 'Belum ada PR' }}</a></td>
 							</tr>
 							<tr>
 								<td>Status</td>
@@ -85,7 +81,7 @@
 									</div><!-- /.box-tools -->
 								</div><!-- /.box-header -->
 								<div class="box-body">
-								@foreach($sub_jenis as $sub_jenis)
+								@foreach($sub_jenis_all as $sub_jenis)
 									@foreach($dokumen_with_pr as $dok_pr)
 
 										@if($sub_jenis->id == $dok_pr->sub_jenis_id)
@@ -100,16 +96,12 @@
 											<div class="box-body">
 												<table class="table table-bordered">
 													<tbody>
-<!-- 														<tr>
-															<td class="text-center">Nama Dokumen</td>
-															<td class="text-center">No Dokumen</td>
-														</tr> -->
 													@foreach($dokumen_with_pr as $dok_pr_cetak)
 														@if($sub_jenis->id == $dok_pr_cetak->sub_jenis_id)
 														<tr>
+															<td>{{$dok_pr_cetak->no_sap}}</td>
 															<td>{{$dok_pr_cetak->nama_dokumen}}</td>
 															<td><a href="{{url('dokumen/detail/')}}/{{$dok_pr_cetak->dokumen_id}}">{{$dok_pr_cetak->no_dokumen}}</a></td>
-															<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
 														</tr>
 														@endif
 													@endforeach
@@ -134,20 +126,39 @@
 									</div><!-- /.box-tools -->
 								</div><!-- /.box-header -->
 								<div class="box-body">
-						
-									<h5><b></b></h5>
-									<table class="table table-bordered">
-										<tbody>
+								@foreach($sub_jenis_all as $sub_jenis)
+									@if($sub_jenis->actifity->unit_id == $unit->id)
+										@foreach($dokumen_with_po as $dok_po)
+											@if($sub_jenis->id == $dok_po->sub_jenis_id)
+											<div class="box box-default collapsed-box">
+												<div class="box-header with-border">
+													<h4 class="box-title">{{$sub_jenis->nama_sub}}</h4>
+													<div class="box-tools pull-right">
+														<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+													</div><!-- /.box-tools -->
+												</div><!-- /.box-header -->
+												<div class="box-body">
+													<table class="table table-bordered">
+														<tbody>
+														@foreach($dokumen_with_po as $dok_po_cetak)
+															@if($sub_jenis->id == $dok_po_cetak->sub_jenis_id)
+															<tr>
+																<td>{{$dok_po_cetak->nama_dokumen}}</td>
+																<td><a href="{{url('dokumen/detail/')}}/{{$dok_po_cetak->dokumen_id}}">{{$dok_po_cetak->no_dokumen}}</a></td>
+																<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
+															</tr>
+															@endif
+														@endforeach
+														</tbody>
+													</table>
+												</div>
+											</div>
+												<?php break; ?>
+											@endif
 
-											<tr>
-												<td></td>
-												<td><a href="{{url('dokumen/detail/')}}/"></a></td>
-												<td><a href="{{url('dokumen/upload')}}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Upload Dokumen</a></td>
-											</tr>
-
-										</tbody>
-									</table>
-
+										@endforeach
+									@endif
+								@endforeach
 								</div>
 							</div>
 							@endforeach

@@ -13,7 +13,7 @@ use App\Models\Level_dokumen;
 use App\Models\Sub_jenis_dokumen;
 use App\Models\Visibility;
 use App\Models\Dokumen;
-use App\Models\Dokumen_pr;
+use App\Models\Dokumen_sap;
 use App\Models\Dokumen_po;
 use App\Models\Folder;
 use App\Models\Actifity;
@@ -140,16 +140,33 @@ class dokumenController extends Controller
     {
         if($id === '') return redirect("folder");
         $dokumen = Dokumen::where('id', $id)->firstOrFail();
-        $pr = $dokumen->dokumen_pr->pr;
-        
-        // $po = (!$dokumen->dokumen_po->po) ? $dokumen->dokumen_po->po : '' ;
+        $no_sap = $dokumen->dokumen_sap->no_sap;
+        $type = $dokumen->dokumen_sap->type;
+        if ($type === null){
+            $dokumen_with_pr = Dokumen::dokumenPR($no_sap)->get();
+            $dokumen_with_po = Dokumen::dokumenPO($no_sap)->get();;
+        }elseif($type === 'pr'){
+            $no_po = Sap::select('purchase_order as po')->where('purchase_requisition', $no_sap)->groupBy('purchase_order')->get();
+            foreach ($no_po as $key => $value) {
+                $dokumen_with_po = Dokumen::dokumenPO($value->po)->get();
+            }
+            $dokumen_with_pr = Dokumen::dokumenPR($no_sap)->get();
+        }elseif ($type === 'po'){
+            $no_pr = Sap::select('purchase_requisition as pr')->where('purchase_order', $no_sap)->groupBy('purchase_requisition')->get();
+            foreach ($no_pr as $key => $value) {
+                $dokumen_with_pr = Dokumen::dokumenPR($value->pr)->get();
+            }
+            $dokumen_with_po = Dokumen::dokumenPO($no_sap)->get();
+        }
 
-        $dokumen_with_pr = Dokumen::dokumenPR($pr)->get();
-        $dokumen_with_po = Dokumen::dokumenPR($po)->get();
-        $sub_jenis = Sub_jenis_dokumen::all();
+        $dokumen_with_gr = Dokumen::dokumenGR($no_sap)->get();
+        $dokumen_with_cd = Dokumen::dokumenCD($no_sap)->get();
+
+        $sub_jenis_all = Sub_jenis_dokumen::all();
+
         $unit_po = Unit::where('id','=',22)->orWhere('id','=',23)->orWhere('id','=',19)->orWhere('id', 25)->orWhere('id', 20)->get();
         // dd($pr);
-        return view('dokumen.detail', compact('dokumen', 'sub_jenis', 'dokumen_with_pr', 'actifity_list', 'unit_po'));
+        return view('dokumen.detail', compact('dokumen', 'sub_jenis_all', 'dokumen_with_pr', 'dokumen_with_po', 'actifity_list', 'unit_po'));
     }
 
     public function getSubJenis(Request $request)
@@ -161,6 +178,10 @@ class dokumenController extends Controller
 
     public function postUpload(Request $request)
     {
+        $data['pr']= '';
+        $data['po']= '';
+        $data['gr']= '';
+        $data['cd']= '';
         $file = $request->file('file_pdf');
         $data = $request->all();
 
@@ -176,7 +197,7 @@ class dokumenController extends Controller
         $data['visibility_id'] = $data['visibility'];
         $data['lokasi_file_pdf'] = $this->lokasi_file($data);
 
-       $data['unit_tujuan'] = ($data['unit_tujuan'] != '') ? $data['unit_tujuan'] : null ;
+        $data['unit_tujuan'] = ($data['unit_tujuan'] != '') ? $data['unit_tujuan'] : null ;
 
         $dokumen = Dokumen::create($data);
 
@@ -194,24 +215,22 @@ class dokumenController extends Controller
     private function insertDokumenPRPO($value='', $pr='', $po='', $gr='', $cd='')
     {
         $data['dokumen_id'] = $value->id;
-        $data['pr'] = $pr;
-        $data['po'] = $po;
-        $data['gr'] = $gr;
-        $data['cd'] = $cd;        
         $data['jenis_dokumen_id'] = "1";
         if ($po!='') {
-            $po = Dokumen_po::create($data);
-            return true; 
+            $data['no_sap'] = $po;
+            $data['type'] = 'po';
         }elseif($pr!=''){
-            $pr = Dokumen_pr::create($data);
-            return true;
+            $data['no_sap'] = $pr;
+            $data['type'] = 'pr';
         }elseif($gr!=''){
-            $gr = Dokumen_gr::create($data);
-            return true;
+            $data['no_sap'] = $gr;
+            $data['type'] = 'gr';
         }elseif($cd!=''){
-            $cd = Dokumen_cd::create($data);
-            return true;
+            $data['no_sap'] = $cd;
+            $data['type'] = 'cd';
         }
+        Dokumen_sap::create($data);
+        return true;
     }
 
     private function folder_exist($data='')

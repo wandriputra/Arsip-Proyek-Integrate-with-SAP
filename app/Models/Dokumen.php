@@ -44,24 +44,17 @@ class Dokumen extends Model
         return $this->belongsToMany('App\Models\Folder', 'folder_dokumen', 'dokumen_id', 'folder_id');
     }
 
-    public function dokumen_pr()
+    public function dokumen_sap()
     {
-        return $this->hasOne('App\Models\Dokumen_pr', 'dokumen_id');
-    }
-
-    public function dokumen_po()
-    {
-        return $this->hasOne('App\Models\Dokumen_po', 'dokumen_id');
+        return $this->hasOne('App\Models\Dokumen_sap', 'dokumen_id');
     }
 
     public function scopeFindGlobal($query, $key)
     {
         $dokumen = DB::table("dokumen")
-            ->leftJoin("dokumen_po", "dokumen.id", "=", "dokumen_po.dokumen_id")
-            ->leftJoin("dokumen_pr", "dokumen.id", "=", "dokumen_pr.dokumen_id")
+            ->leftJoin("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
             ->where("file_name_pdf", "like", "%$key%")
-            ->orWhere("po" , "like", "%$key%")
-            ->orWhere("pr", "like", "%$key%")
+            ->orWhere("no_sap" , "like", "%$key%")
             ->select('*', 'dokumen.id as id_dokumen');
             // ->paginate(2);
         return $dokumen;
@@ -70,22 +63,44 @@ class Dokumen extends Model
     public function scopeDokumenPR($query, $pr)
     {
         $dokumen_id = DB::table('dokumen')
-            ->Join("dokumen_pr", "dokumen.id", "=", "dokumen_pr.dokumen_id")
+            ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
             ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
-            ->where("dokumen_pr.pr", "=", $pr)
+            ->where("dokumen_sap.type", "=", 'pr')
+            ->where("dokumen_sap.no_sap", "=", $pr)
             ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id');
-
         return $dokumen_id;
     }
 
     public function scopeDokumenPO($query, $po)
     {
         $dokumen_id = DB::table('dokumen')
-            ->Join("dokumen_po", "dokumen.id", "=", "dokumen_po.dokumen_id")
+            ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
             ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
-            ->where("dokumen_po.po", "=", $po)
+            ->where("dokumen_sap.type", "=", 'po')
+            ->where("dokumen_sap.no_sap", "=", $po)
             ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id');
+        return $dokumen_id;
+    }
 
+    public function scopeDokumenGR($query, $gr)
+    {
+        $dokumen_id = DB::table('dokumen')
+            ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
+            ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
+            ->where("dokumen_sap.type", "=", 'gr')
+            ->where("dokumen_sap.no_sap", "=", $gr)
+            ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id');
+        return $dokumen_id;
+    }
+
+    public function scopeDokumenCD($query, $cd)
+    {
+        $dokumen_id = DB::table('dokumen')
+            ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
+            ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
+            ->where("dokumen_sap.type", "=", 'cd')
+            ->where("dokumen_sap.no_sap", "=", $cd)
+            ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id');
         return $dokumen_id;
     }
 
