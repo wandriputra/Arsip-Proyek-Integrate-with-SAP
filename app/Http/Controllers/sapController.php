@@ -9,6 +9,8 @@ use Illuminate\Database\Migrations\Migration;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Sap;
+
 use File;
 use Storage;
 use Excel;
@@ -101,6 +103,32 @@ class sapController extends Controller
             DB::table('sap_')->insert($value);
         }
         return true;
+    }
+
+    public function getDetailSap($type='', $no_sap='')
+    {
+            switch ($type) {
+            case 'po':
+                $var = 'purchase_order';
+                break;
+            case 'pr':
+                $var = 'purchase_requisition';
+                break;
+            case 'gr':
+                $var = 'good_receipt';
+                break;
+            case 'cd':
+                $var = 'clearing_doc';
+                break;
+            default:
+                # code...
+                break;
+        }
+        $detail = Sap::select('id', 'purchase_order as po', 'purchase_requisition as pr', 'short_text', 'description', 'wbs_element as wbs')
+            ->where($var, $no_sap)
+            ->get();
+
+        return view('sap.detail', compact('detail'));
     }
 
 

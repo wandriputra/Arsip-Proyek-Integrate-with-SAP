@@ -17,4 +17,9 @@ class Actifity extends Model
     {
     	return $this->belongsTo('App\Models\Unit', 'unit_id');
     }
+
+    public function sub_jenis_dok()
+    {
+    	return $this->hasMany('App\Models\Sub_jenis_dokumen', 'actifity_id');
+    }
 }

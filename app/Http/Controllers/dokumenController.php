@@ -142,31 +142,36 @@ class dokumenController extends Controller
         $dokumen = Dokumen::where('id', $id)->firstOrFail();
         $no_sap = $dokumen->dokumen_sap->no_sap;
         $type = $dokumen->dokumen_sap->type;
+        
         if ($type === null){
-            $dokumen_with_pr = Dokumen::dokumenPR($no_sap)->get();
-            $dokumen_with_po = Dokumen::dokumenPO($no_sap)->get();;
+            $dokumen_with_pr = Dokumen::dokumenSAP('pr',$no_sap)->get();
+            $dokumen_with_po = Dokumen::dokumenSAP('po',$no_sap)->get();;
+        
         }elseif($type === 'pr'){
             $no_po = Sap::select('purchase_order as po')->where('purchase_requisition', $no_sap)->groupBy('purchase_order')->get();
             foreach ($no_po as $key => $value) {
-                $dokumen_with_po = Dokumen::dokumenPO($value->po)->get();
+                $dokumen_with_po = Dokumen::dokumenSAP('po', $value->po)->get();
             }
-            $dokumen_with_pr = Dokumen::dokumenPR($no_sap)->get();
+            $dokumen_with_pr = Dokumen::dokumenSAP('pr', $no_sap)->get();
+        
+        //po 2 buah belum ada
         }elseif ($type === 'po'){
             $no_pr = Sap::select('purchase_requisition as pr')->where('purchase_order', $no_sap)->groupBy('purchase_requisition')->get();
             foreach ($no_pr as $key => $value) {
-                $dokumen_with_pr = Dokumen::dokumenPR($value->pr)->get();
+                $dokumen_with_pr = Dokumen::dokumenSAP('pr', $value->pr)->get();
             }
-            $dokumen_with_po = Dokumen::dokumenPO($no_sap)->get();
+            $dokumen_with_po = Dokumen::dokumenSAP('po', $no_sap)->get();
         }
 
-        $dokumen_with_gr = Dokumen::dokumenGR($no_sap)->get();
-        $dokumen_with_cd = Dokumen::dokumenCD($no_sap)->get();
+        $dokumen_with_gr = Dokumen::dokumenSAP('gr', $no_sap)->get();
+        $dokumen_with_cd = Dokumen::dokumenSAP('cd', $no_sap)->get();
 
+        $actifity_all = Actifity::all();
         $sub_jenis_all = Sub_jenis_dokumen::all();
 
         $unit_po = Unit::where('id','=',22)->orWhere('id','=',23)->orWhere('id','=',19)->orWhere('id', 25)->orWhere('id', 20)->get();
         // dd($pr);
-        return view('dokumen.detail', compact('dokumen', 'sub_jenis_all', 'dokumen_with_pr', 'dokumen_with_po', 'actifity_list', 'unit_po'));
+        return view('dokumen.detail', compact('dokumen', 'actifity_all', 'sub_jenis_all', 'dokumen_with_pr', 'dokumen_with_po', 'actifity_list', 'unit_po'));
     }
 
     public function getSubJenis(Request $request)
@@ -347,5 +352,11 @@ class dokumenController extends Controller
                 return $dataSql->sub_jenis_dokumen->nama_sub;
             })
             ->make(true);
+    }
+
+    public function getEdit($id)
+    {
+        $dokumen = Dokumen::where('id', $id)->firstOrFail();
+        return view('dokumen.edit', compact('dokumen'));
     }
 }
