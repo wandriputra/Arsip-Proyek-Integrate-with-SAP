@@ -44,21 +44,21 @@
 					$('#sub_jenis_dokumen option').remove();
 					$('#actifity').append(options);
 					$('#actifity').select2();
-					if (unit_id != 19 && unit_id != 11 && unit_id != 25 && unit_id != 22 && unit_id != 23) {
+					if (unit_id != 19 && unit_id != 11 && unit_id != 25 && unit_id != 23) {
 						$("#pr_select").removeClass('hide');
 						$("#po_select").addClass('hide');
 						$("#gr_select").addClass('hide');
 						$("#cd_select").addClass('hide');
 					};
 
-					if(unit_id == 19){
+					if(unit_id == 19 || unit_id == 22|| unit_id == 20 ){
 						$("#pr_select").addClass('hide');
 						$("#gr_select").addClass('hide');
 						$("#cd_select").addClass('hide');
 						$("#po_select").removeClass('hide');
 					};
 
-					if(unit_id == 22){
+					if(unit_id == 23){
 						$("#pr_select").addClass('hide');
 						$("#gr_select").removeClass('hide');
 						$("#cd_select").addClass('hide');
