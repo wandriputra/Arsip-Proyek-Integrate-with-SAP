@@ -60,11 +60,19 @@ class Dokumen extends Model
         return $dokumen;
     }
 
-    // public function scopeFindSap($query, $key)
-    // {
-    //     $sap = DB::table('sap_')
-    //         ->select()
-    // }
+    public function scopeFindSap($query, $key)
+    {
+        $sap = DB::table('sap_')
+            ->select('purchase_requisition as pr', 'clearing_doc as cd', 'purchase_order as po', 'good_receipt as gr')
+            ->where('purchase_requisition', 'like', "%$key%")
+            ->orWhere('clearing_doc', 'like', "%$key%")
+            ->orWhere('purchase_order', 'like', "%$key%")
+            ->orWhere('good_receipt', 'like', "%$key%")
+            ->orWhere('short_text', 'like', "%$key%")
+            ->orWhere('vendor', 'like', "%$key%")
+            ->limit('10');
+        return $sap;
+    }
 
     public function scopeDokumenSAP($query, $type, $no_sap)
     {

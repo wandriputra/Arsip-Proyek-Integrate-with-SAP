@@ -1,21 +1,17 @@
+<hr>
 <ul class="nav nav-stacked">
 	<li>
-		<a href="http://localhost/arsip_indarung6/dokumen/detail/4">
-			<div class="row">
-				<a href="{{url('dokumen/folder-pengadaan')}}">
-					<div class="col-md-2">
-						<img src="{{url('data/folder.png')}}" alt="" width="100%">
-					</div>
-				</a>
-				<a href="{{url('dokumen/folder-pengadaan')}}">
-					<div class="col-md-10">
-						<h5 class="header">Nama Pengadaan</h5> PR NO: 7213123 <br> PO NO: 12312334</p>
-					</div>
+		@foreach($folder as $val)
+			<div class="col-md-2">
+				<a href="{{url('folder/index')}}">
+					<img src="{{url('data/folder.png')}}" alt="" width="100%">
+					<p class="folder-name text-center">{{$folder->po}}</p>
 				</a>
 			</div>
-		</a>
+		@endforeach
 	</li>
 </ul>
+<hr>
 <ul class="nav nav-stacked">
 	@foreach($dokumen as $dokumen)
 	<li>
@@ -43,23 +39,11 @@
 						</tr>
 						<tr></tr>
 						<tr>
-							<td></td>
 							<td>No PR :</td>
 							<td>No PO : </td>
 							<td></td>
 						</tr>
-						<tr>
-							<td></td>
-							<td>{{$dokumen->pr or 'Belum Ada PR'}}</td>										
-							<td>{{$dokumen->po or 'Belum Ada PO'}}</td>
-							<td></td>									
-						</tr>
-						<tr>
-							<td></td>
-							<td>{{$dokumen->po or 'Belum Ada PR'}}</td>
-							<td>{{$dokumen->pr or 'Belum Ada PO'}}</td>
-							<td></td>
-						</tr>
+						
 					</table>
 				</div>
 			</div>

@@ -22,9 +22,9 @@
 		</div>
 	</div>						
 	<div class="form-group">
-		<label class="col-sm-3 control-label">Sub Jenis Dokumen</label>
+		<label class="col-sm-3 control-label">Jenis Dokumen</label>
 		<div class="col-sm-7">
-			<select class="form-control select-remote-data " name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
+			<select class="form-control select-remote-data" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
 				
 			</select> <a href="{{url('data/insert-sub-jenis')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>

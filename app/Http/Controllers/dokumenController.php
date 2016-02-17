@@ -83,49 +83,49 @@ class dokumenController extends Controller
                 $view = 'dokumen.upload_'.$role;
                 $actifity = Actifity::all();
                 $unit = unit::all();
-                $sub_jenis = Sub_jenis_dokumen::all();
+                // $sub_jenis = Sub_jenis_dokumen::all();
                 $visibility = Visibility::all();
-                $pr = Sap::select('purchase_requisition as pr')->groupBy('purchase_requisition')->get();
-                $po = Sap::select('purchase_order as po')->groupBy('purchase_order')->get();
-                $gr = Sap::select('good_receipt as gr')->where('movement_type', '105')->groupBy('good_receipt')->get();
-                $cd = Sap::select('clearing_doc as cd')->groupBy('clearing_doc')->get();
+                // $pr = Sap::select('purchase_requisition as pr')->groupBy('purchase_requisition')->get();
+                // $po = Sap::select('purchase_order as po')->groupBy('purchase_order')->get();
+                // $gr = Sap::select('good_receipt as gr')->where('movement_type', '105')->groupBy('good_receipt')->get();
+                // $cd = Sap::select('clearing_doc as cd')->groupBy('clearing_doc')->get();
                 break;
 
             case 'user':
                 $view = 'dokumen.upload_'.$role;
                 $unit = unit::all();
                 $actifity = Actifity::where('unit_id', 1)->get();
-                $sub_jenis = Sub_jenis_dokumen::where('actifity_id', 0)->get();
+                // $sub_jenis = Sub_jenis_dokumen::where('actifity_id', 0)->get();
                 $visibility = Visibility::all();
-                $pr = Sap::select('purchase_requisition as pr')->groupBy('purchase_requisition')->get();
+                // $pr = Sap::select('purchase_requisition as pr')->groupBy('purchase_requisition')->get();
                 break;
 
             case 'procurement':
                 $view = 'dokumen.upload_'.$role;
                 $unit = unit::all();
                 $actifity = Actifity::where('unit_id', 19)->get();
-                $sub_jenis = Sub_jenis_dokumen::where('actifity_id', 0)->get();
+                // $sub_jenis = Sub_jenis_dokumen::where('actifity_id', 0)->get();
                 $visibility = Visibility::all();
-                $pr = Sap::select('purchase_requisition as pr')->groupBy('purchase_requisition')->get();
-                $po = Sap::select('purchase_order as po')->groupBy('purchase_order')->get();
+                // $pr = Sap::select('purchase_requisition as pr')->groupBy('purchase_requisition')->get();
+                // $po = Sap::select('purchase_order as po')->groupBy('purchase_order')->get();
                 break;
 
             case 'warehouse':
                 $view = 'dokumen.upload_'.$role;
                 $unit = unit::all();
                 $actifity = Actifity::where('unit_id', 23)->get();
-                $sub_jenis = Sub_jenis_dokumen::where('actifity_id', 0)->get();
+                // $sub_jenis = Sub_jenis_dokumen::where('actifity_id', 0)->get();
                 $visibility = Visibility::all();
-                $gr = Sap::select('good_receipt as gr')->groupBy('good_receipt')->get();
+                // $gr = Sap::select('good_receipt as gr')->groupBy('good_receipt')->get();
                 break;
 
             case 'accounting':
                 $view = 'dokumen.upload_'.$role;
                 $unit = unit::all();
                 $actifity = Actifity::where('unit_id', 25)->get();
-                $sub_jenis = Sub_jenis_dokumen::where('actifity_id', 0)->get();
+                // $sub_jenis = Sub_jenis_dokumen::where('actifity_id', 0)->get();
                 $visibility = Visibility::all();
-                $cd = Sap::select('clearing_doc as cd')->groupBy('clearing_doc')->get();
+                // $cd = Sap::select('clearing_doc as cd')->groupBy('clearing_doc')->get();
                 break;
 
             default:
@@ -133,7 +133,7 @@ class dokumenController extends Controller
                 break;
         }
         // dd($pr,$po);
-        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'sub_jenis'));
+        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity'));
     }
 
     public function getDetail($id='', $pr='', $po='')
@@ -277,8 +277,9 @@ class dokumenController extends Controller
         $data['gr']= '';
         $data['cd']= '';
         $file = $request->file('file_pdf');
-        $data = $request->all();
 
+        $data = array_merge($data, $request->all());
+        
         $data['created_by'] = Auth::user()->id;
         $data['file_name_pdf'] = $file->getClientOriginalName();
        
@@ -294,6 +295,7 @@ class dokumenController extends Controller
         $data['unit_tujuan'] = ($data['unit_tujuan'] != '') ? $data['unit_tujuan'] : null ;
 
         $dokumen = Dokumen::create($data);
+        // dd($data);
 
         //dokumen pengadaan
         $this->insertDokumenPRPO($dokumen, $data['pr'], $data['po'], $data['gr'], $data['cd']);
