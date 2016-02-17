@@ -42,7 +42,11 @@
 	        dom: '<<t>p>',
 	        processing: true,
 	        serverSide: true,
+	        @if($file_unit)
+	        ajax: '{!!url("dokumen/ajax-list-dokumen/file")!!}',
+	        @else
 	        ajax: '{!!url("dokumen/ajax-list-dokumen")!!}',
+	        @endif
 	        columns: [
 	         	{ data: 'id', name:'id', orderable:false},
 	         	{ data: 'nama_dokumen', name:'nama_dokumen', orderable:false},

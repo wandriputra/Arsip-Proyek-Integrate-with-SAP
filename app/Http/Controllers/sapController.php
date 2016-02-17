@@ -107,7 +107,27 @@ class sapController extends Controller
 
     public function getDetailSap($type='', $no_sap='')
     {
-            switch ($type) {
+        $var = $this->type_sap($type);
+        $detail = Sap::select('id', 'purchase_order as po', 'purchase_requisition as pr', 'short_text', 'description', 'wbs_element as wbs')
+            ->where($var, $no_sap)
+            ->get();
+
+        return view('sap.detail', compact('detail'));
+    }
+
+    public function getAjaxSelectSap(Request $request)
+    {
+        $q = $request->get('q');
+        $var = $this->type_sap($request->get('type'));
+        $sap = Sap::where($var, "like", "%$q%")->groupBy($var)->select("$var as id", "$var as text")->limit('10')->get();
+        return response()->json($sap);
+        return [];
+        
+    }
+
+    private function type_sap($type='')
+    {
+        switch ($type) {
             case 'po':
                 $var = 'purchase_order';
                 break;
@@ -124,11 +144,7 @@ class sapController extends Controller
                 # code...
                 break;
         }
-        $detail = Sap::select('id', 'purchase_order as po', 'purchase_requisition as pr', 'short_text', 'description', 'wbs_element as wbs')
-            ->where($var, $no_sap)
-            ->get();
-
-        return view('sap.detail', compact('detail'));
+        return $var;
     }
 
 

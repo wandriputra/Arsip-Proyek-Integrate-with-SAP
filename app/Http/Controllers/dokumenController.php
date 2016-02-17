@@ -133,7 +133,7 @@ class dokumenController extends Controller
                 break;
         }
         // dd($pr,$po);
-        return view('dokumen/upload', compact('unit', 'visibility', 'pr', 'po', 'view', 'actifity', 'sub_jenis', 'gr','cd'));
+        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'sub_jenis'));
     }
 
     public function getDetail($id='', $pr='', $po='')
@@ -151,8 +151,11 @@ class dokumenController extends Controller
         
         }elseif($type === 'pr'){
             $no_po = Sap::select('purchase_order as po')->where('purchase_requisition', $no_sap)->groupBy('purchase_order')->get();
+            
             $no_pr = (object) [(object) [ 'pr' => $no_sap] ];
+            
             foreach ($no_po as $key => $value) {
+                
                 $dok_po = Dokumen::dokumenSAP('po', $value->po)->get();
                 $dokumen_with_po = array_merge($dokumen_with_po, $dok_po) ;
                 $no_gr = Sap::select('good_receipt as gr')->where('purchase_order', $value->po)->where('movement_type', '105')->groupBy('good_receipt')->get();
@@ -171,25 +174,92 @@ class dokumenController extends Controller
 
             $dokumen_with_pr = Dokumen::dokumenSAP('pr', $no_sap)->get();
         
-        }elseif ($type === 'po'|| $type === 'cd'|| $type === 'gr'){
+        }elseif ($type === 'po'){
+
             $no_po = (object) [(object) [ 'po' => $no_sap] ];
+
+            $dokumen_with_po = Dokumen::dokumenSAP('po', $no_sap)->get();
+
             $no_pr = Sap::select('purchase_requisition as pr')->where('purchase_order', $no_sap)->where('purchase_requisition' , '!=', 'NULL')->groupBy('purchase_requisition')->get();
-            $no_gr = Sap::select('good_receipt as gr')->where('purchase_order', $no_sap)->where('movement_type', '105')->groupBy('good_receipt')->get();
-            $no_cd = Sap::select('clearing_doc as gr')->where('purchase_order', $no_sap)->groupBy('clearing_doc')->get();
             foreach ($no_pr as $key => $value) {
                 $dokumen_with_pr = Dokumen::dokumenSAP('pr', $value->pr)->get();
             }
-            $dokumen_with_po = Dokumen::dokumenSAP('po', $no_sap)->get();
+
+            $no_gr = Sap::select('good_receipt as gr')->where('purchase_order', $no_sap)->where('movement_type', '105')->groupBy('good_receipt')->get();
+            foreach ($no_gr as $key => $value) {
+                $dok_no_gr = Dokumen::dokumenSAP('gr', $value->gr)->get();
+                $dokumen_with_po = array_merge($dokumen_with_po, $dok_no_gr);
+            }
+
+            $no_cd = Sap::select('clearing_doc as gr')->where('purchase_order', $no_sap)->groupBy('clearing_doc')->get();
+            foreach ($no_cd as $key => $value) {
+                $dok_no_cd = Dokumen::dokumenSAP('cd', $value->cd)->get();
+                $dokumen_with_po = array_merge($dokumen_with_po, $dok_no_cd);
+            }
+        }elseif($type === 'cd'){
+            $no_po = Sap::select('purchase_order as po')->where('clearing_doc', $no_sap)->groupBy('clearing_doc')->get();
+            
+            $no_cd = (object) [(object) [ 'cd' => $no_sap] ];
+            
+            foreach ($no_po as $key => $value) {
+                
+                $dok_po = Dokumen::dokumenSAP('po', $value->po)->get();
+                $dokumen_with_po = array_merge($dokumen_with_po, $dok_po) ;
+                $no_gr = Sap::select('good_receipt as gr')->where('purchase_order', $value->po)->where('movement_type', '105')->groupBy('good_receipt')->get();
+                
+                $no_pr = Sap::select('purchase_requisition as pr')->where('purchase_order', $value->po)->where('purchase_requisition' , '!=', 'NULL')->groupBy('purchase_requisition')->get();
+                
+                foreach ($no_pr as $key => $value) {
+                    $dokumen_with_pr = Dokumen::dokumenSAP('pr', $value->pr)->get();
+                }
+
+                foreach ($no_cd as $key => $value) {
+                    $dok_no_cd = Dokumen::dokumenSAP('cd', $value->cd)->get();
+                    $dokumen_with_po = array_merge($dokumen_with_po, $dok_no_cd);
+                }
+
+                $no_gr = Sap::select('good_receipt as gr')->where('purchase_order', $no_sap)->where('movement_type', '105')->groupBy('good_receipt')->get();
+                foreach ($no_gr as $key => $value) {
+                    $dok_no_gr = Dokumen::dokumenSAP('gr', $value->gr)->get();
+                    $dokumen_with_po = array_merge($dokumen_with_po, $dok_no_gr);
+                }
+            }
+        }elseif($type === 'gr'){
+
+            $no_po = Sap::select('purchase_order as po')->where('good_receipt', $no_sap)->where('movement_type', '105')->groupBy('good_receipt')->get();
+            
+            $no_gr = (object) [(object) [ 'gr' => $no_sap] ];
+            
+            foreach ($no_po as $key => $value) {
+                
+                $dok_po = Dokumen::dokumenSAP('po', $value->po)->get();
+                $dokumen_with_po = array_merge($dokumen_with_po, $dok_po) ;
+                $no_gr = Sap::select('good_receipt as gr')->where('purchase_order', $value->po)->where('movement_type', '105')->groupBy('good_receipt')->get();
+                
+                $no_pr = Sap::select('purchase_requisition as pr')->where('purchase_order', $value->po)->where('purchase_requisition' , '!=', 'NULL')->groupBy('purchase_requisition')->get();
+                foreach ($no_pr as $key => $value) {
+                    $dokumen_with_pr = Dokumen::dokumenSAP('pr', $value->pr)->get();
+                }
+
+                foreach ($no_gr as $key => $value) {
+                    $dok_no_gr = Dokumen::dokumenSAP('gr', $value->gr)->get();
+                    $dokumen_with_po = array_merge($dokumen_with_po, $dok_no_gr);
+                }
+
+                $no_cd = Sap::select('clearing_doc as cd')->where('purchase_order', $value->po)->groupBy('clearing_doc')->get();
+                foreach ($no_cd as $key => $value) {
+                    $dok_no_cd = Dokumen::dokumenSAP('cd', $value->cd)->get();
+                    $dokumen_with_po = array_merge($dokumen_with_po, $dok_no_cd);
+                }
+            }
+
         }
 
-        // $dokumen_with_gr = Dokumen::dokumenSAP('gr', $no_sap)->get();
-        // $dokumen_with_cd = Dokumen::dokumenSAP('cd', $no_sap)->get();
 
         $actifity_all = Actifity::all();
         $sub_jenis_all = Sub_jenis_dokumen::all();
 
         $unit_po = Unit::where('id','=',22)->orWhere('id','=',23)->orWhere('id','=',19)->orWhere('id', 25)->orWhere('id', 20)->get();
-        // dd($pr);
         return view('dokumen.detail', compact('no_pr', 'no_po', 'dokumen', 'actifity_all', 'sub_jenis_all', 'dokumen_with_pr', 'dokumen_with_po', 'actifity_list', 'unit_po'));
     }
 
@@ -259,7 +329,7 @@ class dokumenController extends Controller
 
     private function folder_exist($data='')
     {
-        $folder =  Folder::where('unit_id', $data['unit_id'])->where('nama_folder', $data['nama_folder'])->where('jenis_dokumen_id', '1')->get();
+        $folder =  Folder::where('unit_id', $data['nama_folder'])->where('nama_folder', $data['nama_folder'])->where('jenis_dokumen_id', '1')->get();
         foreach ($folder as $key => $value) {
             $id = $value->id;
             return $id;
@@ -269,7 +339,7 @@ class dokumenController extends Controller
 
     private function folder_induk($data='')
     {
-        $folder =  Folder::where('nama_folder', 'Dokumen Pengadaan')->where('unit_id', $data['unit_id'])->get();
+        $folder =  Folder::where('nama_folder', $data['nama_folder'])->where('unit_id', $data['unit_id'])->get();
         foreach ($folder as $key => $value) {
             $id = $value->id;
             return $id;
@@ -346,23 +416,39 @@ class dokumenController extends Controller
         return response()->json($actifity);
     }
 
-    public function getAjaxSubJenisDokumen($value='')
+    public function getAjaxSubJenisDokumen(Request $request)
     {
-        $sub_jenis = Sub_jenis_dokumen::select('id', 'nama_sub')->where('actifity_id', $value)->get();
-        return response()->json($sub_jenis);
+        $q = $request->get('q');
+        $actifity = $request->get('act');
+        if($q!='' && $actifity!=''){
+            $sub_jenis = Sub_jenis_dokumen::select('id', 'nama_sub as text')->where('nama_sub', 'like' ,"%$q%")->where('actifity_id', $actifity)->orWhere('singkatan', 'like', "%$q%")->get();
+            return response()->json($sub_jenis);
+        }
+        return [];
     }
 
     public function getListDokumen()
     {
-        return view('dokumen.list_dokumen');
+        $file_unit = false;
+        return view('dokumen.list_dokumen', compact('file_unit'));
     }
 
-    public function getAjaxListDokumen()
+    public function getListFile()
     {
-        $dataSql = Dokumen::all();
+        $file_unit = true;
+        return view('dokumen.list_dokumen', compact('file_unit'));
+    }
+
+    public function getAjaxListDokumen($unit='')
+    {
+        if ($unit==null) {
+            $dataSql = Dokumen::all();
+        }else{
+            $dataSql = Dokumen::where('unit_asal', Auth::user()->personil->unit->id)->get();
+        }
         return Datatables::of($dataSql)
             ->addColumn('link_to_file', function($dataSql){
-                return '<a href="'.url("dokumen/detail").'/'.$dataSql['id'].'">'.$dataSql['nama_dokumen'].'</a>' ;
+                return '<a href="'.url("dokumen/detail").'/'.$dataSql['id'].'">'.$dataSql['no_dokumen'].'</a>' ;
             })
             ->addColumn('actifity', function($dataSql){
                 return $dataSql->sub_jenis_dokumen->actifity->nama_actifity;

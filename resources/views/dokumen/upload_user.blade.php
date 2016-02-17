@@ -14,10 +14,8 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Sub Jenis Dokumen</label>
 		<div class="col-sm-7">
-			<select class="form-control select2" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
-				@foreach($sub_jenis as $val)
-					<option value="{{$val['id']}}" @if($val['id']) {{'selected'}} @endif>{{$val['nama_sub']}}</option>
-				@endforeach
+			<select class="form-control select-remote-data" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
+				
 			</select> <a href="{{url('data/insert-sub-jenis')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>
 	</div>
@@ -25,10 +23,8 @@
 		<label class="col-sm-3 control-label">No PR</label>
 		<div class="col-sm-3">
 			<!-- <input class="form-control" name="pr"> -->
-			<select class="form-control select2" name="pr" style="width: 90%;">
-			@foreach($pr as $pr)
-				<option value="{{$pr['pr']}}">{{$pr['pr']}}</option>
-			@endforeach
+			<select class="form-control select_pr" name="pr" style="width: 90%;">
+			
 			</select>
 		</div>
 	</div>

@@ -87,10 +87,10 @@
                         <a href="{{url('pencarian')}}"><i class="fa fa-search"></i> Pencarian</a>
                       </li>
                       <li>
-                        <a href="{{url('folder')}}"><i class="fa fa-folder-o"></i> Dokumen Pengadaan</a>
+                        <a href="{{url('folder')}}"><i class="fa fa-folder-o"></i> Folder</a>
                       </li>
                       <li>
-                        <a href="{{url('folder')}}"><i class="fa fa-folder"></i> Folder Dokumen Unit</a>
+                        <a href="{{url('dokumen/list-file')}}"><i class="fa fa-file"></i> File</a>
                       </li>
                       <li>
                         <a href="{{url('dokumen/upload')}}"><i class="fa fa-upload"></i> Upload Dokumen</a>

@@ -15,20 +15,8 @@
 			</div>
 		</a>
 	</li>
-	<li>
-		<a href="http://localhost/arsip_indarung6/dokumen/detail/4">
-			<div class="row">
-				<div class="col-md-2">
-					<img src="{{url('data/folder.png')}}" alt="" width="100%">
-				</div>
-				<div class="col-md-10">
-					<h5 class="header">Nama Pengadaan</h5> PR NO: 7213123 <br> PO NO: 12312334</p>
-				</div>
-			</div>
-		</a>
-	</li>				
-	</ul>
-	<ul class="nav nav-stacked">
+</ul>
+<ul class="nav nav-stacked">
 	@foreach($dokumen as $dokumen)
 	<li>
 		<a href="{{url('dokumen/detail')}}/{{$dokumen->id_dokumen}}" class="link-pencarian">

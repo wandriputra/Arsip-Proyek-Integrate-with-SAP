@@ -24,7 +24,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Sub Jenis Dokumen</label>
 		<div class="col-sm-7">
-			<select class="form-control select2" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
+			<select class="form-control select-remote-data " name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
 				
 			</select> <a href="{{url('data/insert-sub-jenis')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>
@@ -33,10 +33,8 @@
 		<label class="col-sm-3 control-label">No PR</label>
 		<div class="col-sm-3	">
 			<!-- <input class="form-control" name="pr"> -->
-			<select class="form-control select2" name="pr" style="width: 90%;">
-			@foreach($pr as $pr)
-				<option value="{{$pr['pr']}}">{{$pr['pr']}}</option>
-			@endforeach
+			<select class="form-control select_pr" name="pr" style="width: 90%;">
+
 			</select>
 		</div>
 	</div>
@@ -44,20 +42,16 @@
 		<label class="col-sm-3 control-label">No PO</label>
 		<div class="col-sm-3	">
 			<!-- <input class="form-control select2" name="po"> -->
-			<select class="form-control select2" name="po" style="width: 90%;">
-				@foreach($po as $po)
-					<option value="{{$po['po']}}">{{$po['po']}}</option>
-				@endforeach
+			<select class="form-control select_po" name="po" style="width: 90%;">
+				
 			</select>
 		</div>
 	</div>
 	<div class="form-group hide" id="gr_select">
 		<label class="col-sm-3 control-label">No GR</label>
 		<div class="col-sm-3	">
-			<select class="form-control select2" name="gr" style="width: 90%;">
-			@foreach($gr as $gr)
-				<option value="{{$gr['gr']}}">{{$gr['gr']}}</option>
-			@endforeach
+			<select class="form-control select_gr" name="gr" style="width: 90%;">
+			
 			</select>
 		</div>
 	</div>
@@ -65,10 +59,8 @@
 	<div class="form-group hide" id="cd_select">
 		<label class="col-sm-3 control-label">Clearing Doc</label>
 		<div class="col-sm-3	">
-			<select class="form-control select2" name="cd" style="width: 90%;">
-			@foreach($cd as $cd)
-				<option value="{{$cd['cd']}}">{{$cd['cd']}}</option>
-			@endforeach
+			<select class="form-control select_cd" name="cd" style="width: 90%;">
+			
 			</select>
 		</div>
 	</div>

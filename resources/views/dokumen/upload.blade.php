@@ -31,6 +31,128 @@
 				radioClass: 'iradio_minimal-blue'
 			});
 
+			$(".select-remote-data").select2({
+				ajax: {
+					minimumInputLength: 3,
+					url: "{{url('dokumen/ajax-sub-jenis-dokumen/')}}",
+					dataType: 'json',
+					delay: 100,
+					method:'GET',
+						data: function (params) {
+							return {
+								q: params.term,
+								act: $('#actifity').val(), 
+								page: params.page
+							};
+						},
+					processResults: function (data, page) {
+						return {
+							results: data,
+							//pagination: {
+							//	more: data.more
+							//}
+						};
+					},
+					cache: true
+					}
+			});
+
+			$(".select_pr").select2({
+				ajax: {
+					url: "{{url('sap/ajax-select-sap')}}",
+					dataType: 'json',
+					delay: 100,
+					method:'GET',
+						data: function (params) {
+							return {
+								q: params.term,
+								type: 'pr',
+								page: params.page
+							};
+						},
+					processResults: function (data, page) {
+						return {
+							results: data,
+							//pagination: {
+							//	more: data.more
+							//}
+						};
+					},
+					cache: true
+					}
+			});
+
+			$(".select_po").select2({
+				ajax: {
+					url: "{{url('sap/ajax-select-sap')}}",
+					dataType: 'json',
+					delay: 100,
+					method:'GET',
+						data: function (params) {
+							return {
+								q: params.term,
+								type: 'po',
+								page: params.page
+							};
+						},
+					processResults: function (data, page) {
+						return {
+							results: data,
+							//pagination: {
+							//	more: data.more
+							//}
+						};
+					},
+					cache: true
+					}
+			});
+
+			$(".select_cd").select2({
+				ajax: {
+					url: "{{url('sap/ajax-select-sap')}}",
+					dataType: 'json',
+					delay: 100,
+					method:'GET',
+						data: function (params) {
+							return {
+								q: params.term,
+								type: 'cd',
+								page: params.page
+							};
+						},
+					processResults: function (data, page) {
+						return {
+							results: data,
+							//pagination: {
+							//	more: data.more
+							//}
+						};
+					},
+					cache: true
+					}
+			});
+
+			$(".select_gr").select2({
+				ajax: {
+					url: "{{url('sap/ajax-select-sap')}}",
+					dataType: 'json',
+					delay: 100,
+					method:'GET',
+						data: function (params) {
+							return {
+								q: params.term,
+								type: 'gr',
+								page: params.page
+							};
+						},
+					processResults: function (data, page) {
+						return {
+							results: data,
+						};
+					},
+					cache: true
+					}
+			});			
 		@if($view == 'dokumen.upload_admin')
 
 			$('#asal_surat').change(function(){
@@ -77,14 +199,14 @@
 			$('#actifity').change(function(){
 				actifity_id = $('#actifity').val();
 				$('#sub_jenis_dokumen option').remove();
-				$.getJSON('{{url("dokumen/ajax-sub-jenis-dokumen")}}'+"/"+actifity_id, function(data) {
-					var options = '<option value=""></option>';
-				    for (var i = 0; i < data.length; i++) {
-						options += '<option value="' + data[i].id + '">' + data[i].nama_sub + '</option>';
-					}
-					$('#sub_jenis_dokumen').append(options);
-					$('#sub_jenis_dokumen').select2();
-				});
+				// $.getJSON('{{url("dokumen/ajax-sub-jenis-dokumen")}}'+"/"+actifity_id, function(data) {
+				// 	var options = '<option value=""></option>';
+				//     for (var i = 0; i < data.length; i++) {
+				// 		options += '<option value="' + data[i].id + '">' + data[i].nama_sub + '</option>';
+				// 	}
+				// 	$('#sub_jenis_dokumen').append(options);
+				// 	$('#sub_jenis_dokumen').select2();
+				// });
 			});
 
 

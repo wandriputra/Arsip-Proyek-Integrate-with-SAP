@@ -14,7 +14,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Sub Jenis Dokumen</label>
 		<div class="col-sm-7">
-			<select class="form-control select2" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
+			<select class="form-control select-remote-data" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
 				@foreach($sub_jenis as $val)
 					<option value="{{$val['id']}}" @if($val['id']) {{'selected'}} @endif>{{$val['nama_sub']}}</option>
 				@endforeach
@@ -24,10 +24,8 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Clearing Dokumen</label>
 		<div class="col-sm-3">
-			<select class="form-control select2" name="cd" style="width: 90%;">
-			@foreach($cd as $cd)
-				<option value="{{$cd['cd']}}">{{$cd['cd']}}</option>
-			@endforeach
+			<select class="form-control select_cd" name="cd" style="width: 90%;">
+			
 			</select>
 		</div>
 	</div>

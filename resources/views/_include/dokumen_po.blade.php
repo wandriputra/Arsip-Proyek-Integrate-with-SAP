@@ -28,9 +28,9 @@
 									<td class="text-center"><b>No Dokumen</b></td>
 								</tr>
 								@foreach($dokumen_with_po as $dok_po_cetak)
-									@if($actifity->id == $dok_po_cetak->actifity_id && ($dok_po_cetak->no_sap == $po->po))
+									@if($actifity->id == $dok_po_cetak->actifity_id && $dok_po_cetak->purchase_order === $po->po)
 									<tr>
-										<td>{{$dok_po_cetak->no_sap}}</td>
+										<td>{{$dok_po_cetak->nama_sub}}</td>
 										<td>{{$dok_po_cetak->nama_dokumen}}</td>
 										<td><a href="{{url('dokumen/detail/')}}/{{$dok_po_cetak->dokumen_id}}">{{$dok_po_cetak->no_dokumen}}</a></td>
 									</tr>

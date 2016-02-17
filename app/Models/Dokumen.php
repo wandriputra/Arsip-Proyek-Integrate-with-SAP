@@ -60,17 +60,69 @@ class Dokumen extends Model
         return $dokumen;
     }
 
+    // public function scopeFindSap($query, $key)
+    // {
+    //     $sap = DB::table('sap_')
+    //         ->select()
+    // }
+
     public function scopeDokumenSAP($query, $type, $no_sap)
     {
-        $dokumen_id = DB::table('dokumen')
-            ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
-            ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
-            ->leftJoin("actifity", "sub_jenis_dokumen.actifity_id", "=", "actifity.id")
-            ->where("dokumen_sap.type", "=", $type)
-            ->where("dokumen_sap.no_sap", "=", $no_sap)
-            ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id', 'actifity.id as actifity_id')
-            ->orderBy('sub_jenis_dokumen.id');
-        return $dokumen_id;
+        if($type == 'po' ){
+            
+            $dokumen_id = DB::table('dokumen')
+                ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
+                ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
+                ->Join("actifity", "sub_jenis_dokumen.actifity_id", "=", "actifity.id")
+                ->Join("sap_", "sap_.purchase_order", "=", "dokumen_sap.no_sap")
+                ->where("dokumen_sap.type", "=", $type)
+                ->where("dokumen_sap.no_sap", "=", $no_sap)
+                ->groupBy("dokumen.no_dokumen")
+                ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id', 'actifity.id as actifity_id', 'sap_.purchase_order as po')
+                ->orderBy('sub_jenis_dokumen.id');
+            return $dokumen_id;
+
+        }elseif($type == 'gr'){
+            
+            $dokumen_id = DB::table('dokumen')
+                ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
+                ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
+                ->Join("actifity", "sub_jenis_dokumen.actifity_id", "=", "actifity.id")
+                ->Join("sap_", "sap_.good_receipt", "=", "dokumen_sap.no_sap")
+                ->where("dokumen_sap.type", "=", $type)
+                ->where("dokumen_sap.no_sap", "=", $no_sap)
+                ->where("sap_.good_receipt", "=", $no_sap)
+                ->groupBy("dokumen.no_dokumen")
+                ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id', 'actifity.id as actifity_id', 'sap_.purchase_order as po')
+                ->orderBy('sub_jenis_dokumen.id');
+            return $dokumen_id;
+
+        }elseif($type == 'cd'){
+            
+            $dokumen_id = DB::table('dokumen')
+                ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
+                ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
+                ->Join("actifity", "sub_jenis_dokumen.actifity_id", "=", "actifity.id")
+                ->Join("sap_", "sap_.clearing_doc", "=", "dokumen_sap.no_sap")
+                ->where("dokumen_sap.type", "=", $type)
+                ->where("dokumen_sap.no_sap", "=", $no_sap)
+                ->where("sap_.clearing_doc", "=", $no_sap)
+                ->groupBy("dokumen.no_dokumen")
+                ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id', 'actifity.id as actifity_id', 'sap_.purchase_order as po')
+                ->orderBy('sub_jenis_dokumen.id');
+            return $dokumen_id;
+        }elseif($type == 'pr'){
+            $dokumen_id = DB::table('dokumen')
+                ->Join("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
+                ->Join("sub_jenis_dokumen", "dokumen.sub_jenis_id", "=", "sub_jenis_dokumen.id")
+                ->Join("actifity", "sub_jenis_dokumen.actifity_id", "=", "actifity.id")
+                ->where("dokumen_sap.type", "=", $type)
+                ->where("dokumen_sap.no_sap", "=", $no_sap)
+                ->groupBy("dokumen.no_dokumen")
+                ->select('*', 'dokumen.id as id_dokumen', 'sub_jenis_dokumen.id as sub_jenis_id', 'actifity.id as actifity_id')
+                ->orderBy('sub_jenis_dokumen.id');
+            return $dokumen_id;           
+        }
     }
 
     // public function scopePogrcd($query, $type, )
