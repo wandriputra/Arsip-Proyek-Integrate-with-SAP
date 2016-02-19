@@ -61,6 +61,14 @@
 								<td><a href="@if($dokumen->dokumen_sap->no_sap) {{url('dokumen/no_sap')}}/{{$dokumen->dokumen_sap->type}}/{{$dokumen->dokumen_sap->no_sap}} @else {{url('dokumen/edit/')}}/{{$dokumen['id']}} @endif ">{{$dokumen->dokumen_sap->no_sap or 'Belum ada PR' }}</a></td>
 							</tr>
 							<tr>
+								<td>Tembsuan</td>
+								<td>
+								@foreach($dokumen->dokumen_tembusan as $tembusan)
+									<a href="">{{$tembusan->nama_unit}} </a><br>
+								@endforeach
+								</td>
+							</tr>
+							<tr>
 								<td>Status</td>
 								<td><span class="btn-success btn-xs">Verifed</span></td>
 							</tr>

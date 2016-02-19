@@ -25,13 +25,16 @@
 
 	<script>
 		$(function () {
-			$(".select2").select2();
+			$(".select2").select2({
+				placeholder: "Type Something..."
+			});
 
 			$('input[type="radio"].minimal').iCheck({
 				radioClass: 'iradio_minimal-blue'
 			});
 
 			$(".select-remote-data").select2({
+				placeholder: "Type Something...",
 				ajax: {
 					minimumInputLength: 3,
 					url: "{{url('dokumen/ajax-sub-jenis-dokumen/')}}",
@@ -58,6 +61,7 @@
 			});
 
 			$(".select_pr").select2({
+				placeholder: "Type Something...",
 				ajax: {
 					url: "{{url('sap/ajax-select-sap')}}",
 					dataType: 'json',
@@ -83,6 +87,7 @@
 			});
 
 			$(".select_po").select2({
+				placeholder: "Type Something...",
 				ajax: {
 					url: "{{url('sap/ajax-select-sap')}}",
 					dataType: 'json',
@@ -108,6 +113,7 @@
 			});
 
 			$(".select_cd").select2({
+				placeholder: "Type Something...",
 				ajax: {
 					url: "{{url('sap/ajax-select-sap')}}",
 					dataType: 'json',
@@ -133,6 +139,7 @@
 			});
 
 			$(".select_gr").select2({
+				placeholder: "Type Something...",
 				ajax: {
 					url: "{{url('sap/ajax-select-sap')}}",
 					dataType: 'json',
@@ -165,7 +172,9 @@
 					$('#actifity option').remove();
 					$('#sub_jenis_dokumen option').remove();
 					$('#actifity').append(options);
-					$('#actifity').select2();
+					$('#actifity').select2({
+						placeholder: "Type Something..."
+					});
 					if (unit_id != 19 && unit_id != 11 && unit_id != 25 && unit_id != 23) {
 						$("#pr_select").removeClass('hide');
 						$("#po_select").addClass('hide');

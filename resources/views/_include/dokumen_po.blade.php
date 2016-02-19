@@ -1,4 +1,3 @@
-
 	@foreach($unit_po as $unit)
 	<div class="box box-default box-solid collapsed-box">
 		<div class="box-header with-border">
@@ -28,7 +27,7 @@
 									<td class="text-center"><b>No Dokumen</b></td>
 								</tr>
 								@foreach($dokumen_with_po as $dok_po_cetak)
-									@if($actifity->id == $dok_po_cetak->actifity_id && $dok_po_cetak->purchase_order === $po->po)
+									@if($actifity->id == $dok_po_cetak->actifity_id )
 									<tr>
 										<td>{{$dok_po_cetak->nama_sub}}</td>
 										<td>{{$dok_po_cetak->nama_dokumen}}</td>

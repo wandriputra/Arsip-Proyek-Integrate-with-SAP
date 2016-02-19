@@ -21,7 +21,7 @@
 		                    <th class="text-center">Nama Dokumen</th>
 		                    <th class="text-center">No Dokumen</th>
 		                    <th class="text-center">Actifity</th>
-		                    <th class="text-center">Jenis Dokumen</th>
+		                    <th class="text-center">No SAP</th>
 		                </tr>
 		            </thead>
 		        </table>
@@ -52,7 +52,7 @@
 	         	{ data: 'nama_dokumen', name:'nama_dokumen', orderable:false},
 	         	{ data: 'link_to_file', name:'link_to_file', orderable:false},
 	         	{ data: 'actifity', name:'actifity', orderable:false},
-	         	{ data: 'sub_jenis', name:'sub_jenis', orderable:false},
+	         	{ data: 'no_sap', name:'no_sap', orderable:false},
 	        ]
 	    });
 	</script>

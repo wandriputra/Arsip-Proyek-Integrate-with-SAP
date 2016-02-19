@@ -61,7 +61,9 @@
 	<script src="{{ url('asset/plugins/select2/select2.full.min.js')}}"></script>
 	<script>
 		$(function() {
-			$(".select2").select2(); 
+			$(".select2").select2({
+				placeholder: "Choose an option…"
+			}); 
 		});
 	</script>
 @stop

@@ -49,28 +49,34 @@ class Dokumen extends Model
         return $this->hasOne('App\Models\Dokumen_sap', 'dokumen_id');
     }
 
+    public function dokumen_tembusan()
+    {
+        return $this->belongsToMany('App\Models\Unit', 'tembusan_dokumen', 'dokumen_id', 'unit_id');
+    }
+
     public function scopeFindGlobal($query, $key)
     {
         $dokumen = DB::table("dokumen")
             ->leftJoin("dokumen_sap", "dokumen.id", "=", "dokumen_sap.dokumen_id")
             ->where("file_name_pdf", "like", "%$key%")
             ->orWhere("no_sap" , "like", "%$key%")
-            ->select('*', 'dokumen.id as id_dokumen');
-            // ->paginate(2);
+            ->select('*', 'dokumen.id as id_dokumen')
+            ->paginate(5);
         return $dokumen;
     }
 
     public function scopeFindSap($query, $key)
     {
         $sap = DB::table('sap_')
-            ->select('purchase_requisition as pr', 'clearing_doc as cd', 'purchase_order as po', 'good_receipt as gr')
+            ->select('purchase_requisition as pr', 'short_text', 'clearing_doc as cd', 'purchase_order as po', 'good_receipt as gr')
             ->where('purchase_requisition', 'like', "%$key%")
             ->orWhere('clearing_doc', 'like', "%$key%")
             ->orWhere('purchase_order', 'like', "%$key%")
             ->orWhere('good_receipt', 'like', "%$key%")
             ->orWhere('short_text', 'like', "%$key%")
             ->orWhere('vendor', 'like', "%$key%")
-            ->limit('10');
+            ->groupBy('purchase_order')
+            ->paginate(12);
         return $sap;
     }
 

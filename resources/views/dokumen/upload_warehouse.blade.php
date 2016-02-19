@@ -1,18 +1,18 @@
 {{csrf_field()}}
-<input type="hidden" value="{{Auth::user()->personil->unit->id}}">
+<input type="hidden" name="unit_asal" value="{{Auth::user()->personil->unit->id}}">
 <div class="box-body">
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Actifity</label>
 		<div class="col-sm-7">
 			<select class="form-control select2" name="actifity" id="actifity" style="width: 90%;">
 				@foreach($actifity as $val)
-					<option value="{{$val['id']}}" @if($val['id']==1) {{'selected'}} @endif>{{$val['nama_actifity']}}</option>
+					<option value="{{$val['id']}}">{{$val['nama_actifity']}}</option>
 				@endforeach
 			</select> <a href="{{url('data/tambah-actifity')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>
 	</div>						
 	<div class="form-group">
-		<label class="col-sm-3 control-label">Sub Jenis Dokumen</label>
+		<label class="col-sm-3 control-label">Jenis Dokumen</label>
 		<div class="col-sm-7">
 			<select class="form-control select-remote-data" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
 				
@@ -51,7 +51,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Tembusan</label>
 		<div class="col-sm-9">
-			<select class="form-control select2" name="tembusan" multiple="multiple" data-placeholder="Tembusan Surat" style="width: 100%;">
+			<select class="form-control select2" name="tembusan[]" multiple="multiple" data-placeholder="Tembusan Surat" style="width: 100%;">
 				@foreach($unit as $tembusan)
 					<option value="{{$tembusan['id']}}">{{$tembusan['nama_unit'].' ('.$tembusan['singkatan'].')'}}</option>
 				@endforeach

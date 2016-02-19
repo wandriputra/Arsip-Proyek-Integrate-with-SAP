@@ -18,7 +18,7 @@ class pencarianController extends Controller
     	$dokumen = ($input !== '') ? $this->cariFiles($input) : '' ;
     	$folder = ($input !== '') ? $this->cariFolders($input) : '' ;
     	// var_dump($dokumen);
-    	if ($dokumen != [] || $dokumen != '' && $folder != [] || $folder != '' ) {
+    	if ($dokumen != [] || $dokumen != '' && $folder != [] || $folder != '' && $input!= '') {
     		$include = '_include.hasil-pencarian';
     	}else{
     		$include = '_include.fail-pencarian';
@@ -28,13 +28,14 @@ class pencarianController extends Controller
 
     private function cariFiles($input)
     {
-		$dokumen = Dokumen::findGlobal($input)->get();
+		$dokumen = Dokumen::findGlobal($input);
     	return $dokumen;
 	}
 
     public function cariFolders($input)
     {
-    	$folders = Dokumen::findSap($input)->get();
+    	$folders = Dokumen::findSap($input);
+        // $folders->setPath("?q=$input&");
         return $folders;
     }
 }

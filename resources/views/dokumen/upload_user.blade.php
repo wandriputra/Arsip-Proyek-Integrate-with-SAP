@@ -1,5 +1,5 @@
 {{csrf_field()}}
-<input type="hidden" value="{{Auth::user()->personil->unit->id}}">
+<input type="hidden" name="unit_asal" value="{{Auth::user()->personil->unit->id}}">
 <div class="box-body">
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Actifity</label>

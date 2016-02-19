@@ -151,5 +151,11 @@ class userController extends Controller
         return redirect('auth/list-user');
     }
 
+    public function getTestPaging($value='')
+    {
+        $user = User::simplePaginate(3);
+        return view('auth.user', compact('user'));
+    }
+
 
 }

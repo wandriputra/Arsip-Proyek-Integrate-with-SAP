@@ -119,8 +119,10 @@ class sapController extends Controller
     {
         $q = $request->get('q');
         $var = $this->type_sap($request->get('type'));
-        $sap = Sap::where($var, "like", "%$q%")->groupBy($var)->select("$var as id", "$var as text")->limit('10')->get();
-        return response()->json($sap);
+        if($q!='' && $var !=''){
+            $sap = Sap::where($var, "like", "%$q%")->groupBy($var)->select("$var as id", "$var as text")->limit('10')->get();
+            return response()->json($sap);
+        }
         return [];
         
     }

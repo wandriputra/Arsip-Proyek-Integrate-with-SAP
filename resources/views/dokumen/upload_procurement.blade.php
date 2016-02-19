@@ -1,12 +1,12 @@
 {{csrf_field()}}
-<input type="hidden" value="{{Auth::user()->personil->unit->id}}">
+<input type="hidden" name="unit_asal" value="{{Auth::user()->personil->unit->id}}">
 <div class="box-body">
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Actifity</label>
 		<div class="col-sm-7">
 			<select class="form-control select2" name="actifity" id="actifity" style="width: 90%;">
 				@foreach($actifity as $val)
-					<option value="{{$val['id']}}" @if($val['id']==1) {{'selected'}} @endif>{{$val['nama_actifity']}}</option>
+					<option value="{{$val['id']}}">{{$val['nama_actifity']}}</option>
 				@endforeach
 			</select> <a href="{{url('data/tambah-actifity')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>

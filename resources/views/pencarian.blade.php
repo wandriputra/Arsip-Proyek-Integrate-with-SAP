@@ -34,22 +34,24 @@
 	</div>
 	<div class="box-body">
 		<div id="hasil-pencarian">
-			@if($input == '')
+			@if($input == '' || count($dokumen)<1 && count($folder) <1)
 				<p class="text-center"><i>.: Ketikkan Keyword Untuk Memulai Pencarian :.</i></p>
 			@else
 				@include($include)
 			@endif
 		</div>
 	</div>
-	<div class="box-footer clearfix">
-      <ul class="pagination pagination-sm no-margin pull-right">
-        <li><a href="#">«</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">»</a></li>
-      </ul>
+	@if(count($dokumen)>=1 || count($folder) >=1)
+	@if($input !='')
+	<div class="box-footer clearfix text-center">
+		@if(count($dokumen) > count($folder))
+			{!! $dokumen->appends(['q' => $input])->render() !!}
+		@else
+			{!! $folder->appends(['q' => $input])->render() !!}
+		@endif
     </div>
+    @endif
+    @endif
 </div>
 @stop
 

@@ -26,7 +26,8 @@ class datamasterController extends Controller
     public function getInsertSubJenis()
     {
         $actifity = Actifity::all();
-        return view('datamaster.tambah_sub_jenis', compact('actifity'));
+        $unit = Unit::all();
+        return view('datamaster.tambah_sub_jenis', compact('actifity','unit'));
     }
 
     public function postInsertSubJenis(Request $request)
