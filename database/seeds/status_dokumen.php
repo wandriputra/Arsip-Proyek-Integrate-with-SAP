@@ -17,12 +17,12 @@ class status_dokumen extends Seeder
     	$status_dokumen = [
     		array(
     			'id' => 1,
-    			'nama_status' => 'online',
+    			'nama_status' => 'Verified',
     			'created_by' => '1',
     		),
     		array(
     			'id' => 2,
-    			'nama_status' => 'deleted',
+    			'nama_status' => 'Unverified',
     			'created_by' => '1',
     		)];
 

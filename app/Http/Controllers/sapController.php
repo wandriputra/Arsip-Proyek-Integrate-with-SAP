@@ -33,25 +33,20 @@ class sapController extends Controller
     	$file1 = $request->file('format1');
         $format = $file1->getClientOriginalExtension();
     	$filename = $request['format1'];
+        
         if (Schema::hasTable('sap_')) {
             Schema::drop('sap_');
         }
-        Excel::filter('chunk')->load($file1)->chunk(250, function($results) {
-                $this->data = $results->all()->toArray();
-                if ($format === 'csv') {
-                    $this->makeMigrationCsv();
-                }else{
-                    $this->makeMigrationXls();
-                }
-            });
-		// Excel::load($file1, function($reader){
-		// 	$this->data = $reader->all()->toArray();
-		// });
-  //       if ($format === 'csv') {
-  //           $this->makeMigrationCsv();
-  //       }else{
-  //           $this->makeMigrationXls();
-  //       }
+
+		Excel::load($file1, function($reader){
+            $this->data = $reader->get();
+		});
+
+        if ($format === 'csv') {
+            $this->makeMigrationCsv();
+        }else{
+            $this->makeMigrationXls();
+        }
         // var_dump($this->data);
 
         return redirect('/sap/view-upload-data');
@@ -73,20 +68,22 @@ class sapController extends Controller
 
     private function makeMigrationCsv(){
         //create table csv
+
     	Schema::create('sap_', function (Blueprint $table) {
             $table->increments('id');
-            foreach (array_keys($this->data[0]) as $key => $value) {
-
-                $table->string($value)->nullable();
+            foreach ($this->data[0] as $key => $value) {
+                $table->string($key)->nullable();
             }
     	});
 
         DB::table('sap_')->delete();
-        foreach ($this->data as $value) {
-            DB::table('sap_')->insert($value);
+        for ($i=0; $i < count($this->data); $i++) { 
+            foreach ($this->data[$i] as $key => $value) {
+                $array[$i][$key] = $value;
+            }
+            DB::table('sap_')->insert($array[$i]);
         }
         return true;
-        
     }
 
     private function makeMigrationXls(){

@@ -17,8 +17,8 @@
 				@foreach($dokumen_with_pr as $dok_pr_cetak)
 				<tr>
 					<td>{{$dok_pr_cetak->nama_sub}}</td>
-					<td>{{$dok_pr_cetak->nama_dokumen}}</td>
 					<td><a href="{{url('dokumen/detail/')}}/{{$dok_pr_cetak->dokumen_id}}">{{$dok_pr_cetak->no_dokumen}}</a></td>
+					<td>{{$dok_pr_cetak->nama_dokumen}}</td>
 				</tr>
 				@endforeach
 			</tbody>

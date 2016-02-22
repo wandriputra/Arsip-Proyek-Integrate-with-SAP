@@ -14,7 +14,7 @@ class Dokumen extends Model
 
 	protected $table = 'dokumen';
 
-	protected $fillable = ['no_dokumen', 'nama_dokumen', 'file_name_pdf', 'lokasi_file_pdf', 'tag_keterangan', 'sub_jenis_id', 'unit_asal', 'unit_tujuan', 'visibility_id', 'created_by'];
+	protected $fillable = ['no_dokumen', 'nama_dokumen', 'file_name_pdf', 'lokasi_file_pdf', 'tag_keterangan', 'sub_jenis_id', 'unit_asal', 'unit_tujuan', 'visibility_id', 'created_by', 'status_dokumen_id'];
 
 	public static $rules = [
     	'jenis_dokumen' => 'required',

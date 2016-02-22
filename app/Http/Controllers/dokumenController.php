@@ -293,6 +293,7 @@ class dokumenController extends Controller
         $data['sub_jenis_id'] = $data['sub_jenis_dokumen'];
         $data['visibility_id'] = $data['visibility'];
         $data['lokasi_file_pdf'] = $this->lokasi_file($data);
+        $data['status_dokumen_id'] = '1';
 
         $data['unit_tujuan'] = (isset($data['tembusan']) && $data['unit_tujuan']!='') ? $data['unit_tujuan'] : null ;
         $data['tembusan'] = (isset($data['tembusan'])) ? $data['tembusan'] : null ;
@@ -387,8 +388,17 @@ class dokumenController extends Controller
     private function fileRename($value)
     {
         $val = explode('_', $value);
-        $file['no_file'] = preg_replace('/-/', '/', $val[0]);
-        $file['nama_file'] = preg_replace('/\\.[^.\\s]{3,4}$/', '', $val[1]);
+        $c = count($val);
+        $no_a = $c - (int)end($val);
+        if ($no_a <= 1) {
+            $file['no_file'] = preg_replace('/-/', '/', $val[0]);
+        }else{
+            for ($i=1; $i < $no_a-1 ; $i++) { 
+                $val[0] = $val[0].'_'.$val[$i];
+            }
+            $file['no_file'] = preg_replace('/-/', '/', $val[0]);
+        }
+        $file['nama_file'] = preg_replace('/\\.[^.\\s]{3,4}$/', '', end($val));
         return $file;
     }
 

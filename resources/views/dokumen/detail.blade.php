@@ -42,11 +42,11 @@
 							</tr>
 							<tr>
 								<td>Nama Dokumen</td>
-								<td>{{$dokumen['nama_dokumen'] or 'kosong'}}</td>
+								<td>{{$dokumen['no_dokumen']}}</td>
 							</tr>
 							<tr>
 								<td>Nomor Dokumen</td>
-								<td>{{$dokumen['no_dokumen']}}</td>
+								<td>{{$dokumen['nama_dokumen'] or 'kosong'}}</td>
 							</tr>
 							<tr>
 								<td>Asal Dokumen</td>
@@ -71,6 +71,10 @@
 							<tr>
 								<td>Status</td>
 								<td><span class="btn-success btn-xs">Verifed</span></td>
+							</tr>
+							<tr>
+								<td>Lokator</td>
+								<td>{{$dokumen->locator}}</td>
 							</tr>
 						</tbody>
 					</table>

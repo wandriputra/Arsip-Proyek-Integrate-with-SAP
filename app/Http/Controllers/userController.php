@@ -30,7 +30,9 @@ class userController extends Controller
 
     public function getLogin()
     {
+        if(Auth::user() == false)
         return view('auth.login');
+        return redirect('/home');
     }
 
     public function getLogout()
@@ -155,6 +157,24 @@ class userController extends Controller
     {
         $user = User::simplePaginate(3);
         return view('auth.user', compact('user'));
+    }
+
+    public function getTestFileRename(Request $request)
+    {
+        $value = $request->get('val');
+        $val = explode('_', $value);
+        $c = count($val);
+        $no_a = $c - (int)end($val);
+        if ($no_a <= 1) {
+            $file['no_file'] = preg_replace('/-/', '/', $val[0]);
+        }else{
+            for ($i=1; $i < $no_a-1 ; $i++) { 
+                $val[0] = $val[0].'_'.$val[$i];
+            }
+            $file['no_file'] = preg_replace('/-/', '/', $val[0]);
+        }
+        $file['nama_file'] = preg_replace('/\\.[^.\\s]{3,4}$/', '', end($val));
+        dd($file);
     }
 
 
