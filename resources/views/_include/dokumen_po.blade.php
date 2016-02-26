@@ -10,7 +10,7 @@
 		@foreach($actifity_all as $actifity)
 			@if($actifity->unit_id == $unit->id)
 				@foreach($dokumen_with_po as $dok_po)
-					@if($actifity->id == $dok_po->actifity_id)
+					@if($actifity->id == $dok_po->actifity_id && $dok_po->purchase_order === $po->po)
 					<div class="box box-default collapsed-box">
 						<div class="box-header with-border">
 							<h4 class="box-title">{{$actifity->nama_actifity}}</h4>

@@ -1,11 +1,26 @@
 @extends('./layout')
 
+@section('costom_style_pages')
+<style type="text/css">
+
+	a.nama-dokumen {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: N; /* number of lines to show */
+		line-height: X;        /* fallback */
+		max-height: X*N;       /* fallback */
+	}
+</style>
+@stop
+
 @section('content_main_pages')
 <!-- SELECT2 EXAMPLE -->
 		<div class="nav-tabs-custom">            
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-home"></i> {{$dokumen->asal_surat->nama_unit}}</a></li>
-				<li><a href="#"></a></li>
+				<li><a href="#">{{$dokumen->sub_jenis_dokumen->actifity->nama_actifity}}</a></li>
 				<li class="active">{{$dokumen['nama_dokumen']}}</li>
 			</ol>
             <ul class="nav nav-tabs">
@@ -42,11 +57,11 @@
 							</tr>
 							<tr>
 								<td>Nama Dokumen</td>
-								<td>{{$dokumen['no_dokumen']}}</td>
+								<td>{{$dokumen['nama_dokumen'] or 'kosong'}}</td>
 							</tr>
 							<tr>
 								<td>Nomor Dokumen</td>
-								<td>{{$dokumen['nama_dokumen'] or 'kosong'}}</td>
+								<td>{{$dokumen['no_dokumen']}}</td>
 							</tr>
 							<tr>
 								<td>Asal Dokumen</td>
@@ -58,7 +73,7 @@
 							</tr>
 							<tr>
 								<td>Nomer {{$dokumen->dokumen_sap->type}}</td>
-								<td><a href="@if($dokumen->dokumen_sap->no_sap) {{url('dokumen/no_sap')}}/{{$dokumen->dokumen_sap->type}}/{{$dokumen->dokumen_sap->no_sap}} @else {{url('dokumen/edit/')}}/{{$dokumen['id']}} @endif ">{{$dokumen->dokumen_sap->no_sap or 'Belum ada PR' }}</a></td>
+								<td><a href="@if($dokumen->dokumen_sap->no_sap) {{url('dokumen/sap')}}/{{$dokumen->dokumen_sap->type}}/{{$dokumen->dokumen_sap->no_sap}} @else {{url('dokumen/edit/')}}/{{$dokumen['id']}} @endif ">{{$dokumen->dokumen_sap->no_sap or 'Belum ada PR' }}</a></td>
 							</tr>
 							<tr>
 								<td>Tembsuan</td>
@@ -70,7 +85,7 @@
 							</tr>
 							<tr>
 								<td>Status</td>
-								<td><span class="btn-success btn-xs">Verifed</span></td>
+								<td><span class="@if($dokumen->status_dokumen->id === 1) btn-success @else btn-danger @endif btn-xs">{{strtoupper($dokumen->status_dokumen->nama_status)}}</span></td>
 							</tr>
 							<tr>
 								<td>Lokator</td>
@@ -85,10 +100,10 @@
 						<div class="col-md-12">
 						
 							@if(count($no_pr) == 1)
-								@include('_include.dokumen_pr')
+								@include('_include.dokumen_pr1')
 							@else
 								@foreach($no_pr as $pr)
-								<div class="box box-success box-solid collapsed-box">
+								<div class="box box-success box-solid">
 									<div class="box-header with-border">
 										<h3 class="box-title">Dokumen PR : {{$pr->pr}}</h3>
 										<div class="box-tools pull-right">
@@ -102,12 +117,13 @@
 								@endforeach
 							@endif
 							
+
 							@foreach($no_po as $po)
-							<div class="box box-success box-solid collapsed-box">
+							<div class="box box-success box-solid">
 								<div class="box-header with-border">
 									<h3 class="box-title">Dokumen PO : {{$po->po}}</h3>
 									<div class="box-tools pull-right">
-										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 									</div><!-- /.box-tools -->
 								</div><!-- /.box-header -->
 								<div class="box-body">

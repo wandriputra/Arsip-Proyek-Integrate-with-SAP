@@ -9,5 +9,8 @@ use App\Http\Controllers\Controller;
 
 class pengadaanController extends Controller
 {
-   
+   public function getIndex($value)
+   {
+   		
+   }
 }

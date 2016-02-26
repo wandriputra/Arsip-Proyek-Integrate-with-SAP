@@ -7,8 +7,6 @@
 		</div><!-- /.box-tools -->
 	</div><!-- /.box-header -->
 	<div class="box-body">
-		@foreach($dokumen_with_pr as $dok_pr)
-		@if($dok_pr->no_sap === $pr->pr)
 		<table class="table table-bordered">
 			<tbody>
 				<tr>
@@ -25,8 +23,5 @@
 				@endforeach
 			</tbody>
 		</table>
-		@endif
-		<?php break; ?>
-		@endforeach
 	</div>
 </div>

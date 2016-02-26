@@ -47,16 +47,42 @@
 	<li>
 		@foreach($folder as $key => $val)
 			<div class="col-md-2" style="height: 150px">
-				<a href="{{url('folder/index')}}" style="padding-top: -15px">
+				@if(stripos($val->short_text, $input))
+				<a href="{{url('dokumen/sap')}}/pr/{{$val->pr}}" style="padding-top: -15px">
 					<img src="{{url('data/folder.png')}}" alt="" width="100%">
 					<p class="folder-name text-center" style="overflow: hidden; text-overflow: clip;">
-						@if(stripos($val->short_text, $input)!==false)
-							{{$val->short_text}}
-						@elseif($val->po=='')
-							{{$val->pr}}
-						@else
-							{{$val->po}}
-						@endif
+					{{$val->short_text}}
+				@elseif(stripos($val->po, $input))
+				<a href="{{url('dokumen/sap')}}/po/{{$val->po}}" style="padding-top: -15px">
+					<img src="{{url('data/folder.png')}}" alt="" width="100%">
+					<p class="folder-name text-center" style="overflow: hidden; text-overflow: clip;">
+					po : {{$val->po}}
+				@elseif(stripos($val->pr, $input))
+				<a href="{{url('dokumen/sap')}}/pr/{{$val->pr}}" style="padding-top: -15px">
+					<img src="{{url('data/folder.png')}}" alt="" width="100%">
+					<p class="folder-name text-center" style="overflow: hidden; text-overflow: clip;">
+					pr : {{$val->pr}}
+				@elseif(stripos($val->cd, $input))
+				<a href="{{url('dokumen/sap')}}/cd/{{$val->cd}}" style="padding-top: -15px">
+					<img src="{{url('data/folder.png')}}" alt="" width="100%">
+					<p class="folder-name text-center" style="overflow: hidden; text-overflow: clip;">
+					cd : {{$val->cd}}
+				@elseif(stripos($val->gr, $input))
+				<a href="{{url('dokumen/sap')}}/gr/{{$val->gr}}" style="padding-top: -15px">
+					<img src="{{url('data/folder.png')}}" alt="" width="100%">
+					<p class="folder-name text-center" style="overflow: hidden; text-overflow: clip;">
+					gr : {{$val->gr}}
+				@elseif($val->po=='')
+				<a href="{{url('dokumen/sap')}}/pr/{{$val->pr}}" style="padding-top: -15px">
+					<img src="{{url('data/folder.png')}}" alt="" width="100%">
+					<p class="folder-name text-center" style="overflow: hidden; text-overflow: clip;">
+					pr : {{$val->pr}}
+				@else
+				<a href="{{url('dokumen/sap')}}/po/{{$val->po}}" style="padding-top: -15px">
+					<img src="{{url('data/folder.png')}}" alt="" width="100%">
+					<p class="folder-name text-center" style="overflow: hidden; text-overflow: clip;">
+					po : {{$val->po}}
+				@endif
 					</p>
 				</a>
 			</div>

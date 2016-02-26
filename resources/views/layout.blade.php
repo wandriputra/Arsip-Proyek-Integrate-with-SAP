@@ -90,7 +90,7 @@
                         <a href="{{url('folder')}}"><i class="fa fa-folder-o"></i> Folder</a>
                       </li>
                       <li>
-                        <a href="{{url('dokumen/list-file')}}"><i class="fa fa-file"></i> File</a>
+                        <a href="{{url('dokumen/list-file')}}"><i class="fa fa-file"></i> File {{Auth::user()->personil->unit->singkatan}}</a>
                       </li>
                       <li>
                         <a href="{{url('dokumen/upload')}}"><i class="fa fa-upload"></i> Upload Dokumen</a>

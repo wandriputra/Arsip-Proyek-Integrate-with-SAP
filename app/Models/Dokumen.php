@@ -139,6 +139,11 @@ class Dokumen extends Model
         }
     }
 
+    public function status_dokumen()
+    {
+        return $this->belongsTo('App\Models\Status_dokumen', 'status_dokumen_id');
+    }
+
     // public function scopePogrcd($query, $type, )
 
     

@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', function(){
 		return view('home');
 	});
+	
 	Route::controller('/sap', 'sapController');
 	Route::controller('/home', 'arsipController');
 	Route::controller('/personil', 'personilController');
@@ -25,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/pencarian', 'pencarianController');
 	Route::controller('/data', 'datamasterController');
 	Route::controller('/papi', 'papiController');
+	Route::controller('/pengadan', 'pengadaanController');
 	
 	Route::get('/auth/user-edit/', ['use'=>'userController', 'as'=>'edit-user']);
 	Route::get('/personil/personil-edit/', ['use'=>'userController', 'as'=>'edit-personil']);
