@@ -48,7 +48,7 @@
 					<select name="unit_id" id="" class="select-pl"  style="width: 90%;">
 						<option value="{{{$edit['unit_id'] or ''}}}">{{{$edit['unit']['nama_unit'] or ''}}} </option>
 						@foreach($unit as $unit)
-						<option value="{{$unit['id']}}">{{$unit['nama_unit']}}</option>
+						<option value="{{$unit['id']}}">{{$unit['nama_unit']}} ({{$unit['singkatan']}})</option>
 						@endforeach
 					</select> <a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
 				</div>

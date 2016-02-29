@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/pengadan', 'pengadaanController');
 	
 	Route::get('/auth/user-edit/', ['use'=>'userController', 'as'=>'edit-user']);
+	Route::get('/auth/user-delete/', ['use'=>'userController@delete-user', 'as'=>'delete-user']);
 	Route::get('/personil/personil-edit/', ['use'=>'userController', 'as'=>'edit-personil']);
 	Route::get('/personil/personil-hapus/', ['use'=>'userController', 'as'=>'hapus-personil']);
 	Route::get('/unit/unit-edit/', ['use'=>'unitController', 'as'=>'edit-unit']);

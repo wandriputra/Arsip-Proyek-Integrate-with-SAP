@@ -14,9 +14,8 @@
 	        <thead>
 	            <tr>
 	                <th width="10px">ID</th>
-	                <th>Nik</th>
 	                <th>Nama Personil</th>
-	                <th>Email</th>
+	                <!-- <th>Email</th> -->
 	                <th>Unit</th>
 	                <th>Jabatan</th>
 	                <th>Atasan</th>
@@ -47,9 +46,8 @@
 	        ajax: '{{url('personil/ajax-list-personil')}}',
 	        columns: [
 	            { data: 'id', name: 'id' },
-	            { data: 'nik', name: 'nik' },
 	            { data: 'nama_personil_singkatan', name: 'nama_personil_singkatan' },
-	            { data: 'email', name: 'email' },
+	            // { data: 'email', name: 'email' },
 	            { data: 'unit', name: 'unit' },
 	            { data: 'jabatan', name: 'jabatan' },
 	            { data: 'atasan', name: 'atasan' },

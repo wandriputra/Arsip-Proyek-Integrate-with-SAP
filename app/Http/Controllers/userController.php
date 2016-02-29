@@ -26,6 +26,7 @@ class userController extends Controller
     {
         $this->auth = $auth;
         $this->middleware('auth', ['except' => ['getLogin', 'postLogin', 'getRegister', 'postRegister']]);        
+        $this->middleware('admin', ['only' => ['getUserDelete',"getTambahUser","postTambahUser","getListUser","getAjaxListUser","getUserEdit","postUserEdit","getTestPaging","getTestFileRename"]]);        
     }
 
     public function getLogin()
@@ -107,7 +108,7 @@ class userController extends Controller
                 return $user['user']['username'];
             })
             ->addColumn('action', function($user){
-               return '<a href="'.route('edit-user').'/'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+               return '<a href="'.route('edit-user').'/'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a> <a href="'.route('delete-user').'/'.$user->id.'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
             })
             ->make(true);
     }
@@ -129,7 +130,7 @@ class userController extends Controller
     public function postUserEdit(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|between:5,30',
+            'username' => 'required|between:4,30',
             'password' => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
             'role_user_id' => 'required',
@@ -175,6 +176,12 @@ class userController extends Controller
         }
         $file['nama_file'] = preg_replace('/\\.[^.\\s]{3,4}$/', '', end($val));
         dd($file);
+    }
+
+    public function getUserDelete($value)
+    {
+        $user = user::find($value)->delete();
+        return redirect()->back();
     }
 
 

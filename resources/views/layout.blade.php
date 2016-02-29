@@ -101,6 +101,14 @@
               @show
               </div>
               <div class="col-md-9">
+                  <div class="flash-message">
+                    @foreach (['danger', 'warning', 'success', 'info', 'error'] as $msg)
+                      @if(Session::has('alert-' . $msg))
+                        <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                      @endif
+                    @endforeach
+                  </div> <!-- end .flash-message -->
+                  
                   @section('content_main_pages')
                   @show
               </div>
