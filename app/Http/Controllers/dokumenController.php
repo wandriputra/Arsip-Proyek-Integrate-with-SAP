@@ -260,10 +260,22 @@ class dokumenController extends Controller
 
     public function postUpload(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'file_pdf' => 'required',
+            'sub_jenis_dokumen' => 'required'
+        ]);
+
+        if($validator->fails()){
+            \Session::flash('alert-error','Lengkapi Input');
+            return redirect()->back();
+        }
+        
         $data['pr']= '';
         $data['po']= '';
         $data['gr']= '';
         $data['cd']= '';
+
         $file = $request->file('file_pdf');
 
         $data = array_merge($data, $request->all());
@@ -306,6 +318,7 @@ class dokumenController extends Controller
             $dataupload = $this->uploadfile($data, $file);
             return redirect("dokumen/detail/$dokumen->id");
         }
+        \Session::flash('alert-error','Maaf, hanya akun Administrator yang berhak mengkases module tersebut.');
         return redirect()->back();
     }
 

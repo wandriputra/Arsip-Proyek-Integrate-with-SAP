@@ -52,8 +52,11 @@ class userController extends Controller
         $attempt = $this->auth->attempt($request->except('_token', 'remember'), false);
         if ($attempt){
             $user = user::where('username',$request['username'])->firstOrFail();
-            if($user->status === 'N') 
-                return redirect()->back()->withMessages('Tidak Bisa Login. Status User Nonaktif.');
+            if(true) {
+                // var_dump($user);
+                \Session::flash('alert-info', 'User telah diaktifkan');
+                return redirect()->back();
+            }
         }   
         return ($attempt) ? redirect('/home') : redirect()->back()->withErrors('Gagal masuk!');
     }
@@ -108,7 +111,13 @@ class userController extends Controller
                 return $user['user']['username'];
             })
             ->addColumn('action', function($user){
-               return '<a href="'.route('edit-user').'/'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a> <a href="'.route('delete-user').'/'.$user->id.'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+                $edit_b = '<a href="'.route('edit-user').'/'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a> ';
+                if ($user['status'] === 'A') {
+                    $status_b = '<a href="'.route('delete-user').'/'.$user->id.'/A" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-trash"></i> Nonaktifkan</a>';
+                }else{
+                    $status_b = '<a href="'.route('delete-user').'/'.$user->id.'/N" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-eyes"></i> Aktfikan</a>';
+                }
+               return $edit_b.$status_b;
             })
             ->make(true);
     }
@@ -141,6 +150,7 @@ class userController extends Controller
                       ->withErrors($validator)
                       ->withInput();
         }
+
         $edit = $request->all();
 
         $user = user::find($request['id']);
@@ -178,9 +188,17 @@ class userController extends Controller
         dd($file);
     }
 
-    public function getUserDelete($value)
+    public function getUserDelete($value, $status)
     {
-        $user = user::find($value)->delete();
+        $user = user::find($value);
+        if($status == 'N'){
+            $user->status = 'A';
+            \Session::flash('alert-success', 'User telah dinonaktifkan');
+        }elseif($status == 'A'){
+            $user->status = 'N';
+            \Session::flash('alert-info', 'User telah diaktifkan');
+        }
+        $user->save();
         return redirect()->back();
     }
 

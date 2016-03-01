@@ -13,7 +13,7 @@
 	    <table class="table table-bordered" id="users-table">
 	        <thead>
 	            <tr>
-	                <th width="10px">ID</th>
+	                <th width="10px"></th>
 	                <th>Username</th>
 	                <th>Nama Personil</th>
 	                <th>Email</th>
@@ -44,7 +44,7 @@
 	        orderable:false,
 	        ajax: '{{url('auth/ajax-list-user')}}',
 	        columns: [
-	            { data: 'id', name: 'id' },
+	            { data: 'status', name: 'status', },
 	            { data: 'username', name: 'username' },
 	            { data: 'nama_personil', name: 'nama_personil' },
 	            { data: 'email', name: 'email' },

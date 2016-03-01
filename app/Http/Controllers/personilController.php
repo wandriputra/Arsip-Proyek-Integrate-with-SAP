@@ -17,6 +17,12 @@ use Datatables;
 
 class personilController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function getTambahPersonil($value='')
     {
     	$unit = Unit::all();

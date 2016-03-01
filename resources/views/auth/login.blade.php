@@ -23,17 +23,21 @@
         <a href="{{url('asset/index2.html')}}"><b>ARSIP INDARUNG-VI</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
+
+      @foreach (['danger', 'warning', 'success', 'info', 'error'] as $msg)
+        @if(Session::has('alert-' . $msg))
+          <div class="alert alert-dismissible alert-{{ $msg }}">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+          <p>{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+          </div>
+        @endif
+      @endforeach
+
       @if (count($errors) > 0)
           <div class="alert alert-dismissible alert-warning">
               <button type="button" class="close" data-dismiss="alert">×</button>
             <b>LOGIN GAGAL! </b><br>
             Mohon Periksa Kembali Username dan Password.
-          </div>
-      @endif
-      @if (Session::has('messages'))
-          <div class="alert alert-dismissible alert-warning">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-            <b>{{ Session::get('messages') }}</b>
           </div>
       @endif
         <p class="login-box-msg">Sign in to start your session</p>
