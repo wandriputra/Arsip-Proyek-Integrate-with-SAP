@@ -19,9 +19,7 @@
 <!-- SELECT2 EXAMPLE -->
 		<div class="box box-default">            
 			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-home"></i></a></li>
-				<li><a href="#"></a></li>
-				<li class="active"></li>
+				<li><b><i>Hasil Pencarian</i></b></li>
 			</ol>
 			<div class="box-body">	
 					<div class="row">

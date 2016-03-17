@@ -9,7 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Personil as Personil;
 use App\Models\Unit as Unit;
-use App\models\Jabatan as Jabatan;
+use App\Models\Jabatan as Jabatan;
+use App\Models\User;
 
 use Validator;
 use Auth;
@@ -76,7 +77,9 @@ class personilController extends Controller
             	return $personil['atasan']['nama_personil'];
             })
             ->addColumn('action', function($personil){
-               return '<a href="'.route('edit-personil').'/'.$personil->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="'.route('hapus-personil').'/'.$personil->id.'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</a>';
+                $edit_b = '<a href="'.route('edit-personil').'/'.$personil->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                $hapus_b = ' <a href="'.route('hapus-personil').'/'.$personil->id.'" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-trash"></i> Hapus</a>';
+                return $edit_b.$hapus_b;
             })        
             ->make(true);
     }
@@ -123,9 +126,12 @@ class personilController extends Controller
 
     public function getPersonilHapus($value='')
     {
-        if($value === 1) return redirect()->back();
-        Personil::where('id',$value)->delete();
-        return redirect()->back()
-                      ->withMassage('Berhasil dihapus');
+        // if($value === 1) return redirect()->back();
+        $personil = Personil::where('id',$value);
+        $user = User::where('personil_id', $value)->get();
+        foreach ($user as $key => $value) {
+            //set N to user status
+        }
+        // return redirect()->back()->withMassage('Berhasil dihapus');
     }
 }

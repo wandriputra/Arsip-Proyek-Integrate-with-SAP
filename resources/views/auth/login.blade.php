@@ -28,7 +28,7 @@
         @if(Session::has('alert-' . $msg))
           <div class="alert alert-dismissible alert-{{ $msg }}">
             <button type="button" class="close" data-dismiss="alert">×</button>
-          <p>{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+          <p>{{ Session::get('alert-' . $msg) }}</p>
           </div>
         @endif
       @endforeach

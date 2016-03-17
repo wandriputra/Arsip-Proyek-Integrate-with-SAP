@@ -12,17 +12,19 @@
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator Menu <span class="caret"></span></a>
   <ul class="dropdown-menu" role="menu">
     <li><a href="{{url('/auth/tambah-user')}}">Tambah User</a></li>
-    <li><a href="{{url('/auth/list-user')}}">List User</a></li>
+    <li><a href="{{url('/personil/tambah-personil')}}">Tambah Personil</a></li>
+    <li><a href="{{url('sap/upload-excel')}}">Tambah Unit</a></li>
     <li class="divider"></li>
-    <li><a href="{{url('sap/upload-excel')}}">Upload File SAP</a></li>
-    <li><a href="{{url('dokumen/list-dokumen')}}">List File</a></li>
+    <li><a href="{{url('unit/list-unit')}}">List Unit</a></li>
+    <li><a href="{{url('/auth/list-user')}}">List User</a></li>
+    <li><a href="{{url('/personil/list-personil')}}">List Personil</a></li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Personil <span class="caret"></span></a>
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">File SAP <span class="caret"></span></a>
   <ul class="dropdown-menu" role="menu">
-    <li><a href="{{url('/personil/tambah-personil')}}">Tambah Personil</a></li>
-    <li><a href="{{url('/personil/list-personil')}}">List Personil</a></li>
+    <li><a href="{{url('sap/upload-excel')}}">Upload File SAP</a></li>
+    <li><a href="{{url('sap/view-upload-data')}}">List File</a></li>
   </ul>
 </li>
 

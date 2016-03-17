@@ -33,6 +33,6 @@ class Personil extends Model
 
     public function user($value='')
     {
-    	return $this->belongsTo('App\Models\User');
+    	return $this->hasMany('App\Models\User');
     }
 }

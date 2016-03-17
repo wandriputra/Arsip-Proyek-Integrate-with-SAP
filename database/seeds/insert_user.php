@@ -16,7 +16,7 @@ class insert_user extends Seeder
 
     	$user = [
     		array('id' => 1,'username' => 'root','password' => bcrypt('root'),'status' => 'A',),
-    		array('id' => 2,'username' => 'guest','password' => bcrypt('guest'),'status' => 'N',)];
+    		array('id' => 2,'username' => 'guest','password' => bcrypt('guest'),'status' => 'A',)];
             
      	DB::table('user')->insert($user);
     }
