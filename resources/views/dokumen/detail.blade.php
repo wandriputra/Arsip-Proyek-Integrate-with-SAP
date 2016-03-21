@@ -1,7 +1,7 @@
 @extends('./layout')
 
-@section('costom_style_pages')
-<style type="text/css">
+@section('important_css')
+<style>
 
 	a.nama-dokumen {
 		overflow: hidden;
@@ -11,6 +11,10 @@
 		-webkit-line-clamp: N; /* number of lines to show */
 		line-height: X;        /* fallback */
 		max-height: X*N;       /* fallback */
+	}
+
+	.box-header > .fa{
+		font-size: 12px;
 	}
 </style>
 @stop
@@ -104,11 +108,9 @@
 							@else
 								@foreach($no_pr as $pr)
 								<div class="box box-success box-solid">
-									<div class="box-header with-border">
+									<div class="box-header with-border" data-widget="collapse">
+									<i class="fa fa-plus"></i>
 										<h3 class="box-title">Dokumen PR : {{$pr->pr}}</h3>
-										<div class="box-tools pull-right">
-											<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-										</div><!-- /.box-tools -->
 									</div><!-- /.box-header -->
 									<div class="box-body">
 										@include('_include.dokumen_pr')
@@ -120,11 +122,10 @@
 
 							@foreach($no_po as $po)
 							<div class="box box-success box-solid">
-								<div class="box-header with-border">
+								<div class="box-header with-border" data-widget="collapse">
+									<i class="fa fa-minus"></i>
 									<h3 class="box-title">Dokumen PO : {{$po->po}}</h3>
-									<div class="box-tools pull-right">
-										<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-									</div><!-- /.box-tools -->
+									
 								</div><!-- /.box-header -->
 								<div class="box-body">
 									@include('_include.dokumen_po')

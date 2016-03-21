@@ -285,8 +285,8 @@ class dokumenController extends Controller
        
         $filename = $this->fileRename($data['file_name_pdf']);
 
-        $data['no_dokumen'] = $filename['no_file'];
-        $data['nama_dokumen'] = $filename['nama_file'];
+        $data['no_dokumen'] = $filename['nama_file'];
+        $data['nama_dokumen'] = $filename['no_file'];
         $data['status_id'] = $this->status_id;
         $data['sub_jenis_id'] = $data['sub_jenis_dokumen'];
         $data['visibility_id'] = $data['visibility'];

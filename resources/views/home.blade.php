@@ -7,13 +7,15 @@
 @section('content_main_pages')
 <div class="box box-primary">
 	<div class="box-body">
-			<div class="row">
+      <div class="text-center"><h3>Selamat Datang di Apliaksi Arsip proyek Indarung VI</h3></div>
+      <br><br>
+      			<div class="row">
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
                   <h3>150</h3>
-                  <p>New Orders</p>
+                  <p>New Dokument</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>

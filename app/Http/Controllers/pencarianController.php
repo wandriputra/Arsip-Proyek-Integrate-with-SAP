@@ -15,6 +15,7 @@ class pencarianController extends Controller
 {
     public function getIndex(Request $request){
     	$input = $request->input('q');
+        $type = $request->input('type');
     	$dokumen = ($input !== '') ? $this->cariFiles($input) : '' ;
     	$folder = ($input !== '') ? $this->cariFolders($input) : '' ;
     	// var_dump($dokumen);
@@ -23,7 +24,7 @@ class pencarianController extends Controller
     	}else{
     		$include = '_include.fail-pencarian';
     	}
-    	return view('pencarian', compact('dokumen', 'include', 'input', 'folder'));
+    	return view('pencarian', compact('dokumen', 'include', 'input', 'folder', 'type'));
     }
 
     private function cariFiles($input)

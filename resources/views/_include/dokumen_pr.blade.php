@@ -7,6 +7,10 @@
 		</div><!-- /.box-tools -->
 	</div><!-- /.box-header -->
 	<div class="box-body">
+		@if(count($dokumen_with_pr)<=0)
+		<a href="#" class="text-center btn btn-warning btn-xs">Upload Dokumen</a>
+		@endif
+		
 		@foreach($dokumen_with_pr as $dok_pr)
 		@if($dok_pr->no_sap === $pr->pr)
 		<table class="table table-bordered">
