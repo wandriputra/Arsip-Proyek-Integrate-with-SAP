@@ -103,9 +103,6 @@
 					
 						<div class="col-md-12">
 						
-							@if(count($no_pr) == 1)
-								@include('_include.dokumen_pr1')
-							@else
 								@foreach($no_pr as $pr)
 								<div class="box box-success box-solid">
 									<div class="box-header with-border" data-widget="collapse">
@@ -117,7 +114,6 @@
 									</div>
 								</div>
 								@endforeach
-							@endif
 							
 
 							@foreach($no_po as $po)

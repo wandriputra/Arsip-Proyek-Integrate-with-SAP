@@ -14,17 +14,35 @@ use App\Models\Dokumen_po;
 class pencarianController extends Controller
 {
     public function getIndex(Request $request){
-    	$input = $request->input('q');
+    	
+        $input = $request->input('q');
         $type = $request->input('type');
-    	$dokumen = ($input !== '') ? $this->cariFiles($input) : '' ;
-    	$folder = ($input !== '') ? $this->cariFolders($input) : '' ;
-    	// var_dump($dokumen);
+
+        if($type=='file_pdf'){
+            $dokumen = ($input !== '') ? $this->cariFiles($input) : '' ;
+            $folder = [];
+        }elseif ($type=='no_sap') {
+            $folder = ($input !== '') ? $this->cariFolders($input) : '' ;
+            $dokumen = [];
+            # code...
+        }else{
+            $folder =[];
+            $dokumen =[];
+        }
+    	
+        // var_dump($dokumen);
+
     	if ($dokumen != [] || $dokumen != '' && $folder != [] || $folder != '' && $input!= '') {
     		$include = '_include.hasil-pencarian';
     	}else{
     		$include = '_include.fail-pencarian';
     	}
-    	return view('pencarian', compact('dokumen', 'include', 'input', 'folder', 'type'));
+
+        // if (\Request::ajax()) {
+        //     return \Response::json(\View::make('pencarian', compact('dokumen', 'include', 'input', 'folder', 'type'))->render());
+        // }
+    	
+        return view('pencarian', compact('dokumen', 'include', 'input', 'folder', 'type'));
     }
 
     private function cariFiles($input)

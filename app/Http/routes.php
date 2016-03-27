@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/data', 'datamasterController');
 	Route::controller('/papi', 'papiController');
 	Route::controller('/pengadan', 'pengadaanController');
+	Route::controller('/pjax', 'pjaxController');
 	
 	Route::get('/auth/user-edit/', ['use'=>'userController', 'as'=>'edit-user']);
 	Route::get('/auth/user-delete/', ['use'=>'userController@delete-user', 'as'=>'delete-user']);

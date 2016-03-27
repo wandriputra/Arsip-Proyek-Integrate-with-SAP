@@ -15,32 +15,45 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+      .login-container{
+        padding: 150px;
+      }
+      .akses-link > a{
+        margin: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
   <body class="hold-transition login-page">
-    <div class="login-box">
+    <div class="container login-container">
 
       <div class="login-logo">
-        <a href="{{url('asset/index2.html')}}"><b>ARSIP INDARUNG-VI</b></a>
+        <a href="{{url('/')}}">
+          <img src="http://10.15.3.68/ecommissioning/img/logo.png" width="30px;" alt=""><b>ARSIP INDARUNG-VI</b></a>
       </div><!-- /.login-logo -->
-      <div class="login-box-body">
 
-      @foreach (['danger', 'warning', 'success', 'info', 'error'] as $msg)
-        @if(Session::has('alert-' . $msg))
-          <div class="alert alert-dismissible alert-{{ $msg }}">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-          <p>{{ Session::get('alert-' . $msg) }}</p>
-          </div>
-        @endif
-      @endforeach
-
-      @if (count($errors) > 0)
-          <div class="alert alert-dismissible alert-warning">
+      <div class="login-box-body row">
+      <div class="col-md-8">
+         
+      </div>
+      <div class="col-md-4 ">
+        @foreach (['danger', 'warning', 'success', 'info', 'error'] as $msg)
+          @if(Session::has('alert-' . $msg))
+            <div class="alert alert-dismissible alert-{{ $msg }}">
               <button type="button" class="close" data-dismiss="alert">×</button>
-            <b>LOGIN GAGAL! </b><br>
-            Mohon Periksa Kembali Username dan Password.
-          </div>
-      @endif
-        <p class="login-box-msg">Sign in to start your session</p>
+            <p>{{ Session::get('alert-' . $msg) }}</p>
+            </div>
+          @endif
+        @endforeach
+
+        @if (count($errors) > 0)
+            <div class="alert alert-dismissible alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+              <b>LOGIN GAGAL! </b><br>
+              Mohon Periksa Kembali Username dan Password.
+            </div>
+        @endif
         <form role="form" method="POST" action="{{ url('/auth/login') }}">
           {!! csrf_field() !!}
           <div class="form-group">
@@ -64,10 +77,11 @@
             </div><!-- /.col -->
           </div>
         </form>
-
-        <a href="{{url('reset_password')}}">Lupa Password</a><br>
-        <a href="{{url('register')}}" class="text-center">Minta Akses Login</a>
-
+        <div class="akses-link"> 
+            <a href="{{url('reset_password')}}">Lupa Password</a><br>
+            <a href="{{url('register')}}">Minta Akses Login</a>
+        </div>
+      </div>
       </div><!-- /.login-box-body -->
 
     </div><!-- /.login-box -->

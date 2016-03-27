@@ -34,6 +34,10 @@
 		border-bottom: 3px solid #444;
 	}
 
+	.active > a{
+		color: #444;
+	}
+
 	.box-header {
 		padding-bottom: 0px;
 	}
@@ -81,9 +85,9 @@
 	@if($input !='')
 	<div class="box-footer clearfix text-center">
 		@if(count($dokumen) > count($folder))
-			{!! $dokumen->appends(['q' => $input, 'type'=> $type])->render() !!}
+			{!! $dokumen->appends(['type'=> $type, 'q' => $input])->render() !!}
 		@else
-			{!! $folder->appends(['q' => $input, 'type'=> $type])->render() !!}
+			{!! $folder->appends(['type'=> $type, 'q' => $input])->render() !!}
 		@endif
     </div>
     @endif

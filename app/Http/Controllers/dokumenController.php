@@ -70,7 +70,7 @@ class dokumenController extends Controller
         }
     } 
 
-    public function getUpload()
+    public function getUpload(Request $request)
     {
         $role = $this->cekRole();
         $actifity = '';
@@ -78,11 +78,17 @@ class dokumenController extends Controller
         $view ='';
         $gr = '';
         $cd ='';
+        $unit_id = $request->input('unit');
+
         switch ($role) {
             case 'admin':
                 $view = 'dokumen.upload_'.$role;
                 $actifity = Actifity::all();
-                $unit = unit::all();
+                if ($request->input('unit')!=null) {
+                    $unit = unit::where('id', $unit_id)->get();
+                }else{
+                    $unit = unit::all();
+                }
                 $visibility = Visibility::all();
                 break;
 
@@ -285,8 +291,8 @@ class dokumenController extends Controller
        
         $filename = $this->fileRename($data['file_name_pdf']);
 
-        $data['no_dokumen'] = $filename['nama_file'];
-        $data['nama_dokumen'] = $filename['no_file'];
+        $data['no_dokumen'] = $filename['no_file'];
+        $data['nama_dokumen'] = $filename['nama_file'];
         $data['status_id'] = $this->status_id;
         $data['sub_jenis_id'] = $data['sub_jenis_dokumen'];
         $data['visibility_id'] = $data['visibility'];

@@ -30,7 +30,7 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="{{url('/')}}" class="navbar-brand"><b>ARSIP INDARUNG-VI</b></a>
+              <img src="http://10.15.3.68/ecommissioning/img/logo.png" height="50px" alt=""><a href="{{url('/')}}" class="navbar-brand"><b>ARSIP INDARUNG-VI</b></a>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
               </button>
@@ -87,7 +87,7 @@
                     <p class="text-center">Menu Aplikasi</p>
                     <ul class="nav nav-stacked">
                       <li>
-                        <a href="{{url('pencarian')}}"><i class="fa fa-search"></i> Pencarian</a>
+                        <a href="{{url('pencarian/?type=file_pdf&q=')}}"><i class="fa fa-search"></i> Pencarian</a>
                       </li>
                       <li>
                         <a href="{{url('folder')}}"><i class="fa fa-folder-o"></i> Folder</a>
