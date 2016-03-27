@@ -85,7 +85,9 @@
 					cache: true
 					}
 			});
+<?php 
 
+//if($_GET) select po ?>
 			$(".select_po").select2({
 				placeholder: "Type Something...",
 				ajax: {
