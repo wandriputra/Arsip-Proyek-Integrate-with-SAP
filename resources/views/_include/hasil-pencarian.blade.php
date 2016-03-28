@@ -1,5 +1,4 @@
 @if(count($dokumen) >= 1)
-	<div class="text-hasil-pencarian">File Hasil Pencarian</div>
 	<ul class="nav nav-stacked">
 		@foreach($dokumen as $dokumen)
 		<li>
@@ -42,7 +41,6 @@
 	</ul>
 @endif
 @if(count($folder) >= 1)
-<div class="text-hasil-pencarian">SAP Hasil Pencarian Hasil Pencarian</div>
 <ul class="nav nav-stacked">
 	<li>
 		@foreach($folder as $key => $val)

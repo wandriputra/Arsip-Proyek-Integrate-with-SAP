@@ -129,7 +129,7 @@ class dokumenController extends Controller
     public function getDetail($id='')
     {
         if($id === '') return redirect("folder");
-        $dokumen = Dokumen::where('id', $id)->firstOrFail();
+        $dokumen = Dokumen::where('id', $id)->orWhere('no_dokumen', $id)->firstOrFail();
         $no_sap = $dokumen->dokumen_sap->no_sap;
         $type = $dokumen->dokumen_sap->type;
         $dokumen_with_pr = [];
@@ -269,11 +269,11 @@ class dokumenController extends Controller
 
         $validator = Validator::make($request->all(), [
             'file_pdf' => 'required',
-            'sub_jenis_dokumen' => 'required'
+            'sub_jenis_dokumen' => 'required',
         ]);
 
         if($validator->fails()){
-            \Session::flash('alert-error','Lengkapi Input');
+            \Session::flash('alert-warning', 'Lengkapi Kembali Input Sebelum Upload');
             return redirect()->back();
         }
         
@@ -292,6 +292,17 @@ class dokumenController extends Controller
         $filename = $this->fileRename($data['file_name_pdf']);
 
         $data['no_dokumen'] = $filename['no_file'];
+        
+        $validator = Validator::make($data, [
+            'no_dokumen' => 'unique:dokumen|max:255',
+        ]);
+
+        if($validator->fails()){
+            $url = url("dokumen/detail/$data[no_dokumen]");
+            \Session::flash('alert-info', "No Dokumen <a href='$url'>$data[no_dokumen]</a> Sudah ada");
+            return redirect()->back();
+        }
+
         $data['nama_dokumen'] = $filename['nama_file'];
         $data['status_id'] = $this->status_id;
         $data['sub_jenis_id'] = $data['sub_jenis_dokumen'];
