@@ -16,15 +16,18 @@ class folderController extends Controller
 
     public function getIndex($id='')
     {
-    	if ($id=='') {
-    		$folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', null)->get();
-    		// $breadcumb[0] = Auth::user()->personil->unit->nama_unit;
-    	}else {
-    		$folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', $id)->get();
-    	}
-        $file = $this->getFilePengadaan($id);
-
-        return view('folder.listing', compact('folder', 'id', 'breadcumb', 'file'));
+        if (\App::environment('local')) {
+            return view('folder.listing', compact('folder', 'id', 'breadcumb', 'file'));
+    	}else{
+            if ($id=='') {
+        		$folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', null)->get();
+        		// $breadcumb[0] = Auth::user()->personil->unit->nama_unit;
+        	}else {
+        		$folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', $id)->get();
+        	}
+            $file = $this->getFilePengadaan($id);
+            return view('folder.production');
+        }
     }
 
     private function getFilePengadaan($id='')
