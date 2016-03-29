@@ -1,12 +1,12 @@
 <!-- User Unit Sebelum dan Sesudah Pengadaan -->
-<!-- <div class="box @if(count($no_pr) == 1) box-success @else box-default @endif  box-solid collapsed-box">
+<div class="box @if(count($no_pr) == 1) box-success @else box-default @endif  box-solid collapsed-box">
 	<div class="box-header with-border">
 		<h3 class="box-title">Dokumen User</h3>
 		<div class="box-tools pull-right">
 			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-		</div> /.box-tools -->
-	<!-- </div>/.box-header -->
-	<!-- <div class="box-body"> -->
+		</div> 
+	</div>
+	<div class="box-body">
 
 		<div class="pull-right">
 			<a href="#" class="text-center btn btn-warning btn-xs"><i class="fa fa-plus"></i> Upload</a> 
@@ -48,4 +48,4 @@
 		@endif
 		<?php break; ?>
 		@endforeach
-<!-- 	</div></div>-->
+ 	</div></div>
