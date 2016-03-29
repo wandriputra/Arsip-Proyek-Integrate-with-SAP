@@ -22,6 +22,8 @@ use Datatables;
 class sapController extends Controller
 {
 	public $data = 0;
+    public $create_table = true;
+
 
     public function getUploadExcel($value='')
     {
@@ -30,23 +32,25 @@ class sapController extends Controller
 
     public function postUploadExcel(Request $request)
     {
-    	$file1 = $request->file('format1');
-        $format = $file1->getClientOriginalExtension();
+    	$file = $request->file('format1');
+        $format = $file->getClientOriginalExtension();
     	$filename = $request['format1'];
         
+        $file1 = $file->getPathName();
+
         if (Schema::hasTable('sap_')) {
             Schema::drop('sap_');
         }
 
-		Excel::load($file1, function($reader){
-            $this->data = $reader->get();
-		});
-
-        if ($format === 'csv') {
-            $this->makeMigrationCsv();
-        }else{
-            $this->makeMigrationXls();
-        }
+        Excel::filter('chunk')->load($file1)->chunk(100, function($results) use ($format)
+        {
+            $this->data = $results;
+            // if ($format === 'csv') {
+                $this->makeMigrationCsv();
+            // }else{
+                // $this->makeMigrationXls();
+            // }
+        });
         // var_dump($this->data);
 
         return redirect('/sap/view-upload-data');
@@ -69,14 +73,15 @@ class sapController extends Controller
     private function makeMigrationCsv(){
         //create table csv
 
-    	Schema::create('sap_', function (Blueprint $table) {
-            $table->increments('id');
-            foreach ($this->data[0] as $key => $value) {
-                $table->string($key)->nullable();
-            }
-    	});
+        if (!Schema::hasTable('sap_')) {
+            Schema::create('sap_', function (Blueprint $table) {
+                $table->increments('id');
+                foreach ($this->data[0] as $key => $value) {
+                    $table->string($key)->nullable();
+                }
+            });
+        }
 
-        DB::table('sap_')->delete();
         for ($i=0; $i < count($this->data); $i++) { 
             foreach ($this->data[$i] as $key => $value) {
                 $array[$i][$key] = $value;
@@ -88,15 +93,16 @@ class sapController extends Controller
 
     private function makeMigrationXls(){
         //create table excel pakai 
-        Schema::create('sap_', function (Blueprint $table) {
-            $table->increments('id');
-            foreach (array_keys($this->data[0][0]) as $key => $value) {
-                $table->string($value)->nullable();
-            }
-        });
+        if(!Schema::hasTable('sap_')){
+            Schema::create('sap_', function (Blueprint $table) {
+                $table->increments('id');
+                foreach (array_keys($this->data[0]) as $key => $value) {
+                    $table->string($value)->nullable();
+                }
+            });
+        }
 
-        DB::table('sap_')->delete();
-        foreach ($this->data[0] as $value) {
+        foreach ($this->data as $value) {
             DB::table('sap_')->insert($value);
         }
         return true;

@@ -31,7 +31,7 @@ return array(
         */
         'settings' => array(
 
-            'memoryCacheSize' => '32MB',
+            'memoryCacheSize' => '1024MB',
             'cacheTime'       => 600
 
         ),
@@ -42,10 +42,8 @@ return array(
         |--------------------------------------------------------------------------
         */
         'memcache' => array(
-
             'host' => 'localhost',
             'port' => 11211,
-
         ),
 
         /*
@@ -107,7 +105,6 @@ return array(
     */
 
     'creator'    => 'Maatwebsite',
-
     'csv'        => array(
         /*
        |--------------------------------------------------------------------------

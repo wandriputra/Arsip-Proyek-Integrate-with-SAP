@@ -23,13 +23,13 @@
                       			<p class="help-block">*Upload File CN52N Export SAP format .xlsx</p>
                     		</div>
                     	</div>
-                    	<div class="form-group">
+                    	<!-- <div class="form-group">
                       		<label for="exampleInputFile" class="col-sm-2 control-label">Input SAP</label>
                       		<div class="col-sm-10">
                       			<input type="file" id="exampleInputFile" name="format2">
                       			<p class="help-block">*Upload File ZCPS1013 Export SAP format .xlsx</p>
                     		</div>
-                    	</div>
+                    	</div> -->
 						<div class="box-footer">
 							<div class="">
 								<button type="reset" class="btn btn-default col-md-2">Reset</button>
