@@ -42,7 +42,7 @@ class sapController extends Controller
             Schema::drop('sap_');
         }
 
-        Excel::filter('chunk')->load($file1)->chunk(100, function($results) use ($format)
+        Excel::filter('chunk')->load($file1)->chunk(500, function($results) use ($format)
         {
             $this->data = $results;
             // if ($format === 'csv') {

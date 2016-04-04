@@ -68,7 +68,7 @@ class dokumenController extends Controller
                 return redirect('/');
                 break;
         }
-    } 
+    }
 
     public function getUpload(Request $request)
     {
@@ -79,8 +79,9 @@ class dokumenController extends Controller
         $gr = '';
         $cd ='';
         $unit_id = $request->input('unit');
+        $unit_id = $request->input('unit');
 
-        switch ($role) {
+    switch ($role) {
             case 'admin':
                 $view = 'dokumen.upload_'.$role;
                 $actifity = Actifity::all();
@@ -89,33 +90,38 @@ class dokumenController extends Controller
                 }else{
                     $unit = unit::all();
                 }
+                $unit_tujuan = unit::all();
                 $visibility = Visibility::all();
                 break;
 
             case 'user':
                 $view = 'dokumen.upload_'.$role;
-                $unit = unit::all();
+                $unit = unit::where('id', Auth::user()->personil->unit->id)->get();
+                $unit_tujuan = unit::all();
                 $actifity = Actifity::where('unit_id', 1)->get();
                 $visibility = Visibility::all();
                 break;
 
             case 'procurement':
                 $view = 'dokumen.upload_'.$role;
-                $unit = unit::all();
+                $unit = unit::where('id', 19)->get();
+                $unit_tujuan = unit::all();
                 $actifity = Actifity::where('unit_id', 19)->get();
                 $visibility = Visibility::all();
                 break;
 
             case 'warehouse':
                 $view = 'dokumen.upload_'.$role;
-                $unit = unit::all();
+                $unit = unit::where('id', $unit_id)->get();
+                $unit_tujuan = unit::all();
                 $actifity = Actifity::where('unit_id', 23)->get();
                 $visibility = Visibility::all();
                 break;
 
             case 'accounting':
                 $view = 'dokumen.upload_'.$role;
-                $unit = unit::all();
+                $unit = unit::where('id', $unit_id)->get();
+                $unit_tujuan = unit::all();
                 $actifity = Actifity::where('unit_id', 25)->get();
                 $visibility = Visibility::all();
                 break;
@@ -123,7 +129,7 @@ class dokumenController extends Controller
             default:
                 break;
         }
-        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity'));
+        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'unit_tujuan'));
     }
 
     public function getDetail($id='')
@@ -496,7 +502,7 @@ class dokumenController extends Controller
         }
         return Datatables::of($dataSql)
             ->addColumn('link_to_file', function($dataSql){
-                return '<a href="'.url("dokumen/detail").'/'.$dataSql['id'].'">'.$dataSql['no_dokumen'].'</a>' ;
+                return '<a href="'.url("dokumen/detail").'/'.$dataSql['id'].'">'.$dataSql['nama_dokumen'].'</a>' ;
             })
             ->addColumn('actifity', function($dataSql){
                 return $dataSql->sub_jenis_dokumen->actifity->nama_actifity.' / '.$dataSql->sub_jenis_dokumen->nama_sub;
@@ -504,13 +510,74 @@ class dokumenController extends Controller
             ->addColumn('no_sap', function($dataSql){
                 return '<a href="'.url("dokumen/detail").'/'.$dataSql['id'].'">'.strtoupper($dataSql->dokumen_sap->type).': '.$dataSql->dokumen_sap->no_sap.'</a>';
             })
+            ->addColumn('action', function($dataSql){
+                return '<a href="'.url("dokumen/delete").'/'.$dataSql['id'].'" class="btn btn-warning btn-xs">Delete</a> <a href="'.url("dokumen/edit").'/'.$dataSql['id'].'" class="btn btn-info btn-xs">Edit</a>';
+            })
             ->make(true);
     }
 
-    public function getEdit($id)
+    public function getDelete($id='')
     {
         $dokumen = Dokumen::where('id', $id)->firstOrFail();
-        return view('dokumen.edit', compact('dokumen'));
+        Dokumen::where('id', $id)->delete();
+        Storage::delete($dokumen['lokasi_file_pdf'].$dokumen['file_name_pdf']);
+        return redirect('dokumen/list-file');
+    }
+
+    public function getEdit($id, Request $request)
+    {
+        $role = $this->cekRole();
+        $unit_id = $request->input('unit');
+        switch ($role) {
+            case 'admin':
+                $view = 'dokumen.upload_'.$role;
+                $actifity = Actifity::all();
+                if ($request->input('unit')!=null) {
+                    $unit = unit::where('id', $unit_id)->get();
+                }else{
+                    $unit = unit::all();
+                }
+                $unit_tujuan = unit::all();
+                $visibility = Visibility::all();
+                break;
+
+            case 'user':
+                $view = 'dokumen.upload_'.$role;
+                $unit = unit::where('id', Auth::user()->unit->unit_id)->get();
+                $unit_tujuan = unit::all();
+                $actifity = Actifity::where('unit_id', 1)->get();
+                $visibility = Visibility::all();
+                break;
+
+            case 'procurement':
+                $view = 'dokumen.upload_'.$role;
+                $unit = unit::where('id', 19)->get();
+                $unit_tujuan = unit::all();
+                $actifity = Actifity::where('unit_id', 19)->get();
+                $visibility = Visibility::all();
+                break;
+
+            case 'warehouse':
+                $view = 'dokumen.upload_'.$role;
+                $unit = unit::where('id', $unit_id)->get();
+                $unit_tujuan = unit::all();
+                $actifity = Actifity::where('unit_id', 23)->get();
+                $visibility = Visibility::all();
+                break;
+
+            case 'accounting':
+                $view = 'dokumen.upload_'.$role;
+                $unit = unit::where('id', $unit_id)->get();
+                $unit_tujuan = unit::all();
+                $actifity = Actifity::where('unit_id', 25)->get();
+                $visibility = Visibility::all();
+                break;
+
+            default:
+                break;
+        }
+        $dokumen = Dokumen::where('id', $id)->firstOrFail();
+        return view('dokumen.edit', compact('dokumen','unit', 'visibility', 'view', 'actifity', 'unit_tujuan'));
     }
 
     public function getSap($type, $no_sap)

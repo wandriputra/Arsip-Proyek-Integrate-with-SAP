@@ -41,7 +41,7 @@
 		<div class="col-md-6">
 			<select name="unit_tujuan" class="form-control select2" id="" style="width: 90%;">
 				<option value="" selected></option>
-				@foreach($unit as $tujuan_surat)
+				@foreach($unit_tujuan as $tujuan_surat)
 					@if($tujuan_surat['id'] != '1')
 						<option value="{{$tujuan_surat['id']}}">({{$tujuan_surat['singkatan']}}) {{$tujuan_surat['nama_unit']}}</option>
 					@endif
@@ -53,7 +53,7 @@
 		<label class="col-sm-3 control-label">Tembusan</label>
 		<div class="col-sm-9">
 			<select class="form-control select2" name="tembusan" multiple="multiple" data-placeholder="Tembusan Surat" style="width: 100%;">
-				@foreach($unit as $tembusan)
+				@foreach($unit_tujuan as $tembusan)
 					<option value="{{$tembusan['id']}}">{{$tembusan['nama_unit'].' ('.$tembusan['singkatan'].')'}}</option>
 				@endforeach
 			</select>

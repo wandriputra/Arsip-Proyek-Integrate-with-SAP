@@ -17,11 +17,11 @@
 				<table class="table table-bordered table-hover" id="arsip" width="100%" style="font-size:12px">
 		            <thead>
 		                <tr>
-		                    <th class="text-center">ID</th>
+		                    <th></th>
 		                    <th class="text-center">Nama Dokumen</th>
-		                    <th class="text-center">No Dokumen</th>
 		                    <th class="text-center">Actifity</th>
 		                    <th class="text-center">No SAP</th>
+		                    <th class="text-center">Action</th>
 		                </tr>
 		            </thead>
 		        </table>
@@ -49,10 +49,10 @@
 	        @endif
 	        columns: [
 	         	{ data: 'id', name:'id', orderable:false},
-	         	{ data: 'nama_dokumen', name:'nama_dokumen', orderable:false},
 	         	{ data: 'link_to_file', name:'link_to_file', orderable:false},
 	         	{ data: 'actifity', name:'actifity', orderable:false},
 	         	{ data: 'no_sap', name:'no_sap', orderable:false},
+	         	{ data: 'action', name:'action', orderable:false},
 	        ]
 	    });
 	</script>
