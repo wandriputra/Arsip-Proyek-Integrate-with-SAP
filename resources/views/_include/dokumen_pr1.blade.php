@@ -8,18 +8,18 @@
 		<table class="table table-bordered">
 			<tbody>
 				<tr>
-					<td></td>
-					<td class="text-center"><b>Jenis Dokumen</b></td>
-					<td class="text-center"><b>Nama Dokumen</b></td>
+					<td>#</td>
 					<td class="text-center"><b>No Dokumen</b></td>
+					<td class="text-center"><b>Jenis</b></td>
+					<!-- <td class="text-center"><b>Nama Dokumen</b></td> -->
 				</tr>
 				<?php $i=1 ?>
 				@foreach($dokumen_with_pr as $dok_pr_cetak)
 				<tr>
-					<td class="text-center">{{$i++}}</td>
+					<td>{!!$i++!!}</td>
+					<td><a href="{{url('dokumen/detail/')}}/{{$dok_pr_cetak->dokumen_id}}">{{$dok_pr_cetak->no_dokumen}} <i class="fa fa-check-circle"></i></a></td>
 					<td>{{$dok_pr_cetak->nama_sub}}</td>
-					<td>{{$dok_pr_cetak->nama_dokumen}}</td>
-					<td><a href="{{url('dokumen/detail/')}}/{{$dok_pr_cetak->dokumen_id}}">{{$dok_pr_cetak->no_dokumen}}</a></td>
+					<!-- <td>{{$dok_pr_cetak->nama_dokumen}}</td> -->
 				</tr>
 				@endforeach
 			</tbody>

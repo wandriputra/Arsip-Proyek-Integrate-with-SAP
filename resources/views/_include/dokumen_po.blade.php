@@ -1,14 +1,14 @@
 	@foreach($unit_po as $unit)
-	<div class="box box-default box-solid collapsed-box">
+	<div class="box box-default box-solid  @if($dokumen->asal_surat->nama_unit !== $unit->nama_unit) collapsed-box @endif">
 		<div class="box-header with-border" data-widget="collapse">
 			<i class="fa fa-plus"></i>
 			<h3 class="box-title">Dokumen {{$unit->nama_unit}}</h3>
 		</div><!-- /.box-header -->
 		<div class="box-body">
-		<div class="pull-right">
-			<a href='{{url("dokumen/upload?po=$po->po&amp;unit=$unit->id")}}' class="text-center btn btn-warning btn-xs"><i class="fa fa-plus"></i> Upload</a> 
-			<a href="#" class="text-center btn btn-info btn-xs"><i class="fa fa-plus"></i> Verifikasi</a>
-		</div>
+			<div class="pull-right">
+				<a href='{{url("dokumen/upload?po=$po->po&amp;unit=$unit->id")}}' class="text-center btn btn-warning btn-xs"><i class="fa fa-plus"></i> Upload</a>
+				<a href="#" class="text-center btn btn-info btn-xs"><i class="fa fa-plus"></i> Verifikasi</a>
+			</div>
 
 		<br>
 		<br>
@@ -17,7 +17,7 @@
 			@if($actifity->unit_id == $unit->id)
 				@foreach($dokumen_with_po as $dok_po)
 					@if($actifity->id == $dok_po->actifity_id && $dok_po->purchase_order === $po->po)
-					<div class="box box-info collapsed-box">
+					<div class="box box-info @if($dokumen->sub_jenis_dokumen->actifity->nama_actifity !== $actifity->nama_actifity) collapsed-box @endif">
 						<div class="box-header with-border" data-widget="collapse">
 							<i class="fa fa-plus"></i>
 							<h4 class="box-title">Actifity: {{$actifity->nama_actifity}}</h4>

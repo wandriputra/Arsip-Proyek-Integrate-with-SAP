@@ -2,6 +2,7 @@
     <script src="{{ url('asset/plugins/iCheck/icheck.min.js')}}"></script>
     <script src="{{ url('asset/plugins/select2/select2.full.min.js')}}"></script>
 
+
 	<script>
 		$(function () {
 			$(".select2").select2({
@@ -64,9 +65,7 @@
 					cache: true
 					}
 			});
-<?php 
 
-//if($_GET) select po ?>
 			$(".select_po").select2({
 				placeholder: "Type Something...",
 				ajax: {
