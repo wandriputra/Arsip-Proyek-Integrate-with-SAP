@@ -17,4 +17,9 @@ class Folder extends Model
    	{
    		return $this->belongsToMany('App\Models\Dokumen', 'folder_dokumen', 'folder_id', 'dokumen_id');
    	}
+
+	public function folder_atasan()
+	{
+		return $this->belongsTo($this);
+	}
 }

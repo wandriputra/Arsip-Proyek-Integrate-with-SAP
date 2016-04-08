@@ -97,7 +97,12 @@
 							</tr>
 							<tr>
 								<td>Action</td>
-								<td><a href="{{url('dokumen/edit')}}/{{$dokumen->id}}" class="btn btn-warning btn-xs">Edit</a> <a href="{{url('dokumen/delete')}}/{{$dokumen->id}}" class="btn btn-danger btn-xs">Delete</a> <a href="" class="btn btn-info btn-xs">Verify</a></td>
+								<td><a href="{{url('dokumen/edit')}}/{{$dokumen->id}}" class="btn btn-warning btn-xs">Edit</a>
+									<a href="{{url('dokumen/delete')}}/{{$dokumen->id}}" class="btn btn-danger btn-xs">Delete</a>
+									@if($dokumen->status_dokumen_id === 2)
+										<a href="{{url('dokumen/verify')."/"."$dokumen->id"}}" class="btn btn-info btn-xs">Verify </a>
+									@endif
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -131,8 +136,7 @@
 								<div class="box-header with-border" data-widget="collapse">
 									<i class="fa fa-minus"></i>
 									<h3 class="box-title">Dokumen PO : {{$po->po}}</h3>
-									
-								</div><!-- /.box-header -->
+								</div>
 								<div class="box-body">
 									@include('_include.dokumen_po')
 								</div>

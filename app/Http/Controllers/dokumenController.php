@@ -132,6 +132,10 @@ class dokumenController extends Controller
         return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'unit_tujuan'));
     }
 
+    /**
+     * @param string $id
+     * @return mixed
+     */
     public function getDetail($id='')
     {
         if($id === '') return redirect("folder");
@@ -232,7 +236,7 @@ class dokumenController extends Controller
             foreach ($no_po as $key => $value) {
                 
                 $dok_po = Dokumen::dokumenSAP('po', $value->po)->get();
-                $dokumen_with_po = array_merge($dokumen_with_po, $dok_po) ;
+                $dokumen_with_po = ar.ray_merge($dokumen_with_po, $dok_po) ;
                 $no_gr = Sap::select('good_receipt as gr')->where('purchase_order', $value->po)->groupBy('good_receipt')->get();
                 
                 $no_pr = Sap::select('purchase_requisition as pr')->where('purchase_order', $value->po)->where('purchase_requisition' , '!=', 'NULL')->groupBy('purchase_requisition')->get();
@@ -702,5 +706,12 @@ class dokumenController extends Controller
 
         $unit_po = Unit::where('id','=',22)->orWhere('id','=',23)->orWhere('id','=',19)->orWhere('id', 25)->orWhere('id', 20)->get();
         return view('dokumen.sap', compact('no_pr', 'no_po', 'dokumen', 'actifity_all', 'sub_jenis_all', 'dokumen_with_pr', 'dokumen_with_po', 'actifity_list', 'unit_po'));
+    }
+
+    public function getVerify($id=''){
+        $dokumen = Dokumen::Where("id", $id )->firstOrFail();
+        $dokumen->status_dokumen_id = '1';
+        $dokumen->save();
+        return redirect()->back();
     }
 }

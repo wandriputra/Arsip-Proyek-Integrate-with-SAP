@@ -19,10 +19,17 @@ class folderController extends Controller
         if (\App::environment('local')) {
             if ($id=='') {
                 $folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', null)->get();
-                // $breadcumb[0] = Auth::user()->personil->unit->nama_unit;
+
             }else {
                 $folder = Folder::where('unit_id', Auth::user()->personil->unit->id)->where('folder_induk', $id)->get();
             }
+//            $breadcumb[0] = Auth::user()->personil->unit->singkatan;
+            $induk = '';
+//            $i = 1;
+//           foreach($folder as $fol){
+//               TODO; breadcumb folder induk?
+//           }
+//            dd($breadcumb);
             $file = $this->getFilePengadaan($id);
             return view('folder.listing', compact('folder', 'id', 'breadcumb', 'file'));
     	}else{

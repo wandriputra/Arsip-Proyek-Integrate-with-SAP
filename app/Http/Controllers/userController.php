@@ -138,12 +138,12 @@ class userController extends Controller
 
     public function postUserEdit(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), array(
             'username' => 'required|between:4,30',
             'password' => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
             'role_user_id' => 'required',
-        ]);
+        ));
 
         if ($validator->fails()) {
           return redirect()->back()
