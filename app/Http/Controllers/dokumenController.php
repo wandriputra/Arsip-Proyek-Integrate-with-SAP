@@ -49,9 +49,6 @@ class dokumenController extends Controller
             case '2':
                 return 'user';
                 break;
-            case '7':
-                return 'hrga';
-                break;
             case '8':
                 return 'procurement';
                 break;
