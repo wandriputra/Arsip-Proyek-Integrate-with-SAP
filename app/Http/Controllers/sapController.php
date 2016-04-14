@@ -41,18 +41,11 @@ class sapController extends Controller
         if (Schema::hasTable('sap_')) {
             Schema::drop('sap_');
         }
-
-        Excel::filter('chunk')->load($file1)->chunk(500, function($results) use ($format)
+        Excel::filter('chunk')->load($file1)->chunk(500, function($results)
         {
             $this->data = $results;
-            // if ($format === 'csv') {
-                $this->makeMigrationCsv();
-            // }else{
-                // $this->makeMigrationXls();
-            // }
+            $this->makeMigrationCsv();
         });
-        // var_dump($this->data);
-
         return redirect('/sap/view-upload-data');
     }
 
@@ -65,7 +58,7 @@ class sapController extends Controller
     public function getAjaxFileUpload($value='')
     {   
         $dataSql = DB::table('sap_')
-            ->select(['id', 'wbs_element', 'purchase_requisition', 'purchase_order', 'material_num', 'short_text', 'net_price', 'po_quantity', 'po_unit', 'net_value',  'currency_key', 'movement_type','good_receipt', 'posting_date_good_receipt', 'invoice', 'invoice_item', 'clearing_doc'])
+            ->select(['id', 'wbs_element', 'purchase_requisition', 'purchase_order', 'material_num', 'net_price', 'po_quantity', 'po_unit', 'net_value',  'currency_key', 'movement_type','good_receipt', 'posting_date_good_receipt', 'invoice', 'invoice_item', 'clearing_doc'])
             ->whereNotNull('purchase_requisition');
         return Datatables::of($dataSql)->make(true);
     }

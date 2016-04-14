@@ -73,6 +73,4 @@ class datamasterController extends Controller
         // return redirect('data/list-actifity');
     }
 
-
-
 }
