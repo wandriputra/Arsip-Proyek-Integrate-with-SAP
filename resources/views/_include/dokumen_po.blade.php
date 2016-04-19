@@ -37,7 +37,7 @@
 									<tr>
 										<td>{!!$i++!!}</td>
 										<td><a href="{{url('dokumen/detail/')}}/{{$dok_po_cetak->dokumen_id}}">{{$dok_po_cetak->no_dokumen}}
-												@if($dok_pr_cetak->status_dokumen_id === 1)<i class="fa fa-check-circle"></i>@endif</a></td>
+												@if($dok_po_cetak->status_dokumen_id === 1)<i class="fa fa-check-circle"></i>@endif</a></td>
 										<td>{{$dok_po_cetak->nama_sub}}</td>
 										<!-- <td><i class="fa fa-minus-circle"></i></a></td> -->
 										<!-- <td>{{$dok_po_cetak->nama_dokumen}}</td> -->
