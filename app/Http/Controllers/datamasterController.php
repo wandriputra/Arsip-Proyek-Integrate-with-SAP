@@ -73,4 +73,12 @@ class datamasterController extends Controller
         // return redirect('data/list-actifity');
     }
 
+    public function ()
+    {
+        
+    }
+//      TODO; insert jra dan list
+//      TODO; list actifity dokumen
+    
+
 }
