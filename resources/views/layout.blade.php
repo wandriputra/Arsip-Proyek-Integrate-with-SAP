@@ -38,16 +38,7 @@
 
               <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu Dokumen<span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{url('/data/tambah-actifity')}}">Tambah Actifity Dokumen</a></li>
-                    <li><a href="{{url('/data/list-actifity')}}">List Actifity Dokumen</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{{url('/data/insert-sub-jenis')}}">Insert Sub Jenis Dokumen</a></li>
-                    <li><a href="{{url('/data/list-sub-jenis')}}">List Sub Jenis Dokumen</a></li>
-                  </ul>
-                </li>
+
                   @if(Auth::user()->role_user->nama_role === 'Administrator')
                     @include('_include.admin_menu')
                   @elseif(Auth::user()->role_user->nama_role === 'Uploader HRGA')

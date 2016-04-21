@@ -10,10 +10,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Jenis_dokumen;
 use App\Models\Sub_jenis_dokumen;
 use App\Models\Actifity;
-use App\models\Unit;
+use App\Models\Unit;
+use App\Models\Jra_dokumen;
 
 use Auth;
 use Datatables;
+use Illuminate\Support\Facades\Session;
 
 class datamasterController extends Controller
 {
@@ -72,10 +74,27 @@ class datamasterController extends Controller
         return redirect($data['prev_url']);
         // return redirect('data/list-actifity');
     }
-
-    public function ()
+//
+    public function getTambahJra()
     {
-        
+        $jra = Jra_dokumen::all();
+        return view('datamaster.tambah_jra', compact('jra'));
+
+    }
+
+    public function postTambahJra(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'kode' => 'required|unique:jra_dokumens'
+        ]);
+        if ($validator->fails()){
+            \Session::flash('alert-warning', 'Periksa kembali input');
+            return redirect()->back()->withInput();
+        }
+        $data = $request->all();
+        $data['level'] = '0';
+        $jra = Jra_dokumen::create($data);
+        return isset($data['prev_url']) ? redirect($data['prev_url']) : redirect()->back();
     }
 //      TODO; insert jra dan list
 //      TODO; list actifity dokumen
