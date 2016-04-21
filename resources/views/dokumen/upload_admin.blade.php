@@ -13,6 +13,7 @@
 			</select> <a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>
 	</div>
+
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Actifity</label>
 		<div class="col-sm-7">
@@ -20,7 +21,8 @@
 				
 			</select> <a href="{{url('data/tambah-actifity')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>
-	</div>						
+	</div>
+
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Jenis Dokumen</label>
 		<div class="col-sm-7">
@@ -29,6 +31,15 @@
 			</select> <a href="{{url('data/insert-sub-jenis')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>
 	</div>
+
+	<div class="form-group">
+		<label for="" class="col-sm-3 control-label">Kode Klasisfikasi JRA</label>
+		<div class="col-md-2">
+			<input type="text" name="kode_jra" class="form-control kode" value="{{{$edit['kode'] or old('kode')}}}" placeholder="Kode JRA">
+		</div>
+		<label class="detail-kode"> </label>
+	</div>
+
 	<div class="form-group hide" id="pr_select">
 		<label class="col-sm-3 control-label">No PR</label>
 		<div class="col-sm-3	">

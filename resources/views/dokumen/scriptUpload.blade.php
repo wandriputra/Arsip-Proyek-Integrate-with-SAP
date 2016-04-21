@@ -226,4 +226,10 @@
 			// 	$('#nama_file').val(file);
 			// })
 		});
-    </script>
+
+		$('.kode').change(function(){
+			$.get( "{{url('/data/ajax-jra-cek-kode').'?kode='}}"+$('.kode').val(), function( data ) {
+				$('.detail-kode').html(data[0].jenis_arsip);
+			});
+		})
+</script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\models\Jra_dokumen;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -275,8 +276,9 @@ class dokumenController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'file_pdf' => 'required',
+            'file_pdf' => 'required|mimes:pdf',
             'sub_jenis_dokumen' => 'required',
+            'kode_jra' => 'required'
         ]);
 
         if($validator->fails()){
@@ -291,17 +293,21 @@ class dokumenController extends Controller
 
         $file = $request->file('file_pdf');
 
+
         $data = array_merge($data, $request->all());
-        
-        $data['created_by'] = Auth::user()->id;
+
+        $jra_dokumen_id = Jra_dokumen::select('id')->where('kode', $data['kode_jra'])->firstOrFail(); //id untuk jra_dokumen
+
+        $data['jra_dokumen_id'] = $jra_dokumen_id->id; //id jra
+        $data['created_by'] = Auth::user()->id; //created_by
         $data['file_name_pdf'] = $file->getClientOriginalName();
        
         $filename = $this->fileRename($data['file_name_pdf']);
-
         $data['no_dokumen'] = $filename['no_file'];
         
         $validator = Validator::make($data, [
             'no_dokumen' => 'unique:dokumen|max:255',
+            'jra_dokumen_id' => 'required'
         ]);
 
         if($validator->fails()){
@@ -320,7 +326,7 @@ class dokumenController extends Controller
         $data['unit_tujuan'] = (isset($data['tembusan']) && $data['unit_tujuan']!='') ? $data['unit_tujuan'] : null ;
         $data['tembusan'] = (isset($data['tembusan'])) ? $data['tembusan'] : null ;
 
-        // dd($data);
+//        dd($data);
 
         if($data['pr']!=''){
             $this->cekWBS($data['pr']);

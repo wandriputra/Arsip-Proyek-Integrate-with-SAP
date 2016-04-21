@@ -56,6 +56,12 @@
 								<td>{{$dokumen->sub_jenis_dokumen->singkatan}} / {{$dokumen->sub_jenis_dokumen->nama_sub}} ({{$dokumen->sub_jenis_dokumen->singkatan}})</td>
 							</tr>
 							<tr>
+								<td>Kode Arsip</td>
+								<td>{{$dokumen->jra_dokumen->kode}} / {{$dokumen->jra_dokumen->jenis_arsip}}<br>
+									Jangka Waktu Simpan Inaktif {{$dokumen->jra_dokumen->waktu_inaktif}} Tahun
+								</td>
+							</tr>
+							<tr>
 								<td>Nama Pengadaan</td>
 								<td></td>
 							</tr>

@@ -14,7 +14,7 @@ class Dokumen extends Model
 
 	protected $table = 'dokumen';
 
-	protected $fillable = ['no_dokumen', 'nama_dokumen', 'file_name_pdf', 'lokasi_file_pdf', 'tag_keterangan', 'sub_jenis_id', 'unit_asal', 'unit_tujuan', 'visibility_id', 'created_by', 'status_dokumen_id'];
+	protected $fillable = ['no_dokumen', 'nama_dokumen', 'file_name_pdf', 'lokasi_file_pdf', 'tag_keterangan', 'sub_jenis_id', 'unit_asal', 'unit_tujuan', 'visibility_id', 'created_by', 'status_dokumen_id', 'jra_dokumen_id'];
 
 	public static $rules = [
     	'jenis_dokumen' => 'required',
@@ -52,6 +52,11 @@ class Dokumen extends Model
     public function dokumen_tembusan()
     {
         return $this->belongsToMany('App\Models\Unit', 'tembusan_dokumen', 'dokumen_id', 'unit_id');
+    }
+
+    public function jra_dokumen()
+    {
+        return $this->belongsTo('App\models\Jra_dokumen', 'jra_dokumen_id');
     }
 
     public function scopeFindGlobal($query, $key)

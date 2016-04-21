@@ -2,6 +2,13 @@
 
 @section('costom_style_pages')
     <link rel="stylesheet" href="{{url('asset/plugins/select2/select2.min.css')}}">
+    <style>
+        .detail-kode{
+            margin-top: 10px;
+            font-style: italic;
+            font-weight: 400;
+        }
+    </style>
 @stop
 
 @section('content_main_pages')
@@ -17,17 +24,10 @@
 
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Kode Klasisfikasi JRA</label>
-                    <div class="col-md-4">
-                        <input type="text" name="kode" class="form-control" value="{{{$edit['kode'] or old('kode')}}}">
+                    <div class="col-md-2">
+                        <input type="text" name="kode" class="form-control kode" value="{{{$edit['kode'] or old('kode')}}}">
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="" class="col-sm-3 control-label">Kode Induk</label>
-                    <div class="col-md-4">
-                        <input type="text" name="kode" class="form-control" value="{{{$edit['kode'] or old('kode')}}}">
-                        <a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
-                    </div>
+                    <label class="detail-kode"> </label>
                 </div>
 
                 <div class="form-group">
@@ -69,8 +69,11 @@
 @stop
 
 @section('costom_js_pages')
-    <script src="{{ url('asset/plugins/select2/select2.full.min.js')}}"></script>
     <script>
-
+        $('.kode').change(function(){
+            $.get( "{{url('/data/ajax-jra-cek-kode').'?kode='}}"+$('.kode').val(), function( data ) {
+                $('.detail-kode').html(data[0].jenis_arsip);
+            });
+        })
     </script>
 @stop

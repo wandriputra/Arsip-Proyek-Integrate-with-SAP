@@ -96,6 +96,13 @@ class datamasterController extends Controller
         $jra = Jra_dokumen::create($data);
         return isset($data['prev_url']) ? redirect($data['prev_url']) : redirect()->back();
     }
+
+    public function getAjaxJraCekKode(Request $request)
+    {
+        $kode = $request->get('kode');
+        $jra = Jra_dokumen::where('kode', 'like', $kode)->get();
+        return $jra;
+    }
 //      TODO; insert jra dan list
 //      TODO; list actifity dokumen
     
