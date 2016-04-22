@@ -30,7 +30,7 @@
 
       <div class="login-logo">
         <a href="{{url('/')}}">
-          <img src="http://10.15.3.68/ecommissioning/img/logo.png" width="30px;" alt=""><b>ARSIP INDARUNG-VI</b></a>
+          <img src="{{URL::asset('data/logo.png')}}" width="30px;" alt=""><b>ARSIP INDARUNG-VI</b></a>
       </div><!-- /.login-logo -->
 
       <div class="login-box-body row">

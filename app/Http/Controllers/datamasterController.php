@@ -42,7 +42,20 @@ class datamasterController extends Controller
 
     public function getListSubJenis($value='')
     {
-    	return view('datamaster.list_sub_jenis');
+        $jenis = Sub_jenis_dokumen::paginate(15);
+    	return view('datamaster.list_sub_jenis', compact('jenis'));
+    }
+
+    public function getListActifity()
+    {
+        $actifity = Actifity::paginate(15);
+        return view('datamaster.list_actifity', compact('actifity'));
+    }
+
+    public function getListJra()
+    {
+        $jra = Jra_dokumen::orderBy('kode', 'asc')->paginate(15);
+        return view('datamaster.list_jra', compact('jra'));
     }
 
     public function getAjaxListSubJenis($value='')
@@ -79,7 +92,6 @@ class datamasterController extends Controller
     {
         $jra = Jra_dokumen::all();
         return view('datamaster.tambah_jra', compact('jra'));
-
     }
 
     public function postTambahJra(Request $request)

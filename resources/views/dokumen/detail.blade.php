@@ -75,7 +75,7 @@
 							</tr>
 							<tr>
 								<td>Asal Dokumen</td>
-								<td><a href="">{{$dokumen->asal_surat->nama_unit}}</a></td>
+								<td><a href="{{url("/")}}">{{$dokumen->asal_surat->nama_unit}}</a></td>
 							</tr>
 							<tr>
 								<td>Tujuan Dokumen</td>
