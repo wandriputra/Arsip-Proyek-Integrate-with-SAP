@@ -226,7 +226,33 @@ class hrgaController extends Controller
             }
         }
 
-//        $role_1 = Role_user::where('id',$data['role_user'])->with('module_user')->firstOrFail()->toArray();
+        $role_1 = Role_user::where('id',$data['role_user'])->with('module_user')->firstOrFail()->toArray();
+
+        $array_user = $upload;
+        $array_db = $role_1['module_user'];
+
+//        dd($array_user);
+
+        $i = 0;
+        foreach ($array_user as $value){
+            $collection = collect($array_db);
+            $bool = $collection->contains($value['module_id']);
+            if ($bool == false){
+                $role->module_user()->attach($value['module_id'], ['created_by' => Auth::user()->id]);
+            }
+            $i++;
+        }
+
+        $i = 0;
+        foreach ($array_db as $value){
+            $collection = collect($array_user);
+            $bool = $collection->contains($value['id']);
+            if ($bool == false){
+                $role->module_user()->detach($value['id']);
+            }
+            $i++;
+        }
+
 //        if(count($role_1['module_user']) >  count($upload)){
 //            for ($i=0; $i<count($role_1['module_user']); $i++){
 //                if($role_1['module_user'][$i]['id'] != $upload[$i]['module_id'] ){
