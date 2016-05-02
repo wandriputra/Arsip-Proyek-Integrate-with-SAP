@@ -99,6 +99,8 @@ class datamasterController extends Controller
         $validator = \Validator::make($request->all(), [
             'kode' => 'required|unique:jra_dokumens'
         ]);
+        
+        
         if ($validator->fails()){
             \Session::flash('alert-warning', 'Periksa kembali input');
             return redirect()->back()->withInput();
