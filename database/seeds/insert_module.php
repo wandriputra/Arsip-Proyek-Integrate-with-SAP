@@ -17,6 +17,16 @@ class insert_module extends Seeder
         $array = [
             ['id'=>'1', 'nama_module'=>'verify_dokumen', 'description'=>'module ferifikasi dokumen'],
             ['id'=>'2', 'nama_module'=>'delete_dokumen', 'description'=>'module delete dokumen']];
+        //TODO; tambah seeder untuk module
+        //admin
+        //user
+        //procurement
+        //logistik
+        //warehouse
+        //accounting
+        //verifikasi
+        //delete
+        //revisi
 
         DB::table('module_app')->insert($array);
 

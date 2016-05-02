@@ -78,6 +78,8 @@ class dokumenController extends Controller
         $cd ='';
         $unit_id = $request->input('unit');
 
+//        todo: bagi view ke beberapa module
+
     switch ($role) {
             case 'admin':
                 $view = 'dokumen.upload_'.$role;
@@ -135,6 +137,7 @@ class dokumenController extends Controller
      */
     public function getDetail($id='')
     {
+//        todo: tambah pr dan po untuk user
         if($id === '') return redirect("folder");
         $dokumen = Dokumen::where('id', $id)->orWhere('no_dokumen', $id)->firstOrFail();
         $no_sap = $dokumen->dokumen_sap->no_sap;
