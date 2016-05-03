@@ -26,7 +26,7 @@
     </style>
   </head>
   <body class="hold-transition login-page">
-    <div class="container login-container">
+  <div class="login-box">
 
       <div class="login-logo">
         <a href="{{url('/')}}">
@@ -34,10 +34,8 @@
       </div><!-- /.login-logo -->
 
       <div class="login-box-body row">
-      <div class="col-md-8">
-         
-      </div>
-      <div class="col-md-4 ">
+
+
         @foreach (['danger', 'warning', 'success', 'info', 'error'] as $msg)
           @if(Session::has('alert-' . $msg))
             <div class="alert alert-dismissible alert-{{ $msg }}">
@@ -81,7 +79,6 @@
             <a href="{{url('reset_password')}}">Lupa Password</a><br>
             <a href="{{url('register')}}">Minta Akses Login</a>
         </div>
-      </div>
       </div><!-- /.login-box-body -->
 
     </div><!-- /.login-box -->

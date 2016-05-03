@@ -72,7 +72,7 @@ class userController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'username' => 'required|between:5,30',
+            'username' => 'required|between:3,30|unique:user',
             'password' => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
             'role_user_id' => 'required',

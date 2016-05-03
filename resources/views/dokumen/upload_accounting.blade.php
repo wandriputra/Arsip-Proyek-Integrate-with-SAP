@@ -8,7 +8,8 @@
 				@foreach($actifity as $val)
 					<option value="{{$val['id']}}">{{$val['nama_actifity']}}</option>
 				@endforeach
-			</select> <a href="{{url('data/tambah-actifity')}}"><i class="fa fa-fw fa-plus"></i></a>
+			</select>
+			<a href="{{url('data/tambah-actifity')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>
 	</div>						
 	<div class="form-group">

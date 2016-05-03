@@ -2,7 +2,7 @@
     <script src="{{ url('asset/plugins/iCheck/icheck.min.js')}}"></script>
     <script src="{{ url('asset/plugins/select2/select2.full.min.js')}}"></script>
 
-
+{{--todo: perbaiki select2 aplikasi yang menghapus ketika ditekan--}}
 	<script>
 		$(function () {
 			$(".select2").select2({
@@ -31,9 +31,6 @@
 					processResults: function (data, page) {
 						return {
 							results: data,
-							//pagination: {
-							//	more: data.more
-							//}
 						};
 					},
 					cache: true
@@ -57,9 +54,6 @@
 					processResults: function (data, page) {
 						return {
 							results: data,
-							//pagination: {
-							//	more: data.more
-							//}
 						};
 					},
 					cache: true
@@ -83,9 +77,6 @@
 					processResults: function (data, page) {
 						return {
 							results: data,
-							//pagination: {
-							//	more: data.more
-							//}
 						};
 					},
 					cache: true
@@ -109,9 +100,6 @@
 					processResults: function (data, page) {
 						return {
 							results: data,
-							//pagination: {
-							//	more: data.more
-							//}
 						};
 					},
 					cache: true
@@ -179,6 +167,11 @@
 			$('#actifity').change(function(){
 				actifity_id = $('#actifity').val();
 				$('#sub_jenis_dokumen option').remove();
+				unit_id = $('#unit_asal').val();
+				cek_unit_id(unit_id);
+
+			//todo: cari cara untuk menampilkan po dan pr untuk upload type user
+
 				// $.getJSON('{{url("dokumen/ajax-sub-jenis-dokumen")}}'+"/"+actifity_id, function(data) {
 				// 	var options = '<option value=""></option>';
 				//     for (var i = 0; i < data.length; i++) {
@@ -192,34 +185,40 @@
 			function cek_unit_id(unit_id) {
 				// body...
 				if (unit_id != 19 && unit_id != 11 && unit_id != 25 && unit_id != 23) {
+					actifity_id = $('#actifity').val(); // jika user dapatkan actifity dan cek actifity sebelum po atau sesudah po
+					if(actifity_id == 1){ //dokumen pr
 						$("#pr_select").removeClass('hide');
 						$("#po_select").addClass('hide');
-						$("#gr_select").addClass('hide');
-						$("#cd_select").addClass('hide');
-					};
 
-					if(unit_id == 19 || unit_id == 22|| unit_id == 20 ){
+					}else if (actifity_id == 2){ //dokumen yang ada po nya
 						$("#pr_select").addClass('hide');
-						$("#gr_select").addClass('hide');
-						$("#cd_select").addClass('hide');
 						$("#po_select").removeClass('hide');
-					};
-
-					if(unit_id == 23){
-						$("#pr_select").addClass('hide');
-						$("#gr_select").removeClass('hide');
-						$("#cd_select").addClass('hide');
-						$("#po_select").addClass('hide');
-					};
-
-					if(unit_id == 25){
-						$("#pr_select").addClass('hide');
+					}
 						$("#gr_select").addClass('hide');
-						$("#cd_select").removeClass('hide');
-						$("#po_select").addClass('hide');
-					};
-			}
+						$("#cd_select").addClass('hide');
+				};
 
+				if(unit_id == 19 || unit_id == 22|| unit_id == 20 ){
+					$("#pr_select").addClass('hide');
+					$("#gr_select").addClass('hide');
+					$("#cd_select").addClass('hide');
+					$("#po_select").removeClass('hide');
+				};
+
+				if(unit_id == 23){
+					$("#pr_select").addClass('hide');
+					$("#gr_select").removeClass('hide');
+					$("#cd_select").addClass('hide');
+					$("#po_select").addClass('hide');
+				};
+
+				if(unit_id == 25){
+					$("#pr_select").addClass('hide');
+					$("#gr_select").addClass('hide');
+					$("#cd_select").removeClass('hide');
+					$("#po_select").addClass('hide');
+				};
+			}
 
 			// $('#file_pdf')change(function(){
 			// 	file = $('#file_pdf').val();

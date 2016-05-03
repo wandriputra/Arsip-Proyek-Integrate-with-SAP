@@ -464,6 +464,12 @@ class dokumenController extends Controller
               ->header('Content-Type', 'application/pdf');
     }
 
+    public function getTambahSapDokumen()
+    {
+
+        return view('dokumen.tambah_dokumen_sap');
+    }
+
     public function getFolderPengadaan($value='')
     {
         return view('_include.folder_pencarian');

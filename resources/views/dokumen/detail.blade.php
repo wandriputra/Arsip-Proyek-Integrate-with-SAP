@@ -16,9 +16,11 @@
 		.box-header > .fa{
 			font-size: 12px;
 		}
+
 		.tebal{
 			font-weight: 500;
 		}
+
 	</style>
 	@stop
 
@@ -26,15 +28,30 @@
 			<!-- SELECT2 EXAMPLE -->
 	<div class="nav-tabs-custom">
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-home"></i> {{$dokumen->asal_surat->nama_unit}}</a></li>
-			<li><a href="#">{{$dokumen->sub_jenis_dokumen->actifity->nama_actifity}}</a></li>
+			<li>
+				<a href="#"><i class="fa fa-home"></i>
+					{{$dokumen->asal_surat->nama_unit}}
+				</a></li>
+			<li>
+				<a href="#">
+					{{$dokumen->sub_jenis_dokumen->actifity->nama_actifity}}
+				</a>
+			</li>
 			<li class="active">{{$dokumen['nama_dokumen']}}</li>
 		</ol>
+
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#file_pdf" data-toggle="tab">File PDF</a></li>
-			<li><a href="#detail_file" data-toggle="tab">Detail</a></li>
-			<li><a href="#dokumen_terkait" data-toggle="tab">Dokumen Terkait</a></li>
+			<li class="active">
+				<a href="#file_pdf" data-toggle="tab">File PDF</a>
+			</li>
+			<li>
+				<a href="#detail_file" data-toggle="tab">Detail</a>
+			</li>
+			<li>
+				<a href="#dokumen_terkait" data-toggle="tab">Dokumen Terkait</a>
+			</li>
 		</ul>
+
 		<div class="tab-content">
 
 			<div class="active tab-pane" id="file_pdf">
@@ -86,7 +103,17 @@
 					</tr>
 					<tr>
 						<td>Nomer {{$dokumen->dokumen_sap->type}}</td>
-						<td class="tebal"><a href="@if($dokumen->dokumen_sap->no_sap) {{url('dokumen/sap')}}/{{$dokumen->dokumen_sap->type}}/{{$dokumen->dokumen_sap->no_sap}} @else {{url('dokumen/edit/')}}/{{$dokumen['id']}} @endif ">{{$dokumen->dokumen_sap->no_sap or 'Belum ada PR' }}</a></td>
+						<td class="tebal">
+							<a href="
+								@if($dokumen->dokumen_sap->no_sap)
+									{{url('dokumen/sap')}}/{{$dokumen->dokumen_sap->type}}/{{$dokumen->dokumen_sap->no_sap}}
+								@else
+									{{url('dokumen/edit/')}}/{{$dokumen['id']}}
+								@endif
+								">{{$dokumen->dokumen_sap->no_sap or 'Belum ada PR' }}
+							</a>
+							<a href="{{url('dokumen/tambah-sap-dokumen').'/'.'dokumen'}}"><i class="fa fa-fw fa-plus"></i></a>
+						</td>
 					</tr>
 					<tr>
 						<td>Tembsuan</td>

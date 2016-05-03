@@ -39,7 +39,7 @@
 	<script>
 	// $(function() {
 	    var arsiptable = $('#arsip').DataTable({
-	        dom: '<<t>p>',
+	        dom: '<f<t>p>',
 	        processing: true,
 	        serverSide: true,
 	        @if($file_unit)
