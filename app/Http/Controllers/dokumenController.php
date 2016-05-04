@@ -36,13 +36,13 @@ class dokumenController extends Controller
     private $papi;
     protected $id_role_user;
 
-    function __construct($foo = null) {
+    function __construct() {
         $this->papi = new Papi;
+        $this->id_role_user = Auth::user()->role_user_id;
     }
 
     private function cekRole(){
 //        $role_user = Auth::user()->role_user->nama_role;
-        $this->id_role_user = Auth::user()->role_user_id;
         switch ($this->id_role_user) {
             case '1':
                 return 'admin';
@@ -78,9 +78,8 @@ class dokumenController extends Controller
         $cd ='';
         $unit_id = $request->input('unit');
 
-//        todo: bagi view ke beberapa module
-
-    switch ($role) {
+//        TODO; bagi view ke beberapa module
+        switch ($role) {
             case 'admin':
                 $view = 'dokumen.upload_'.$role;
                 $actifity = Actifity::all();
@@ -137,7 +136,7 @@ class dokumenController extends Controller
      */
     public function getDetail($id='')
     {
-//        todo: tambah pr dan po untuk user
+//        TODO: tambah pr dan po untuk user
         if($id === '') return redirect("folder");
         $dokumen = Dokumen::where('id', $id)->orWhere('no_dokumen', $id)->firstOrFail();
         $no_sap = $dokumen->dokumen_sap->no_sap;
