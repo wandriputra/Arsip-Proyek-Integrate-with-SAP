@@ -129,24 +129,7 @@
 					}
 			});
 
-		unit_id = $('#asal_surat').val();
-		$.getJSON("{{url('dokumen/ajax-actifity')}}"+"/"+unit_id, function(data) {
-			var options = '<option value=""></option>';
-		    for (var i = 0; i < data.length; i++) {
-				options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
-			}
-			$('#actifity option').remove();
-			$('#sub_jenis_dokumen option').remove();
-			$('#actifity').append(options);
-			$('#actifity').select2({
-				placeholder: "Type Something..."
-			});
-		});
-		cek_unit_id(unit_id);
 
-
-
-		@if($view == 'dokumen.upload_admin')
 			$('#asal_surat').change(function(){
 				unit_id = $('#asal_surat').val();
 				$.getJSON("{{url('dokumen/ajax-actifity')}}"+"/"+unit_id, function(data) {
@@ -163,12 +146,13 @@
 					cek_unit_id(unit_id);
 				});
 			});
-		@endif
+
 			$('#actifity').change(function(){
 				actifity_id = $('#actifity').val();
 				$('#sub_jenis_dokumen option').remove();
 				unit_id = $('#unit_asal').val();
 				cek_unit_id(unit_id);
+
 
 			//todo: cari cara untuk menampilkan po dan pr untuk upload type user
 

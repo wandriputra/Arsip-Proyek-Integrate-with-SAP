@@ -20,6 +20,7 @@ use App\Models\Folder;
 use App\Models\Actifity;
 use App\Models\Papi;
 use App\Models\Sap;
+use App\Models\Saplog;
 
 use Auth;
 use Validator;
@@ -77,6 +78,7 @@ class dokumenController extends Controller
         $gr = '';
         $cd ='';
         $unit_id = $request->input('unit');
+        $sap_log = Saplog::where('status', 'A')->firstOrFail();
 
 //        TODO; bagi view ke beberapa module
         switch ($role) {
@@ -127,7 +129,7 @@ class dokumenController extends Controller
             default:
                 break;
         }
-        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'unit_tujuan'));
+        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'unit_tujuan', 'sap_log'));
     }
 
     /**
@@ -139,15 +141,15 @@ class dokumenController extends Controller
 //        TODO: tambah pr dan po untuk user
         if($id === '') return redirect("folder");
         $dokumen = Dokumen::where('id', $id)->orWhere('no_dokumen', $id)->firstOrFail();
-        $no_sap = $dokumen->dokumen_sap->no_sap;
-        $type = $dokumen->dokumen_sap->type;
+        $no_sap = collect($dokumen->dokumen_sap)->implode('no_sap', ' ');
+        $type = collect($dokumen->dokumen_sap)->implode('type', ' ');
+//        $cek
         $dokumen_with_pr = [];
         $dokumen_with_po = [];
 
         if ($type === null){
             $dokumen_with_pr = Dokumen::dokumenSAP('pr',$no_sap)->get();
-            $dokumen_with_po = Dokumen::dokumenSAP('po',$no_sap)->get();;
-        
+            $dokumen_with_po = Dokumen::dokumenSAP('po',$no_sap)->get();
         }elseif($type === 'pr'){
             $no_po = Sap::select('purchase_order as po')->where('purchase_requisition', $no_sap)->where('purchase_order', '!=', 'null')->groupBy('purchase_order')->get();
             
@@ -489,7 +491,7 @@ class dokumenController extends Controller
         $q = $request->get('q');
         $actifity = $request->get('act');
         if($q!='' && $actifity!=''){
-            $sub_jenis = Sub_jenis_dokumen::select('id', 'nama_sub as text')->where('nama_sub', 'like' ,"%$q%")->where('actifity_id', $actifity)->orWhere('singkatan', 'like', "%$q%")->get();
+            $sub_jenis = Sub_jenis_dokumen::select('id', 'nama_sub as text')->where('nama_sub', 'like' ,"%$q%")->where('actifity_id', $actifity)->orWhere('singkatan', "%$q%")->get();
             return response()->json($sub_jenis);
         }
         return [];

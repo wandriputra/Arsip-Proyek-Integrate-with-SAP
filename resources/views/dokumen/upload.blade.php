@@ -10,7 +10,12 @@
 			font-weight: 400;
 		}
 		.info-sap{
-			padding-top: 10px;
+			margin: 0 10px 0 10px;
+			font-style: italic;
+		}
+
+		.alert-info{
+
 		}
 	</style>
 @stop
@@ -19,9 +24,11 @@
 		<div class="box box-default ">
 			<div class="box-header with-border">
 	            <h4 class="box-title">Upload Dokumen Arsip</h4>
-				<br>
-				<p class="alert alert-info info-sap">SAP<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
             </div>
+			<p class="alert alert-default info-sap">
+				File SAP yang digunakan diupdate tanggal {{$sap_log['created_at']}}
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			</p>
 			<div class="box-body">
 				<form class="form-horizontal" method="post" action="{{url('dokumen/upload')}}" enctype="multipart/form-data">
 					@include($view)
