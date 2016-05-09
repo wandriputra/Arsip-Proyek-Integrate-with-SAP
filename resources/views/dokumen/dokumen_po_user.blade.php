@@ -4,7 +4,7 @@
 
 			<div class="box-header with-border" data-widget="collapse">
 				<i class="fa fa-plus"></i>
-				<h3 class="box-title">Dokumen User PO : {{$dokumen->dokumen_sap->no_sap}}</h3>
+				<h3 class="box-title">Dokumen User PO : {{collect($dokumen->dokumen_sap)->implode('no_sap', ' ')}}</h3>
 			</div>
 
 			<div class="box-body">

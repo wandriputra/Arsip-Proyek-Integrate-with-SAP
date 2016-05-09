@@ -103,15 +103,15 @@
 						<td class="tebal"><a href="">{{$dokumen->tujuan_surat->nama_unit or '-'}}</a></td>
 					</tr>
 					<tr>
-						<td>Nomer {{strtoupper(collect($dokumen->dokumen_sap)->implode('type', ' '))}}</td>
+						<td>Nomer {{strtoupper(collect($dokumen->dokumen_sap)->implode('type', ''))}}</td>
 						<td class="tebal">
 							<a href="
-								@if(collect($dokumen->dokumen_sap)->implode('no_sap', ' '))
-									{{url('dokumen/sap')}}/{{collect($dokumen->dokumen_sap)->implode('type', ' ')}}/{{collect($dokumen->dokumen_sap)->implode('no_sap', ' ')}}
+								@if(collect($dokumen->dokumen_sap)->implode('no_sap', ''))
+									{{url('dokumen/sap')}}/{{collect($dokumen->dokumen_sap)->implode('type', '')}}/{{collect($dokumen->dokumen_sap)->implode('no_sap', '')}}
 								@else
 									{{url('dokumen/edit/')}}/{{$dokumen['id']}}
 								@endif
-								">{{collect($dokumen->dokumen_sap)->implode('type', ' ') or 'Belum ada PR' }}
+								">{{collect($dokumen->dokumen_sap)->implode('no_sap', '') or 'Belum ada PR' }}
 							</a>
 							<a href="{{url('dokumen/tambah-sap-dokumen').'/'.'dokumen'}}" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-plus"></i></a>
 						</td>
@@ -181,10 +181,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Tambah {{strtoupper($dokumen->dokumen_sap->type)}}</h4>
+					<h4 class="modal-title">Tambah {{strtoupper(collect($dokumen->dokumen_sap)->implode('type', ''))}}</h4>
 				</div>
 				<div class="modal-body">
-					<select class="form-control {{'select_'.$dokumen->dokumen_sap->type}}" name="{{$dokumen->dokumen_sap->type}}" style="width: 100%;">
+					<select class="form-control {{'select_'.collect($dokumen->dokumen_sap)->implode('type', '')}}" name="{{collect($dokumen->dokumen_sap)->implode('type', '')}}" style="width: 100%;">
 					</select>
 				</div>
 				<div class="modal-footer">
