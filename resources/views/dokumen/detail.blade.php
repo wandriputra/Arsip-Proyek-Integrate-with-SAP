@@ -1,6 +1,7 @@
 @extends('./layout')
 
-@section('important_css')
+@section('costom_style_pages')
+	<link rel="stylesheet" href="{{url('asset/plugins/select2/select2.min.css')}}">
 	<style>
 
 		a.nama-dokumen {
@@ -112,7 +113,7 @@
 								@endif
 								">{{$dokumen->dokumen_sap->no_sap or 'Belum ada PR' }}
 							</a>
-							<a href="{{url('dokumen/tambah-sap-dokumen').'/'.'dokumen'}}"><i class="fa fa-fw fa-plus"></i></a>
+							<a href="{{url('dokumen/tambah-sap-dokumen').'/'.'dokumen'}}" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-plus"></i></a>
 						</td>
 					</tr>
 					<tr>
@@ -144,7 +145,10 @@
 									<h3 class="box-title">Dokumen {{$dokumen->asal_surat->nama_unit}}</h3>
 								</div><!-- /.box-header -->
 								<div class="box-body">
-									@include('_include.dokumen_pr')
+									{{--//dokumen pr user--}}
+									@include('dokumen.dokumen_pr_user')
+									@include('dokumen.dokumen_po_user')
+									{{--//jika ada dokumen po user--}}
 								</div>
 							</div>
 						@endforeach
@@ -157,7 +161,7 @@
 									<h3 class="box-title">Dokumen PO : {{$po->po}}</h3>
 								</div>
 								<div class="box-body">
-									@include('_include.dokumen_po')
+									@include('dokumen.dokumen_po')
 								</div>
 							</div>
 						@endforeach
@@ -168,5 +172,29 @@
 			</div>
 		</div>
 	</div>
+
+	{{--modals--}}
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Tambah {{strtoupper($dokumen->dokumen_sap->type)}}</h4>
+				</div>
+				<div class="modal-body">
+					<select class="form-control {{'select_'.$dokumen->dokumen_sap->type}}" name="{{$dokumen->dokumen_sap->type}}" style="width: 100%;">
+					</select>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+@stop
+
+@section('costom_js_pages')
+	@include('dokumen.scriptUpload')
 @stop
 

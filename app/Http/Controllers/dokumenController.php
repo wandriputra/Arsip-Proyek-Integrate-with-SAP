@@ -20,6 +20,7 @@ use App\Models\Folder;
 use App\Models\Actifity;
 use App\Models\Papi;
 use App\Models\Sap;
+use App\Models\Saplog;
 
 use Auth;
 use Validator;
@@ -72,11 +73,9 @@ class dokumenController extends Controller
     {
         $role = $this->cekRole();
         $actifity = '';
-        $sub_jenis = '';
         $view ='';
-        $gr = '';
-        $cd ='';
         $unit_id = $request->input('unit');
+        $sap_log = Saplog::where('status', 'A')->firstOrFail();
 
 //        TODO; bagi view ke beberapa module
         switch ($role) {
@@ -127,7 +126,7 @@ class dokumenController extends Controller
             default:
                 break;
         }
-        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'unit_tujuan'));
+        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'unit_tujuan', 'sap_log'));
     }
 
     /**
