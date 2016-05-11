@@ -52,7 +52,7 @@
 	        dom: '<<t>p>',
 	        processing: true,
 	        serverSide: true,
-	        ajax: '{!!url("sap/ajax-file-upload")!!}',
+	        ajax: '{!!url("hrga/ajax-file-upload")!!}',
 	        columns: [
 	         	{ data: 'id', name:'id', className: 'center', orderable:false},
 	            { data: 'wbs_element', name: 'wbs_element', orderable:false},

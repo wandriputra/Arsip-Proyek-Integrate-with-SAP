@@ -95,7 +95,7 @@ class hrgaController extends Controller
 
         Storage::disk('local')->put($storage1['lokasi_file'].'/'.$storage['file_name'],  File::get($file));
 
-        return redirect('/sap/view-upload-data');
+        return redirect('hrga/view-upload-data');
     }
 
     // cek duplicate file
@@ -137,7 +137,7 @@ class hrgaController extends Controller
     {
         $dataSql = DB::table('sap_')
             ->select('*')
-        ->whereNotNull('purchase_requisition');
+            ->whereNotNull('purchase_requisition');
         return Datatables::of($dataSql)
             ->addColumn('wbs_element', function($dataSql){
                 return $dataSql->wbs_element.' / '.$dataSql->description;

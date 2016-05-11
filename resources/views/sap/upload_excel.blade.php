@@ -13,7 +13,7 @@
 	            <h3 class="box-title">Upload Dokumen Arsip</h3>
             </div>
 			<div class="box-body">
-				<form class="form-horizontal" method="post" action="{{url('sap/upload-excel')}}" enctype="multipart/form-data">
+				<form class="form-horizontal" method="post" action="{{url('hrga/upload-excel')}}" enctype="multipart/form-data">
 					{!! csrf_field() !!}
 					<div class="box-body">
 						<div class="form-group">
