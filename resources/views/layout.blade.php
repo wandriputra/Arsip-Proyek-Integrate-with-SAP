@@ -20,6 +20,19 @@
     <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <script type="text/javascript">
+    function refreshPage () {
+      var page_y = document.getElementsByTagName("body")[0].scrollTop;
+      window.location.href = window.location.href.split('?')[0] + '?page_y=' + page_y;
+    }
+    window.onload = function () {
+      setTimeout(refreshPage, 35000);
+      if ( window.location.href.indexOf('page_y') != -1 ) {
+        var match = window.location.href.split('?')[1].split("&")[0].split("=");
+        document.getElementsByTagName("body")[0].scrollTop = match[1];
+      }
+    }
+  </script>
   <![endif]-->
 </head>
 <body class="hold-transition skin-red layout-top-nav">

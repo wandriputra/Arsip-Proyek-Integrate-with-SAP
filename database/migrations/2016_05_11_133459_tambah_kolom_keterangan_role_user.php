@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RoleUser extends Migration
+class TambahKolomKeteranganRoleUser extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class RoleUser extends Migration
      */
     public function up()
     {
-        Schema::create('role_user', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama_role','40');
-            $table->integer('created_by')->unsigned()->nullable();
-            $table->timestamps();
+        Schema::table('role_user', function (Blueprint $table) {
+            //
+            $table->string('keterangan','80')->after('nama_role')->nullable();
         });
     }
 
@@ -27,6 +25,8 @@ class RoleUser extends Migration
      */
     public function down()
     {
-        Schema::drop('role_user');
+        Schema::table('role_user', function (Blueprint $table) {
+            //
+        });
     }
 }
