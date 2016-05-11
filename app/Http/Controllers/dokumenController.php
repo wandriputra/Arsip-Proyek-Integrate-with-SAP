@@ -142,6 +142,7 @@ class dokumenController extends Controller
         $type = $dokumen->dokumen_sap->type;
         $dokumen_with_pr = [];
         $dokumen_with_po = [];
+        $detail_no_sap = Dokumen_sap::where('dokumen_id', $dokumen['id'])->get();
 
         if ($type === null){
             $dokumen_with_pr = Dokumen::dokumenSAP('pr',$no_sap)->get();
@@ -262,7 +263,7 @@ class dokumenController extends Controller
         $sub_jenis_all = Sub_jenis_dokumen::all();
 
         $unit_po = Unit::where('id','=',22)->orWhere('id','=',23)->orWhere('id','=',19)->orWhere('id', 25)->orWhere('id', 20)->get();
-        return view('dokumen.detail', compact('no_pr', 'no_po', 'dokumen', 'actifity_all', 'sub_jenis_all', 'dokumen_with_pr', 'dokumen_with_po', 'actifity_list', 'unit_po'));
+        return view('dokumen.detail', compact('no_pr', 'no_po', 'dokumen', 'actifity_all', 'sub_jenis_all', 'dokumen_with_pr', 'dokumen_with_po', 'actifity_list', 'unit_po', 'detail_no_sap'));
     }
 
     public function getSubJenis(Request $request)
@@ -722,5 +723,39 @@ class dokumenController extends Controller
         $dokumen->status_dokumen_id = '1';
         $dokumen->save();
         return redirect()->back();
+    }
+
+    public function getTambahNoSap(Request $request)
+    {
+        $sap_type = ['po','pr', 'gr', 'cd'];
+        $data['dokumen_id'] = $request->input('id');
+        $data['jenis_dokumen_id'] = "1";
+
+        foreach ($sap_type as $value){
+            if($request->input($value) != null || $request->input($value) != '') {
+                $validator = Validator::make($request->all(), [
+                    $value => 'unique:dokumen_sap,no_sap,NULL,id,dokumen_id,'.$data['dokumen_id']
+                ]);
+
+                if($validator->fails()){
+                    \Session::flash('alert-warning', 'Gagal menambahkan, No '.strtoupper($value).' sudah ada!');
+                    return redirect()->back();
+                }
+            }
+        }
+
+
+
+
+
+
+        foreach ($sap_type as $value){
+            if($request->input($value) != null || $request->input($value) != ''){
+                $data['no_sap'] = $request->input($value);
+                $data['type'] = $value;
+            }
+        }
+        Dokumen_sap::create($data);
+        return redirect("dokumen/detail/".$data['dokumen_id']);
     }
 }

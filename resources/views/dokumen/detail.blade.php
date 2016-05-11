@@ -105,14 +105,9 @@
 					<tr>
 						<td>Nomer {{$dokumen->dokumen_sap->type}}</td>
 						<td class="tebal">
-							<a href="
-								@if($dokumen->dokumen_sap->no_sap)
-									{{url('dokumen/sap')}}/{{$dokumen->dokumen_sap->type}}/{{$dokumen->dokumen_sap->no_sap}}
-								@else
-									{{url('dokumen/edit/')}}/{{$dokumen['id']}}
-								@endif
-								">{{$dokumen->dokumen_sap->no_sap or 'Belum ada PR' }}
-							</a>
+							@foreach($detail_no_sap as $value)
+								<a href="{{url('dokumen/sap')."/".$value['type']."/".$value['no_sap']}}">{{$value['no_sap']}}</a>,
+							@endforeach
 							<a href="{{url('dokumen/tambah-sap-dokumen').'/'.'dokumen'}}" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-plus"></i></a>
 						</td>
 					</tr>
@@ -177,17 +172,20 @@
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Tambah {{strtoupper($dokumen->dokumen_sap->type)}}</h4>
-				</div>
-				<div class="modal-body">
-					<select class="form-control {{'select_'.$dokumen->dokumen_sap->type}}" name="{{$dokumen->dokumen_sap->type}}" style="width: 100%;">
-					</select>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
+				<form action="{{url('dokumen/tambah-no-sap')}}" method="get">
+					<input type="hidden" name="id" value="{{$dokumen['id']}}">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Tambah {{strtoupper($dokumen->dokumen_sap->type)}}</h4>
+					</div>
+					<div class="modal-body">
+						<select class="form-control {{'select_'.$dokumen->dokumen_sap->type}}" name="{{$dokumen->dokumen_sap->type}}" style="width: 100%;">
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-default">Submit</button>
+					</div>
+				</form>
 			</div>
 		</div>
 

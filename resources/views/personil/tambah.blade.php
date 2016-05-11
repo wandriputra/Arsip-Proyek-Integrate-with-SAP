@@ -23,23 +23,23 @@
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">NIK</label>
 				<div class="col-md-3">
-					<input type="text" name="nik" class="form-control" value="{{{$edit['nik'] or ''}}}">
+					<input type="text" name="nik" class="form-control" value="{{{$edit['nik'] or old('nik')}}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Nama</label>
 				<div class="col-md-5">
-					<input type="text" name="nama_personil" class="form-control" value="{{{$edit['nama_personil'] or ''}}}">
+					<input type="text" name="nama_personil" class="form-control" value="{{{$edit['nama_personil'] or old('nama_personil')}}}">
 				</div>
 				<label for="" class="col-sm-1 control-label">Singkatan</label>
 				<div class="col-md-2">
-					<input type="text" name="singkatan" class="form-control" value="{{{$edit['singkatan'] or ''}}}">
+					<input type="text" name="singkatan" class="form-control" value="{{{$edit['singkatan'] or old('singkatan')}}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Email</label>
 				<div class="col-md-5">
-					<input type="text" name="email" class="form-control" value="{{{$edit['email'] or ''}}}">
+					<input type="text" name="email" class="form-control" value="{{{$edit['email'] or old('email')}}}">
 				</div>
 			</div>
 			<div class="form-group">

@@ -38,7 +38,6 @@ class personilController extends Controller
             'nama_personil' => 'required',
             'unit_id' => 'required',
             'jabatan_id' => 'required',
-            'singkatan' => 'required',
         ]);
 
         $request['created_by'] = Auth::user()->id;
