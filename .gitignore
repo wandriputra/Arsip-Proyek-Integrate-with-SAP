@@ -1,4 +1,5 @@
 /vendor
+!/vendor/composer/autoload_classmap.php
 /node_modules
 Homestead.yaml
 Homestead.json
