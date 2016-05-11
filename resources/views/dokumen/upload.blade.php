@@ -31,8 +31,7 @@
 		</p>
 		<div class="box-body">
 			<form class="form-horizontal" method="post" action="{{url('dokumen/upload')}}" enctype="multipart/form-data">
-					@include($view)
-
+				@include($view)
 			</form>
 		</div><!-- /.box -->
 	</div>

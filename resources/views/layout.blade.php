@@ -52,9 +52,9 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
-              @if(Auth::user()->role_user->nama_role === 'Administrator')
+              @if(Auth::user()->role_user->nama_role === 'admin')
                 @include('_include.admin_menu')
-              @elseif(Auth::user()->role_user->nama_role === 'Uploader HRGA')
+              @elseif(Auth::user()->role_user->nama_role === 'hrga')
                 @include('_include.uploader_menu')
               @endif
               <li class="dropdown">
