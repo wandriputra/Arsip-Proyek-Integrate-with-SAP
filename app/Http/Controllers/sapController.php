@@ -21,7 +21,7 @@ use Datatables;
 
 class sapController extends Controller
 {
-	public $data = 0;
+    public $data = 0;
     public $create_table = true;
 
 
@@ -32,38 +32,62 @@ class sapController extends Controller
 
     public function postUploadExcel(Request $request)
     {
-    	$file = $request->file('format1');
-        $format = $file->getClientOriginalExtension();
-    	$filename = $request['format1'];
-        
+        $file = $request->file('format1');
+//        $file2 = File::get($file);
+//        $file2 = str_replace('\r\n', "\n", $file2);
+        //$str = str_getcsv($file2, ',');
+//        dd($file2);
         $file1 = $file->getPathName();
+//        $filecsv = fopen($file1, 'r');
+//        $a = fgetcsv($filecsv, ',');
+//        dd($a);
+//        $i = 0;
+//        while($line = fgetcsv($filecsv, ',')){
+//            echo '<br>';
+//            $data[$i] = $line;
+//            $i++;
+//        }
+//
+//        die();
 
         if (Schema::hasTable('sap_')) {
             Schema::drop('sap_');
         }
-        Excel::filter('chunk')->load($file1)->chunk(500, function($results)
+
+        $data['lokasi_file'] = "file_zpc";
+        $data['file_name'] = date("Y-m-d").'.';
+
+
+        Storage::disk('local')->put($data['lokasi_file'].'/'.$data['file_name'],  File::get($file));
+
+        Excel::filter('chunk')->load($file1)->chunk(2000, function($results)
         {
             $this->data = $results;
-            $this->makeMigrationCsv();
+            $this->makeMigration();
         });
+
         return redirect('/sap/view-upload-data');
     }
 
-    public function getViewUploadData($value='')
+    private function fileSapToDB($array)
     {
+        $data['file_name'] = $array['lokasi_file'];
+    }
 
+    public function getViewUploadData()
+    {
         return view('sap.view_data');
     }
 
-    public function getAjaxFileUpload($value='')
-    {   
+    public function getAjaxFileUpload()
+    {
         $dataSql = DB::table('sap_')
             ->select(['id', 'wbs_element', 'purchase_requisition', 'purchase_order', 'material_num', 'net_price', 'po_quantity', 'po_unit', 'net_value',  'currency_key', 'movement_type','good_receipt', 'posting_date_good_receipt', 'invoice', 'invoice_item', 'clearing_doc'])
             ->whereNotNull('purchase_requisition');
         return Datatables::of($dataSql)->make(true);
     }
 
-    private function makeMigrationCsv(){
+    private function makeMigration(){
         //create table csv
 
         if (!Schema::hasTable('sap_')) {
@@ -75,7 +99,7 @@ class sapController extends Controller
             });
         }
 
-        for ($i=0; $i < count($this->data); $i++) { 
+        for ($i=0; $i < count($this->data); $i++) {
             foreach ($this->data[$i] as $key => $value) {
                 $array[$i][$key] = $value;
             }
@@ -85,7 +109,7 @@ class sapController extends Controller
     }
 
     private function makeMigrationXls(){
-        //create table excel pakai 
+        //create table excel pakai
         if(!Schema::hasTable('sap_')){
             Schema::create('sap_', function (Blueprint $table) {
                 $table->increments('id');
@@ -120,7 +144,7 @@ class sapController extends Controller
             return response()->json($sap);
         }
         return [];
-        
+
     }
 
     private function type_sap($type='')
@@ -146,5 +170,5 @@ class sapController extends Controller
     }
 
 
-    
+
 }
