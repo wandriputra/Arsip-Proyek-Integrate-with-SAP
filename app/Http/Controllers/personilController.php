@@ -64,10 +64,10 @@ class personilController extends Controller
         $personil = Personil::all();
         return Datatables::of($personil)
             ->addColumn('nama_personil_singkatan', function($personil){
-                return $personil['nama_personil'].' ('.$personil['singkatan'].')';
+                return $personil['nama_personil'];
             })
             ->addColumn('unit', function($personil){
-            	return $personil['unit']['nama_unit'];
+            	return $personil['unit']['singkatan'];
             })
             ->addColumn('jabatan', function($personil){
             	return $personil['jabatan']['nama_jabatan'];

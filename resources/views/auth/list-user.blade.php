@@ -48,7 +48,6 @@
 	            { data: 'username', name: 'username' },
 	            { data: 'nama_personil', name: 'nama_personil' },
 	            { data: 'email', name: 'email' },
-	            { data: 'created_by', name: 'created_by' },
 	            { data: 'action', name: 'action' }
 	        ]
 	    });

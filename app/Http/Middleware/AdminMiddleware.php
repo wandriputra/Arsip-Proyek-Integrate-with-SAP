@@ -16,7 +16,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role_user->nama_role != "Administrator"){
+        if(Auth::user()->role_user->nama_role != "admin"){
             \Session::flash('alert-warning','Maaf, hanya akun Administrator yang berhak mengkases module tersebut.');
             return redirect()->back();
         }

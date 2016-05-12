@@ -12,9 +12,9 @@
         </div>
         <div class="box-body">
             @foreach($role as $role_user)
-            <div class="col-md-9 box box-default">
+            <div class="col-md-9 box box-default collapsed-box">
                 <div class="box-header with-border" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
+                    <i class="fa fa-plus"></i>
                     <h4 class="box-title">{{$role_user->nama_role}}</h4>
                 </div><!-- /.box-header -->
                 <div class="box-body">

@@ -107,9 +107,6 @@ class userController extends Controller
             ->addColumn('nama_personil', function($user){
                 return $user['personil']['nama_personil'];
             })
-            ->addColumn('created_by', function($user){
-                return $user['user']['username'];
-            })
             ->addColumn('action', function($user){
                 $edit_b = '<a href="'.route('edit-user').'/'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a> ';
                 if ($user['status'] === 'A') {

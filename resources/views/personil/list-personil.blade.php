@@ -19,6 +19,7 @@
 	                <th>Unit</th>
 	                <th>Jabatan</th>
 	                <th>Atasan</th>
+					<th></th>
 	            </tr>
 	        </thead>
 	    </table>
@@ -50,8 +51,8 @@
 	            // { data: 'email', name: 'email' },
 	            { data: 'unit', name: 'unit' },
 	            { data: 'jabatan', name: 'jabatan' },
-	            { data: 'atasan', name: 'atasan' },
-	            { data: 'action', name: 'action' }
+	            { data: 'atasan', name: 'atasan', orderable:false },
+	            { data: 'action', name: 'action', orderable:false }
 	        ]
 	    });
 	</script>
