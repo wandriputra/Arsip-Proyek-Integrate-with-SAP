@@ -23,13 +23,14 @@
                         <input type="hidden" name="role_user" value="{{$role_user->id}}">
                         <table class="table table-bordered">
                             <tbody>
+                            <?php $sum_module = count($module); $i=0; ?>
 
                             @foreach($module->chunk(3) as $chunk)
                                 <tr>
                                     @foreach($chunk as $module_app)
                                         <td width="25%">                  <!-- checkbox -->
                                             <label>
-                                                <input type="checkbox" name="x_{{$module_app->id}}" class="flat-red" value="true" @if($role_user->has_module($module_app->id)) checked @endif>
+                                                <input type="checkbox" name="x_{{$module_app->id}}" class="flat-red" value="true" @if($role_user->has_module($module_app->id))checked <?php $i++; ?> @endif>
                                                 {{$module_app->nama_module}}
                                             </label>
                                         </td>
@@ -39,7 +40,8 @@
                             <tr>
                                 <td width="25%">                  <!-- checkbox -->
                                     <label>
-                                        <input type="checkbox" name="semua_module" class="flat-red" value="true">
+
+                                        <input type="checkbox" name="semua_module" class="flat-red" @if($i == $sum_module) checked @endif value="true">
                                         Pilih Semua
                                     </label>
                                 </td>

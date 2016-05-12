@@ -66,9 +66,9 @@
 			<div class="col-md-12">
 				<ul class="nav nav-search">
 					<li class="{{ $type=='file_pdf' ? 'active' : '' }}"><a href="{{url('pencarian')}}?type=file_pdf&q={{ isset($input) ? $input : '' }}">File Pdf</a></li>
-					<li class="{{ $type=='wbs_area' ? 'active' : '' }}"><a href="{{url('pencarian')}}?type=wbs_area&q={{ isset($input) ? $input : '' }}">WBS Area</a></li>
+					{{--<li class="{{ $type=='wbs_area' ? 'active' : '' }}"><a href="{{url('pencarian')}}?type=wbs_area&q={{ isset($input) ? $input : '' }}">WBS Area</a></li>--}}
 					<li class="{{ $type=='no_sap' ? 'active' : '' }}"><a href="{{url('pencarian')}}?type=no_sap&q={{ isset($input) ? $input : '' }}">No SAP</a></li>
-					<li class="{{ $type=='jra' ? 'active' : '' }}"><a href="{{url('pencarian')}}?type=jra&q={{ isset($input) ? $input : '' }}">Jadwal Retensi Dokumen</a></li>
+{{--					<li class="{{ $type=='jra' ? 'active' : '' }}"><a href="{{url('pencarian')}}?type=jra&q={{ isset($input) ? $input : '' }}">Jadwal Retensi Dokumen</a></li>--}}
 	            </ul>
 			</div>
 		</form>
