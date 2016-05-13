@@ -14,23 +14,6 @@
 								<td>:</td>
 								<td>{{$dokumen->no_dokumen}}</td>
 							</tr>
-							<tr>
-								<td>Nama Pengadaan</td>
-								<td>:</td>
-								<td>{{$dokumen->nama_dokumen}}</td>
-							</tr>
-							<tr>
-								<td>WBS Area</td>
-								<td>:</td>
-								<td>{{$dokumen->created_at}}</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td>No SAP :</td>
-								<td></td>
-								<td></td>
-							</tr>
-							
 						</table>
 					</div>
 				</div>
@@ -40,6 +23,7 @@
 		
 	</ul>
 @endif
+
 @if(count($folder) >= 1)
 <ul class="nav nav-stacked">
 	<li>

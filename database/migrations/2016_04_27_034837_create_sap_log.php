@@ -26,7 +26,6 @@ class CreateSapLog extends Migration
             $table->foreign('created_by')
                 ->references('id')
                 ->on('user')
-                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
     }

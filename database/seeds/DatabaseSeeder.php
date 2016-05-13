@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call('insert_module');
         $this->call('insert_jra');
         $this->call('insert_role_module');
+        $this->call('visibility');
         Model::reguard();
     }
 }
