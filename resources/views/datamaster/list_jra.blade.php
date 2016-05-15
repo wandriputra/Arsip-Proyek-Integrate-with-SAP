@@ -31,7 +31,10 @@
                 @foreach ($jra as $jra_dok)
                     <tr>
                         <td>{{$jra_dok->id}}</td>
-                        <td class="{{$jra_dok->level != '2' ? 'bold-text' : ''}}"><a href="{{url('/dokumen/jra_dokumen/').'/'.$jra_dok->id}}">{{$jra_dok->kode}}</a></td>
+                        <td class="{{$jra_dok->level != '2' ? 'bold-text' : ''}}">
+                            <a href="{{url('/dokumen/jra_dokumen/').'/'.$jra_dok->id}}">{{$jra_dok->kode}}</a>
+                        </td>
+
                         <td class="{{$jra_dok->level != '2' ? 'bold-text' : ''}}">{{$jra_dok->jenis_arsip}}</td>
                         <td>{{$jra_dok->waktu_aktif}}</td>
                         <td>{{$jra_dok->waktu_inaktif}}</td>
