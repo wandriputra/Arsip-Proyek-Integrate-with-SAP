@@ -38,21 +38,17 @@
 @parent
   <div class="box box-default">
     <div class="box-body">
-      <p class="text-muted text-center">Jenis Dokumen</p>
+      <p class="text-muted text-center">Data Master</p>
       <ul class="list-group list-group-unbordered">
-        <li class="list-group-item">
-          <a class="" href="{{url('pencarian')}}">Dokumen Pengadaan PO</a>
-        </li>
-        <li class="list-group-item">
-          <a class="" href="">Dokumen Pengadaan Non PO</a>
-        </li>
-        <li class="list-group-item">
-          <a class="" href="">Dokumen Non Pengadaan</a>
-        </li>
-        <li class="list-group-item">
-          <a class="" href="">Dokumen SPJ</a>
-        </li>
-      </ul>
-    </div>
+        <li class="list-group-item"><a href="{{url('/auth/list-user')}}">List User</a></li>
+        <li class="list-group-item"><a href="{{url('/personil/list-personil')}}">List Personil</a></li>
+        <li class="list-group-item"><a href="{{url('unit/list-unit')}}">List Unit</a></li>
+        <li class="list-group-item"><a href="{{url('/auth/list-user')}}">List User</a></li>
+        <li class="list-group-item"><a href="{{url('/personil/list-personil')}}">List Personil</a></li>
+        <li class="list-group-item"><a href="{{url('unit/list-unit')}}">List Unit</a></li>
+        <li class="list-group-item"><a href="{{url('hrga/list-zpc')}}">List File ZCPS1013 / SAP</a></li>
+        <li class="list-group-item"><a href="{{url('hrga/role-module')}}">Role User</a></li>
+    </ul>
   </div>
+</div>
 @stop
