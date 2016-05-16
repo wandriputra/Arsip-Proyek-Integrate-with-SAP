@@ -16,12 +16,8 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-      .login-container{
-        padding: 150px;
-      }
-      .akses-link > a{
-        margin: 10px;
-        margin-bottom: 10px;
+      .akses-link {
+        padding: 0 15px 0 15px;
       }
     </style>
   </head>
@@ -71,15 +67,21 @@
               </div>
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Masuk</button>
             </div><!-- /.col -->
           </div>
         </form>
-        <div class="akses-link"> 
-            <a href="{{url('reset_password')}}">Lupa Password</a><br>
-            <a href="{{url('register')}}">Minta Akses Login</a>
+          <hr>
+        <div class="akses-link">
+          <label>
+            <a href="{{url('reset_password')}}">{{--<i class="fa fa-fw fa-tty"></i>--}} Lupa Password</a>
+          </label>
+          <label class="pull-right">
+            <a href="{{url('register')}}">{{--<i class="fa fa-fw fa-wheelchair"></i>--}} Minta Akses Login</a>
+          </label>
+
         </div>
-      </div><!-- /.login-box-body -->
+    </div>
 
     </div><!-- /.login-box -->
 
