@@ -77,7 +77,6 @@ class dokumenController extends Controller
         $unit_id = $request->input('unit');
         $sap_log = Saplog::where('status', 'A')->firstOrFail();
 
-//        TODO; bagi view ke beberapa module
         switch ($role) {
             case 'admin':
                 $view = 'dokumen.upload_'.$role;
@@ -129,18 +128,13 @@ class dokumenController extends Controller
         return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'unit_tujuan', 'sap_log'));
     }
 
-    /**
-     * @param string $id
-     * @return mixed
-     */
     public function getDetail($id='')
     {
-//        TODO: tambah pr dan po untuk user
         if($id === '') return redirect("folder");
         $dokumen = Dokumen::where('id', $id)->orWhere('no_dokumen', $id)->firstOrFail();
+
         $no_sap = $dokumen->dokumen_sap->no_sap;
         $type = $dokumen->dokumen_sap->type;
-//        $cek
         $dokumen_with_pr = [];
         $dokumen_with_po = [];
         $detail_no_sap = Dokumen_sap::where('dokumen_id', $dokumen['id'])->get();
@@ -276,6 +270,8 @@ class dokumenController extends Controller
     public function postUpload(Request $request)
     {
 
+//        TODO; tambahkan error massage pada upload
+//        TODO: validasi no dokumen hilangkan string NO pada awal dokumen
         $validator = Validator::make($request->all(), [
             'file_pdf' => 'required|mimes:pdf',
             'sub_jenis_dokumen' => 'required',
@@ -291,10 +287,7 @@ class dokumenController extends Controller
         $data['po']= '';
         $data['gr']= '';
         $data['cd']= '';
-
         $file = $request->file('file_pdf');
-
-
         $data = array_merge($data, $request->all());
 
         $jra_dokumen_id = Jra_dokumen::select('id')->where('kode', $data['kode_jra'])->firstOrFail(); //id untuk jra_dokumen
@@ -323,7 +316,6 @@ class dokumenController extends Controller
         $data['visibility_id'] = $data['visibility'];
         $data['lokasi_file_pdf'] = $this->lokasi_file($data);
         $data['status_dokumen_id'] = '2';
-
         $data['unit_tujuan'] = (isset($data['tembusan']) && $data['unit_tujuan']!='') ? $data['unit_tujuan'] : null ;
         $data['tembusan'] = (isset($data['tembusan'])) ? $data['tembusan'] : null ;
 
@@ -455,7 +447,8 @@ class dokumenController extends Controller
         return $lokasi = $folder1.'/';
     }
 
-    public function getFile($id){
+    public function getFilePdf($id){
+//        TODO; tambah cek module untuk siapa saja yang boleh melihat dokumen
         $data = Dokumen::where('id', $id)->firstOrFail();
         $lokasi = $data->lokasi_file_pdf.$data->file_name_pdf;
         $file = Storage::disk('local')->get($lokasi);

@@ -30,15 +30,13 @@
 	<div class="nav-tabs-custom">
 		<ol class="breadcrumb">
 			<li>
-				<a href="#"><i class="fa fa-home"></i>
-					{{$dokumen->asal_surat->nama_unit}}
-				</a></li>
+				<a href="#"><i class="fa fa-home"></i>{{$dokumen->asal_surat->nama_unit}}</a></li>
 			<li>
-				<a href="#">
-					{{$dokumen->sub_jenis_dokumen->actifity->nama_actifity}}
-				</a>
+				<a href="#">{{$dokumen->sub_jenis_dokumen->actifity->nama_actifity}}</a>
 			</li>
-			<li class="active">{{$dokumen['nama_dokumen']}}</li>
+			<li class="active">
+				{{$dokumen['nama_dokumen']}}
+			</li>
 		</ol>
 
 		<ul class="nav nav-tabs">
@@ -56,17 +54,19 @@
 		<div class="tab-content">
 
 			<div class="active tab-pane" id="file_pdf">
-				<object data="{{url('/dokumen/file')}}/{{$dokumen['id']}}" type="application/pdf" width="100%" height="600">
-					<p>Pastikan anda telah melakukan update browser ke versi terbaru untuk menikmati fitur <b>Aplikasi Arsip Indarung VI</b> secara penuh. Dan jika masih belum bisa membuka file ini lewat browser maka matikan Aplikasi Download yang ada pada Komputer / Laptop. File : <a href="{{url('/dokumen/file')}}/{{$dokumen['id']}}">{{$dokumen['nama_dokumen']}}</a></p>
+				<object data="{{url('/dokumen/file-pdf')}}/{{$dokumen->id}}" type="application/pdf" width="100%" height="700">
+					<p>Pastikan anda telah melakukan update browser ke versi terbaru untuk menikmati fitur <b>Aplikasi Arsip Indarung VI</b> secara penuh.
+						Dan jika masih belum bisa membuka file ini lewat browser maka matikan Aplikasi Download yang ada pada Komputer / Laptop.
+						File : <a href="{{url('/dokumen/file-pdf')}}/{{$dokumen['id']}}">{{$dokumen['nama_dokumen']}}</a>
+					</p>
 				</object>
 			</div>
 
 			<div class="tab-pane" id="detail_file">
 				<table class="table table-striped">
-					<tbody>
 					<tr>
 						<td>ID Dokumen</td>
-						<td class="tebal">{{$dokumen['id']}}</td>
+						<td class="tebal">{{$dokumen->id}}</td>
 					</tr>
 					<tr>
 						<td>Sub Jenis Dokumen</td>
@@ -79,12 +79,12 @@
 					<tr>
 						<td>Kode Arsip</td>
 						<td class="tebal">{{$dokumen->jra_dokumen->kode}} / {{$dokumen->jra_dokumen->jenis_arsip}}<br>
-							{{--Jangka Waktu Simpan Inaktif {{$dokumen->jra_dokumen->waktu_inaktif}} Tahun--}}
+							Jangka Waktu Simpan Inaktif {{$dokumen->jra_dokumen->waktu_inaktif}} Tahun
 						</td>
 					</tr>
 					<tr>
 						<td>Nama Pengadaan</td>
-						<td class="tebal"></td>
+						<td class="tebal">//data diambil dari papi//</td>
 					</tr>
 					<tr>
 						<td>Nama Dokumen</td>
@@ -96,14 +96,15 @@
 					</tr>
 					<tr>
 						<td>Asal Dokumen</td>
-						<td class="tebal"><a href="{{url("/")}}">{{$dokumen->asal_surat->nama_unit}}</a></td>
+						<td class="tebal"><a href="{{url("/dokumen/unit/")."/".$dokumen->asal_surat->id}}">{{$dokumen->asal_surat->nama_unit}}</a></td>
+						{{--TODO: tambah  link valid ke file unit yang bersangkutan--}}
 					</tr>
 					<tr>
 						<td>Tujuan Dokumen</td>
 						<td class="tebal"><a href="">{{$dokumen->tujuan_surat->nama_unit or '-'}}</a></td>
 					</tr>
 					<tr>
-						<td>Nomer {{$dokumen->dokumen_sap->type}}</td>
+						<td>Nomer {{strtoupper($dokumen->dokumen_sap->type)}}</td>
 						<td class="tebal">
 							@foreach($detail_no_sap as $value)
 								<a href="{{url('dokumen/sap')."/".$value['type']."/".$value['no_sap']}}">{{$value['no_sap']}}</a>,
@@ -124,14 +125,12 @@
 						<td class="tebal"><span class="@if($dokumen->status_dokumen->id === 1) btn-success @else btn-danger @endif btn-xs">{{strtoupper($dokumen->status_dokumen->nama_status)}}</span></td>
 					</tr>
 					@if(Auth::user()->role_user->has_module('verify_dokumen'))
-						@include("dokumen.detail-hrga");
+						@include("dokumen.detail-hrga")
 					@endif
-					</tbody>
 				</table>
 			</div><!-- /.tab-pane -->
 			<div class="tab-pane" id="dokumen_terkait">
 				<div class="row">
-
 					<div class="col-md-12">
 						@foreach($no_pr as $pr)
 							<div class="box box-success box-solid">
