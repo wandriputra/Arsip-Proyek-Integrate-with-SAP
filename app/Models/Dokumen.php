@@ -46,7 +46,7 @@ class Dokumen extends Model
 //TODO: hasone change to has many to relation dokumen and sap
     public function dokumen_sap()
     {
-        return $this->hasMany('App\Models\Dokumen_sap', 'dokumen_id');
+        return $this->hasOne('App\Models\Dokumen_sap', 'dokumen_id');
     }
 
     public function dokumen_tembusan()

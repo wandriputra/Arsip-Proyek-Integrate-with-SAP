@@ -138,8 +138,8 @@ class dokumenController extends Controller
 //        TODO: tambah pr dan po untuk user
         if($id === '') return redirect("folder");
         $dokumen = Dokumen::where('id', $id)->orWhere('no_dokumen', $id)->firstOrFail();
-        $no_sap = collect($dokumen->dokumen_sap)->implode('no_sap', '');
-        $type = collect($dokumen->dokumen_sap)->implode('type', '');
+        $no_sap = $dokumen->dokumen_sap->no_sap;
+        $type = $dokumen->dokumen_sap->type;
 //        $cek
         $dokumen_with_pr = [];
         $dokumen_with_po = [];
