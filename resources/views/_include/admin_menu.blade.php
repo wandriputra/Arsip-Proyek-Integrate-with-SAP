@@ -43,9 +43,6 @@
         <li class="list-group-item"><a href="{{url('/auth/list-user')}}">List User</a></li>
         <li class="list-group-item"><a href="{{url('/personil/list-personil')}}">List Personil</a></li>
         <li class="list-group-item"><a href="{{url('unit/list-unit')}}">List Unit</a></li>
-        <li class="list-group-item"><a href="{{url('/auth/list-user')}}">List User</a></li>
-        <li class="list-group-item"><a href="{{url('/personil/list-personil')}}">List Personil</a></li>
-        <li class="list-group-item"><a href="{{url('unit/list-unit')}}">List Unit</a></li>
         <li class="list-group-item"><a href="{{url('hrga/list-zpc')}}">List File ZCPS1013 / SAP</a></li>
         <li class="list-group-item"><a href="{{url('hrga/role-module')}}">Role User</a></li>
     </ul>
