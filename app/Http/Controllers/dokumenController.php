@@ -163,7 +163,7 @@ class dokumenController extends Controller
         $type_sap = $this->type_sap($dokumen);
         $no_sap = $this->no_sap($dokumen);
 
-        
+//        todo detail dan link file sap
 
 
         return view('dokumen.detail', compact('dokumen', 'type_sap', 'no_sap'));
