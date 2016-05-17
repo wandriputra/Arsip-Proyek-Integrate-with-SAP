@@ -104,10 +104,10 @@
 						<td class="tebal"><a href="">{{$dokumen->tujuan_surat->nama_unit or '-'}}</a></td>
 					</tr>
 					<tr>
-						<td>Nomer {{strtoupper($dokumen->dokumen_sap->type)}}</td>
+						<td>Nomer {{strtoupper($type_sap)}}</td>
 						<td class="tebal">
-							@foreach($detail_no_sap as $value)
-								<a href="{{url('dokumen/sap')."/".$value['type']."/".$value['no_sap']}}">{{$value['no_sap']}}</a>,
+							@foreach($no_sap as $value)
+								<a href="{{url('dokumen/sap')."/".$value."/".$value}}">{{$value}}</a>,
 							@endforeach
 							<a href="{{url('dokumen/tambah-sap-dokumen').'/'.'dokumen'}}" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-plus"></i></a>
 						</td>
@@ -130,39 +130,7 @@
 				</table>
 			</div><!-- /.tab-pane -->
 			<div class="tab-pane" id="dokumen_terkait">
-				<div class="row">
-					<div class="col-md-12">
-						@foreach($no_pr as $pr)
-							<div class="box box-success box-solid">
-								<div class="box-header with-border" data-widget="collapse">
-									<i class="fa fa-plus"></i>
-									<h3 class="box-title">Dokumen {{$dokumen->asal_surat->nama_unit}}</h3>
-								</div><!-- /.box-header -->
-								<div class="box-body">
-									{{--//dokumen pr user--}}
-									@include('dokumen.dokumen_pr_user')
-									@include('dokumen.dokumen_po_user')
-									{{--//jika ada dokumen po user--}}
-								</div>
-							</div>
-						@endforeach
 
-
-						@foreach($no_po as $po)
-							<div class="box box-success box-solid">
-								<div class="box-header with-border" data-widget="collapse">
-									<i class="fa fa-minus"></i>
-									<h3 class="box-title">Dokumen PO : {{$po->po}}</h3>
-								</div>
-								<div class="box-body">
-									@include('dokumen.dokumen_po')
-								</div>
-							</div>
-						@endforeach
-
-					</div><!-- /.col -->
-
-				</div><!-- /.row -->
 			</div>
 		</div>
 	</div>
@@ -175,10 +143,10 @@
 					<input type="hidden" name="id" value="{{$dokumen['id']}}">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Tambah {{strtoupper($dokumen->dokumen_sap->type)}}</h4>
+						<h4 class="modal-title">Tambah {{strtoupper($type_sap)}}</h4>
 					</div>
 					<div class="modal-body">
-						<select class="form-control {{'select_'.$dokumen->dokumen_sap->type}}" name="{{$dokumen->dokumen_sap->type}}" style="width: 100%;">
+						<select class="form-control {{'select_'.$type_sap}}" name="{{$type_sap}}" style="width: 100%;">
 						</select>
 					</div>
 					<div class="modal-footer">

@@ -43,10 +43,10 @@ class Dokumen extends Model
     {
         return $this->belongsToMany('App\Models\Folder', 'folder_dokumen', 'dokumen_id', 'folder_id');
     }
-//TODO: hasone change to has many to relation dokumen and sap
+    
     public function dokumen_sap()
     {
-        return $this->hasOne('App\Models\Dokumen_sap', 'dokumen_id');
+        return $this->hasMany('App\Models\Dokumen_sap', 'dokumen_id');
     }
 
     public function dokumen_tembusan()
