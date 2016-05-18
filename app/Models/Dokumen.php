@@ -66,6 +66,7 @@ class Dokumen extends Model
             ->where("file_name_pdf", "like", "%$key%")
             ->orWhere("no_sap" , "like", "%$key%")
             ->select('*', 'dokumen.id as id_dokumen')
+            ->groupBy('dokumen.no_dokumen')
             ->paginate(5);
         return $dokumen;
     }

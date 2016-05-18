@@ -117,7 +117,8 @@ class datamasterController extends Controller
         $jra = Jra_dokumen::where('kode', 'like', $kode)->get();
         return $jra;
     }
-
+//      TODO; insert jra dan list bautkan datatable
+//      TODO; list actifity dokumen buatkan datatable
     
 
 }

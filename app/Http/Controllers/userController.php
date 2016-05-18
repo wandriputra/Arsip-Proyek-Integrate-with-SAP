@@ -12,10 +12,7 @@ use Illuminate\Contracts\Auth\Guard;
 use App\Models\User as user;
 use App\Models\Personil as Personil;
 use App\Models\Role_user as Role;
-use App\Models\Unit;
-use App\Models\Jabatan;
 
-use Illuminate\Support\Facades\Session;
 use Validator;
 use Hash;
 use Auth;
@@ -66,48 +63,31 @@ class userController extends Controller
 
     public function getTambahUser($value='')
     {
-        $unit = Unit::all();
-        $jabatan = Jabatan::all();
         $personil = Personil::all();
         $role_user = Role::all();
-        return view('auth.tambah', compact('unit', 'jabatan', 'personil', 'role_user'));
+        return view('auth.tambah', compact('personil', 'role_user'));
     }
 
     public function postTambahUser(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'nik' => 'numeric',
             'username' => 'required|between:3,30|unique:user',
             'password' => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
             'role_user_id' => 'required',
-            'nama_personil' => 'required|between:5,50',
-            'email' => 'required|email',
-            'unit_id' => 'required',
-            'jabatan_id' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator, 'create')
-                ->withInput();
-        }
         $request['created_by'] = Auth::user()->id;
-
-        $input = $request->only(['nik', 'nama_personil', 'email', 'singkatan', 'unit_id', 'jabatan_id', 'atasan_id', 'created_by']);
-        $input['atasan_id'] = ($input['atasan_id'] != '') ? $input['atasan_id'] : null ;
-        $personil = Personil::create($input);
-
-        $request['personil_id'] = $personil->id;
-
         $request['password'] = bcrypt($request['password_confirmation']);
-        $input = $request->only(['username', 'password', 'role_user_id', 'status', 'personil_id', 'created_by']);
-        $user = user::create($input);
 
-        if($user->id != null){
-            \Session::flash('alert-success', 'Berhasil manambahakan '.$user->personil->nama_personil);
+        if ($validator->fails()) {
+          return redirect()->back()
+                      ->withErrors($validator)
+                      ->withInput();
         }
-
+        $input = $request->only(['username', 'password', 'role_user_id', 'status', 'personil_id', 'created_by']);
+        user::create($input);
         return redirect('auth/list-user');
     }
 
@@ -146,50 +126,31 @@ class userController extends Controller
 
     public function getUserEdit($value='')
     {
-        $user = user::with('personil')->where('id', $value)->firstOrFail();
-        $unit = Unit::all();
-        $jabatan = Jabatan::all();
+        $user = user::where('id', $value)->firstOrFail();
         $personil = Personil::all();
         $role_user = Role::all();
-        return view('auth.edit', compact('user', 'personil', 'role_user', 'url', 'unit', 'jabatan'));
+        $url = 'auth/user-edit';
+        return view('auth.tambah', compact('user', 'personil', 'role_user', 'url'));
     }
 
     public function postUserEdit(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nik' => 'numeric',
-            'username' => 'required|between:3,30',
+        $validator = Validator::make($request->all(), array(
+            'username' => 'required|between:4,30',
             'password' => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
             'role_user_id' => 'required',
-            'nama_personil' => 'required|between:5,50',
-            'email' => 'required|email',
-            'unit_id' => 'required',
-            'jabatan_id' => 'required',
-        ]);
+        ));
 
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator, 'create')
-                ->withInput();
+          return redirect()->back()
+                      ->withErrors($validator)
+                      ->withInput();
         }
 
-        $user = user::with('personil')->find($request['id']);
         $edit = $request->all();
 
-        $edit['created_by'] = Auth::user()->id;
-        $personil = Personil::find($user->personil->id);
-
-        $array_personil = ['nik', 'nama_personil', 'email', 'singkatan', 'unit_id', 'jabatan_id', 'atasan_id', 'created_by'];
-
-        foreach ($array_personil as $value){
-            $personil->$value = $edit[$value];
-        }
-        $personil['atasan_id'] = ($edit['atasan_id'] != '') ? $edit['atasan_id'] : null ;
-        $personil->save();
-
-        $edit['personil_id'] = $personil->id;
-
+        $user = user::find($request['id']);
         $user->username = $edit['username'];
         $user->password = bcrypt($edit['password']);
         $user->status = $edit['status'];
@@ -197,11 +158,6 @@ class userController extends Controller
         $user->created_by = Auth::user()->id;
         $user->personil_id = $edit['personil_id'];
         $user->save();
-
-        if($user->id != null){
-            \Session::flash('alert-success', 'Berhasil mengedit '.$user->personil->nama_personil);
-        }
-
         return redirect('auth/list-user');
     }
 
