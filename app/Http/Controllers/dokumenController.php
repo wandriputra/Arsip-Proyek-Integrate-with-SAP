@@ -133,14 +133,19 @@ class dokumenController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function getDetail($id='')
+    public function getDetail($id='', $no_sap='')
     {
         if($id === '') return redirect("folder");
         $dokumen = Dokumen::with('sub_jenis_dokumen', 'asal_surat', 'tujuan_surat', 'dokumen_sap', 'dokumen_tembusan', 'jra_dokumen' )
             ->where('id', $id)
             ->orWhere('no_dokumen', $id)
             ->firstOrFail();
-        $no_sap = $dokumen->dokumen_sap->no_sap;
+        if ($no_sap != ''){
+            $no_sap = $no_sap;
+        }else{
+            $no_sap = $dokumen->dokumen_sap->no_sap;
+        }
+
         $type = $dokumen->dokumen_sap->type;
 
         $link = $this->link_dokumen($type, $no_sap);
