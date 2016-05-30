@@ -29,7 +29,6 @@ class Module extends Migration
             $table->foreign('role_user_id')
                 ->references('id')
                 ->on('role_user')
-                ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->foreign('created_by')
                 ->references('id')
@@ -38,7 +37,6 @@ class Module extends Migration
             $table->foreign('module_id')
                 ->references('id')
                 ->on('module_app')
-                ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
     }

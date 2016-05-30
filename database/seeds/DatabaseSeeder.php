@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call('insert_role');
         $this->call('insert_unit');
         $this->call('insert_jabatan');
+        $this->call('insert_visibility');
         // $this->call('insert_level_dokumen');
         $this->call('insert_jenis_dokumen');
         $this->call('insert_personil');
@@ -32,7 +33,6 @@ class DatabaseSeeder extends Seeder
         $this->call('insert_module');
         $this->call('insert_jra');
         $this->call('insert_role_module');
-        $this->call('visibility');
         Model::reguard();
     }
 }

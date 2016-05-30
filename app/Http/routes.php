@@ -37,9 +37,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/unit/unit-hapus/', ['use'=>'unitController', 'as'=>'hapus-unit']);	
 	Route::get('/jabatan/jabatan-edit/', ['use'=>'jabatanController', 'as'=>'edit-jabatan']);
 	Route::get('/jabatan/jabatan-hapus/', ['use'=>'jabatanController', 'as'=>'hapus-jabatan']);
-	
+
+//	DB::listen(function ($sql) {
+//		var_dump($sql);
+//	});
 });
 
 Route::controller('/auth', 'userController');
+
 
  

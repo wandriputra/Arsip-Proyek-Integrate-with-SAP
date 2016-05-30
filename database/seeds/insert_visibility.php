@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class visibility extends Seeder
+class insert_visibility extends Seeder
 {
     /**
      * Run the database seeds.
