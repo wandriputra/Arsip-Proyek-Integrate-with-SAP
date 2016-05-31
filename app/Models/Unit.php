@@ -30,4 +30,9 @@ class Unit extends Model
     {
         return $this->hasMany('App\Models\Dokumen', 'unit_asal');
     }
+
+    public function checklist()
+    {
+        return $this->hasMany('App\Models\checklist', 'unit_id');
+    }
 }

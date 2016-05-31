@@ -8,5 +8,11 @@ class Checklist extends Model
 {
     //
     protected $table = 'checklist';
-    protected $fillable = ''
+    protected $fillable = ['nama_checklist, unit_id'];
+
+    public function unit(){
+        return $this->belongsTo('App\Models\unit');
+    }
+
+
 }
