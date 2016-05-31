@@ -1,27 +1,22 @@
 @if(count($dokumen) >= 1)
-	<ul class="nav nav-stacked">
+	<table class="table table-hover">
+		<tr>
+			<th>#</th>
+			<th class="text-center">Nama Dokumen</th>
+			<th class="text-center">No. Dokumen</th>
+			<th class="text-center">No. SAP</th>
+		</tr>
+		<?php $i=1 ?>
 		@foreach($dokumen as $dokumen)
-		<li>
-			<a href="{{url('dokumen/detail')}}/{{$dokumen->id_dokumen}}" class="link-pencarian">
-				<div class="row">
-					<div class="col-md-2">
-						<img src="{{url('data/pdf.png')}}" alt="" width="100%">
-					</div>
-					<div class="col-md-10">
-						<table class="table-hover">
-							<tr>
-								<td>Nama File</td>
-								<td>:</td>
-								<td>{{$dokumen->no_dokumen}}</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</a>
-		</li>
+		<tr>
+			<td>{{$i++}}</td>
+			<td><a href="{{url('dokumen/detail')}}/{{$dokumen->id_dokumen}}">{{$dokumen->nama_dokumen}}</a></td>
+			<td class="text-center"><a href="{{url('dokumen/detail')}}/{{$dokumen->id_dokumen}}">{{$dokumen->no_dokumen}}</a></td>
+			<td><a href="{{url('dokumen/detail')}}/{{$dokumen->id_dokumen}}">{{$dokumen->no_sap}}</a></td>
+		</tr>
+
 		@endforeach
-		
-	</ul>
+	</table>
 @endif
 
 @if(count($folder) >= 1)

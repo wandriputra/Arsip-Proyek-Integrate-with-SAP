@@ -124,7 +124,7 @@
 						<td class="tebal"><span class="@if($dokumen->status_dokumen->id === 1) btn-success @else btn-danger @endif btn-xs">{{strtoupper($dokumen->status_dokumen->nama_status)}}</span></td>
 					</tr>
 					@if(Auth::user()->role_user->has_module('verify_dokumen'))
-						@include("dokumen.detail-hrga");
+						@include("dokumen.detail-hrga")
 					@endif
 					</tbody>
 				</table>
@@ -142,7 +142,7 @@
 								<div class="box-body">
 									{{--//dokumen pr user--}}
 									@include('dokumen.dokumen_pr_user')
-									@include('dokumen.dokumen_po_user')
+									{{--include('dokumen.dokumen_po_user')--}}
 									{{--//jika ada dokumen po user--}}
 								</div>
 							</div>

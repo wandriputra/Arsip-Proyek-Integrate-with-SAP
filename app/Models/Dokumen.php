@@ -46,7 +46,7 @@ class Dokumen extends Model
 //TODO: hasone change to has many to relation dokumen and sap
     public function dokumen_sap()
     {
-        return $this->hasMany('App\Models\Dokumen_sap', 'dokumen_id');
+        return $this->hasOne('App\Models\Dokumen_sap', 'dokumen_id');
     }
 
     public function dokumen_tembusan()
@@ -66,6 +66,7 @@ class Dokumen extends Model
             ->where("file_name_pdf", "like", "%$key%")
             ->orWhere("no_sap" , "like", "%$key%")
             ->select('*', 'dokumen.id as id_dokumen')
+            ->groupBy('dokumen.no_dokumen')
             ->paginate(5);
         return $dokumen;
     }

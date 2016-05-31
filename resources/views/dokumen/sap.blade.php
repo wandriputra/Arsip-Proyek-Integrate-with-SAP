@@ -28,7 +28,8 @@
 						@foreach($no_pr as $pr)
 							<div class="box box-success box-solid">
 								<div class="box-header with-border" data-widget="collapse">
-									<i class="fa fa-plus"></i>
+									<i class="fa fa-minus"></i>
+									<h3 class="box-title">Dokumen User</h3>
 								</div><!-- /.box-header -->
 								<div class="box-body">
 									@include('pencarian.dokumen_pr')
