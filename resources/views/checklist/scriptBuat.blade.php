@@ -9,29 +9,6 @@
             placeholder: "Type Something..."
         });
 
-        {{--$(".actifity").select2({--}}
-            {{--placeholder: "Type Something...",--}}
-            {{--ajax: {--}}
-                {{--url: "{{url('dokumen/ajax-actifity').'/1'}}",--}}
-                {{--dataType: 'json',--}}
-                {{--delay: 100,--}}
-                {{--method:'GET',--}}
-                {{--data: function (params) {--}}
-                    {{--return {--}}
-                        {{--q: params.term,--}}
-                        {{--type: 'pr',--}}
-                        {{--page: params.page--}}
-                    {{--};--}}
-                {{--},--}}
-                {{--processResults: function (data, page) {--}}
-                    {{--return {--}}
-                        {{--results: data,--}}
-                    {{--};--}}
-                {{--},--}}
-                {{--cache: true--}}
-            {{--}--}}
-        {{--});--}}
-
         $(".select-remote-data").select2({
             placeholder: "Type Something...",
             ajax: {
@@ -43,7 +20,7 @@
                 data: function (params) {
                     return {
                         q: params.term,
-                        act: $('.actifity').val(),
+                        act: $('#actifity').val(),
                         page: params.page
                     };
                 },
@@ -64,21 +41,13 @@
                  for (var i = 0; i < data.length; i++) {
                      options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
                  }
-                 $('.actifity option').remove();
-                 $('.actifity').append(options);
+                 $('#actifity option').remove();
+                 $('#actifity').append(options);
              });
         });
 
-        $('.actifity').change(function(){
-            unit_id = $('.activity').val();
-            $.getJSON("{{url('dokumen/ajax-sub-jenis-dokumen/')}}"+"/"+unit_id, function(data) {
-                var options = '<option value=""></option>';
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
-                }
-                $('.actifity option').remove();
-                $('.actifity').append(options);
-            });
+        $('#actifity').change(function(){
+
         });
 
 

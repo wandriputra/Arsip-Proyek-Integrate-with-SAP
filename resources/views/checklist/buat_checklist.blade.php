@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Unit</label>
                     <div class="col-md-8">
-                        <select name="unit_asal" class="form-control select2" id="asal_surat" style="width: 95%;">
+                        <select name="unit_id" class="form-control select2" id="asal_surat" style="width: 95%;">
                             @foreach($unit as $asal_surat)
                                 @if($asal_surat['id'] != '1')
                                     <option value="{{$asal_surat['id']}}" @if(Auth::user()->personil->unit->id == $asal_surat['id']) {{'selected'}} @endif >({{$asal_surat['singkatan']}}) {{$asal_surat['nama_unit']}}</option>
@@ -53,29 +53,26 @@
 
                 <hr>
 
-                <div class="cloneable-div">
-                    <div class="form-group actfitiy-div">
-                        <label class="col-sm-3 control-label">Activity Dokumen</label>
-                        <div class="col-sm-5">
-                            <select class="form-control actifity" name="actifity" id="actifity" style="width: 90%;">
-                            </select>
-                        </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Actifity</label>
+                    <div class="col-sm-8">
+                        <select class="form-control select2" name="actifity" id="actifity" style="width: 95%;">
+                        </select>
                     </div>
-                    <div class="form-group clone-jenis-div">
-                        <label class="col-sm-4 control-label">Jenis Dokumen</label>
-                        <div class="col-sm-7">
-                            <select class="form-control select-remote-data" name="sub_jenis_dokumen" id="sub_jenis_dokumen" style="width: 90%;">
-
-                            </select> <a href="{{url('data/insert-sub-jenis')}}"><i class="fa fa-fw fa-plus"></i></a>
-                        </div>
-                    </div>
-                    <hr>
                 </div>
 
+                <div class="form-group jenis-dokumen">
+                    <label class="col-sm-3 control-label">Jenis Dokumen</label>
+                    <div class="col-sm-7 select-box">
+                        <select class="form-control select-remote-data" name="jenis_dokumen[]" id="sub_jenis_dokumen" style="width: 95%;">
+                        </select>
+                            <a href="{{url('data/insert-sub-jenis')}}" class="add-jenis-link">
+                                <i class="fa fa-fw fa-plus"></i>
+                            </a>
+                    </div>
+                </div>
 
-
-
-                <div class="table-add-activity" id="tambah_activity">
+                <div class="table-add-activity" id="tambah-jenis">
                     <i class="fa fa-fw fa-plus"></i> Tambah Activity
                 </div>
 
@@ -94,31 +91,48 @@
 @section('costom_js_pages')
     @include('checklist.scriptBuat')
     <script>
-        $number = 0;
         $('.kode').change(function(){
             $.get( "{{url('/data/ajax-jra-cek-kode').'?kode='}}"+$('.kode').val(), function( data ) {
                 $('.detail-kode').html(data[0].jenis_arsip);
             });
         })
 
-        $('#tambah_activity').click(function(){
-            $clone =  $('.cloneable-div:last').clone();
-            $clone.find('div.col-sm-5').val('<select class="form-control select2 activity" name="actifity" id="" style="width: 90%;"> </select>');
-            $($clone).insertAfter( ".cloneable-div:last" );
-            unit_id = $('#asal_surat').val();
-            $.getJSON("{{url('dokumen/ajax-actifity')}}"+"/"+unit_id, function(data) {
-                var options = '<option value=""></option>';
-                for (var i = 0; i < data.length; i++) {
-                    options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
+        $('#tambah-jenis').click(function(){
+            $clone_jenis = $('.jenis-dokumen:last').clone();
+            $($clone_jenis).insertAfter('.jenis-dokumen:last');
+            $jenis = $('.jenis-dokumen:last');
+            $jenis.find('.add-jenis-link').html(' ');
+
+            $jenis.find('div.select-box').html('<select class="form-control select-remote-data" name="jenis_dokumen[]" id="sub_jenis_dokumen" style="width: 95%;"> </select><a href="{{url('data/insert-sub-jenis')}}" class="add-jenis-link"> <i class="fa fa-fw fa-plus"></i> </a>');
+            var $select = $('.select-remote-data:last').select2();
+            //console.log($select);
+            $select.each(function(i,item){
+                //console.log(item);
+                $(item).select2("destroy");
+            });
+
+            $(".select-remote-data").select2({
+                placeholder: "Type Something...",
+                ajax: {
+                    minimumInputLength: 3,
+                    url: "{{url('dokumen/ajax-sub-jenis-dokumen/')}}",
+                    dataType: 'json',
+                    delay: 100,
+                    method:'GET',
+                    data: function (params) {
+                        return {
+                            q: params.term,
+                            act: $('#actifity').val(),
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, page) {
+                        return {
+                            results: data,
+                        };
+                    },
+                    cache: true
                 }
-
-                $('.actifity:last option').remove();
-                $('.actifity:last').append(options);
-                $(".actifity").select2('destroy');
-
-                $(".actifity:last").select2({
-                    placeholder: "Type Something..."
-                });
             });
         });
 

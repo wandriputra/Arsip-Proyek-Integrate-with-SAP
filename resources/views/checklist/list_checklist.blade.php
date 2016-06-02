@@ -10,7 +10,7 @@
             <h3 class="box-title">List Checklist</h3>
         </div>
         <div class="box-body">
-            <a href="{{url('checklist/buat')}}" class="btn btn-default"><i class="fa fa-plus"></i> Buat Checklist</a>
+            <a href="{{url('checklist/buat')}}" class="btn btn-xs btn-warning"><i class="fa fa-plus"></i> Buat Checklist</a>
             <table class="table table-bordered" id="checklist-table">
                 <thead>
                 <tr>

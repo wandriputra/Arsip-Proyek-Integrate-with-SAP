@@ -94,6 +94,9 @@
                         <a href="{{url('pencarian/?type=file_pdf&q=')}}"><i class="fa fa-search"></i> Pencarian</a>
                       </li>
                       <li>
+                        <a href="{{url('checklist/list')}}"><i class="fa fa-upload"></i> Checklist</a>
+                      </li>
+                      <li>
                         <a href="{{url('folder')}}"><i class="fa fa-folder-o"></i> Folder</a>
                       </li>
                       <li>
