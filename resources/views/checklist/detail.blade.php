@@ -8,7 +8,7 @@
             border: 1px solid #f4f4f4;
 
         }
-        .table-chacklist{
+        .table-checklist{
             width:100%;
         }
         .judul-checklist{
@@ -27,6 +27,7 @@
             <h4 class="text-center judul-checklist">CHECK LIST VERIFIKASI ARSIP PROYEK INDARUNG VI<br>{{$data['nama_checklist']}}</h4>
             <div class="col-md-offset-8 col-md-4">
                 <table class="table table-border">
+                     {{--TODO: print semua no sap yang ada / terkait pada dokumen--}}
                     <tr>
                         <td>No PR</td>
                         <td>________________________</td>
@@ -41,30 +42,7 @@
                     </tr>
                 </table>
             </div>
-            <table class="table-chacklist" border="1">
-                <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Nama Aktifitas</th>
-                    <th class="text-center">Jenis Dokumen</th>
-                    <th class="text-center">Dokumen</th>
-                </tr>
-                <?php $i=1; $j=1;?>
-                @foreach($list as $val)
-                    <tr>
-                        @if($j > $act[$val['actifity']['nama_actifity']]['rowspan'])
-                            <?php $j=1; ?>
-                        @endif
-
-                        @if($j==1)
-                            <td rowspan="{{$act[$val['actifity']['nama_actifity']]['rowspan']}}">{{$i++}}</td>
-                            <td rowspan="{{$act[$val['actifity']['nama_actifity']]['rowspan']}}">{{$val['actifity']['nama_actifity']}}</td>
-                        @endif
-                            <?php $j++ ?>
-                        <td>{{$val['sub_jenis_dok']['nama_sub']}}</td>
-                        <td></td>
-                    </tr>
-                @endforeach
-            </table>
+            @include('checklist._table_detail')
         </div>
         <div class="box-footer">
             <div class="pull-right">

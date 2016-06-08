@@ -14,5 +14,16 @@ class Checklist extends Model
         return $this->belongsTo('App\Models\unit');
     }
 
+    public function checklist_relation()
+    {
+        return $this->hasMany('App\Models\Checklist_relasion', 'checklist_id');
+    }
+
+    public function has_dokumen()
+    {
+        return $this->belongsToMany('App\Models\Dokumen', 'checklist_has_dokumen', 'checklist_id', 'dokumen_id');
+
+    }
+
 
 }

@@ -24,7 +24,7 @@
 
 	</style>
 	@stop
-
+{{--TODO: chunk file pdf list using collection--}}
 	@section('content_main_pages')
 			<!-- SELECT2 EXAMPLE -->
 	<div class="nav-tabs-custom">

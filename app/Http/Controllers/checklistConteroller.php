@@ -45,7 +45,7 @@ class checklistConteroller extends Controller
                 return $checklist['unit']['nama_unit'];
             })
             ->addColumn('detail', function($checklist){
-                return "<a href='".url('checklist/detail/')."/".$checklist['id']."' class='btn btn-xs btn-info'><i class='fa fa-search'></i></a> <a href='".url('checklist/buat/')."/".$checklist['id']."' class='btn btn-xs btn-success'><i class='fa fa-pencil'></i></a> <a href='".url('checklist/hapus/')."/".$checklist['id']."' class='btn btn-xs btn-danger'><i class='fa fa-trash'></i></a>";
+                return "<a href='".url('checklist/detail/')."/".$checklist['id']."' class='btn btn-xs btn-info'><i class='fa fa-search'></i></a> <a href='".url('checklist/edit/')."/".$checklist['id']."' class='btn btn-xs btn-success'><i class='fa fa-pencil'></i></a> <a href='".url('checklist/hapus/')."/".$checklist['id']."' class='btn btn-xs btn-danger'><i class='fa fa-trash'></i></a>";
             })
             ->make(true);
     }
@@ -61,13 +61,14 @@ class checklistConteroller extends Controller
             $data_relation['checklist_id'] = $data_create['id'];
             Checklist_relasion::create($data_relation);
         }
-        return $data;
+        return redirect('checklist/edit'.'/'.$data_create['id']);
     }
 
     public function getDetail($id)
     {
+        //TODO: check jika user punya authentifikasi untuk mengakses module
         $data = Checklist::find($id)->firstOrFail();
-        $list = Checklist_relasion::with('checklist', 'actifity', 'sub_jenis_dok')->where('checklist_id', $id)->get();
+        $list = Checklist_relasion::with('checklist', 'actifity', 'sub_jenis_dok')->where('checklist_id', $id)->orderBy('actifity_id')->get();
         $name ='';
         $i= 1;
         foreach($list as $val){
@@ -83,11 +84,54 @@ class checklistConteroller extends Controller
         
     }
 
+    public function getHapus($id)
+    {
+        //TODO: check jika user punya authentifikasi untuk menghapus
+        $del = Checklist::where('id', $id)->firstOrFail();
+        \Session::flash("alert-success", "Checklist ".$del['nama_checklist']." berhasil di hapus");
+        $del->delete();
+        return redirect('checklist/list');
+    }
+
+    public function getEdit($id)
+    {
+        $data = Checklist::find($id)
+            ->firstOrFail();
+        $list = Checklist_relasion::with('checklist', 'actifity', 'sub_jenis_dok')
+            ->where('checklist_id', $id)
+            ->orderBy('actifity_id')
+            ->get();
+        $name ='';
+        $i= 1;
+        foreach($list as $val){
+            if($name === $val['actifity']['nama_actifity']){
+                $i++;
+            }else{
+                $i=1;
+            }
+            $act[$val['actifity']['nama_actifity']]['rowspan'] = $i;
+            $name = $val['actifity']['nama_actifity'];
+        }
+        return view('checklist.edit', compact('data', 'list', 'act'));
+    }
+
+    public function postEdit(Request $request)
+    {
+        $data = $request->all();
+        foreach($data['jenis_dokumen'] as $jenis){
+            $data_relation['sub_jenis_id'] = $jenis;
+            $data_relation['actifity_id'] = $data['actifity'];
+            $data_relation['checklist_id'] = $data['checklist_id'];
+            Checklist_relasion::create($data_relation);
+        }
+        return redirect('checklist/edit'.'/'.$data['checklist_id']);
+    }
+
     //TODO: hapus checklist
     //TODO: edit / add actifity checklist
     //TODO: print checklist to pdf
     //TODO: upload dokumen via cheklist list /detail
     //TODO: verify checklist
 
-
+//Checklist hanya bisa dihapus oleh user unit dan admin unit yang bersangkutan
 }

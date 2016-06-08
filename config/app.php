@@ -139,6 +139,7 @@ return [
         'Maatwebsite\Excel\ExcelServiceProvider', //laravel excel
         Barryvdh\Debugbar\ServiceProvider::class, //debugbar laravel
         yajra\Datatables\DatatablesServiceProvider::class, //datatabel laravel
+        Barryvdh\Snappy\ServiceProvider::class, //snappy pdf
 
         /*
          * Application Service Providers...
@@ -199,6 +200,8 @@ return [
         'Excel' => 'Maatwebsite\Excel\Facades\Excel', //laravel excel
         'Debugbar' => Barryvdh\Debugbar\Facade::class, //debugbar
         'Datatables'=> yajra\Datatables\Datatables::class, //datatable laravel
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'Image' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
     ],
 

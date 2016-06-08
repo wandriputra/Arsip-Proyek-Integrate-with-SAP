@@ -54,6 +54,11 @@ class Dokumen extends Model
         return $this->belongsToMany('App\Models\Unit', 'tembusan_dokumen', 'dokumen_id', 'unit_id');
     }
 
+    public function checklist()
+    {
+        return $this->belongsToMany('App\Models\Checklist', 'checklist_has_dokumen', 'dokumen_id', 'checklist_id');
+    }
+
     public function jra_dokumen()
     {
         return $this->belongsTo('App\models\Jra_dokumen', 'jra_dokumen_id');

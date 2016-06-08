@@ -38,5 +38,5 @@
 @stop
 
 @section('costom_js_pages')
-	@include('checklist.scriptBuat')
+	@include('checklist._script')
 @stop
