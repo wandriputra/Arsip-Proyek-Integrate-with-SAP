@@ -118,4 +118,13 @@
         var val = $(this).val();
         $(this).closest('tr').find('input:text').val(val);
     });
+
+    $('.show-modal').click(function(e) {
+        var modal = $('#myModal'), modalBody = $('#myModal .modal-body');
+
+        modal.on('show.bs.modal', function () {
+            modalBody.load(e.currentTarget.href)
+        }).modal();
+        e.preventDefault();
+    });
 </script>

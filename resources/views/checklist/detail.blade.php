@@ -49,8 +49,12 @@
             </div>
         </div><!-- /.box-footer -->
     </div>
+
+
+    @include('checklist._modal_upload')
+
 @stop
 
 @section('costom_js_pages')
-
+    @include('checklist._Script')
 @stop

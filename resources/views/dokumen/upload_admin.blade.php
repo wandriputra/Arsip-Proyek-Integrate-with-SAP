@@ -4,7 +4,7 @@
 	<div class="form-group">
 		<label for="" class="col-sm-3 control-label">Asal Surat</label>
 		<div class="col-md-8">
-			<select name="unit_asal" class="form-control select2" id="asal_surat" style="width: 90%;">
+			<select name="unit_asal" class="form-control select2 asal_surat" id="" style="width: 90%;">
 				@foreach($unit as $asal_surat)
 					@if($asal_surat['id'] != '1')
 					<option value="{{$asal_surat['id']}}" @if(Auth::user()->personil->unit->id == $asal_surat['id']) {{'selected'}} @endif >({{$asal_surat['singkatan']}}) {{$asal_surat['nama_unit']}}</option>
@@ -17,7 +17,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Actifity</label>
 		<div class="col-sm-7">
-			<select class="form-control select2" name="actifity" id="actifity" style="width: 90%;">
+			<select class="form-control select2 actifity" name="actifity" id="" style="width: 90%;">
 				
 			</select> <a href="{{url('data/tambah-actifity')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>

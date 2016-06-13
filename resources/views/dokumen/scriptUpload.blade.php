@@ -1,5 +1,4 @@
 <!-- Select2 -->
-<script src="{{ url('asset/plugins/iCheck/icheck.min.js')}}"></script>
 <script src="{{ url('asset/plugins/select2/select2.full.min.js')}}"></script>
 
 {{--todo: perbaiki select2 aplikasi yang menghapus ketika ditekan--}}
@@ -9,9 +8,6 @@
 			placeholder: "Type Something..."
 		});
 
-		$('input[type="radio"].minimal').iCheck({
-			radioClass: 'iradio_minimal-blue'
-		});
 
 		$(".select-remote-data").select2({
 			placeholder: "Type Something...",
@@ -130,29 +126,28 @@
 		});
 
 
-		$('#asal_surat').change(function(){
-			unit_id = $('#asal_surat').val();
-			$.getJSON("{{url('dokumen/ajax-actifity')}}"+"/"+unit_id, function(data) {
-				var options = '<option value=""></option>';
-				for (var i = 0; i < data.length; i++) {
-					options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
-				}
-				$('#actifity option').remove();
-				$('#sub_jenis_dokumen option').remove();
-				$('#actifity').append(options);
-				$('#actifity').select2({
-					placeholder: "Type Something..."
-				});
-				cek_unit_id(unit_id);
-			});
-		});
+        $('#asal_surat').change(add_actifity);
 
-		$('#actifity').change(function(){
-			actifity_id = $('#actifity').val();
+        add_actifity();
+
+        function add_actifity()
+        {
+            unit_id = $('.asal_surat').val();
+            $.getJSON("{{url('dokumen/ajax-actifity')}}" + "/" + unit_id, function (data) {
+                var options = '<option value=""></option>';
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
+                }
+                $('.actifity option').remove();
+                $('.actifity').append(options);
+            });
+        }
+
+		$('.actifity').change(function(){
+			actifity_id = $('.actifity').val();
 			$('#sub_jenis_dokumen option').remove();
-			unit_id = $('#unit_asal').val();
+			unit_id = $('.asal_surat').val();
 			cek_unit_id(unit_id);
-
 
 			//todo: cari cara untuk menampilkan po dan pr untuk upload type user
 
@@ -169,7 +164,7 @@
 		function cek_unit_id(unit_id) {
 			// body...
 			if (unit_id != 19 && unit_id != 11 && unit_id != 25 && unit_id != 23) {
-				actifity_id = $('#actifity').val(); // jika user dapatkan actifity dan cek actifity sebelum po atau sesudah po
+				actifity_id = $('.actifity').val(); // jika user dapatkan actifity dan cek actifity sebelum po atau sesudah po
 				if(actifity_id == 1){ //dokumen pr
 					$("#pr_select").removeClass('hide');
 					$("#po_select").addClass('hide');

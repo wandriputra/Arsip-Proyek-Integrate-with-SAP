@@ -4,7 +4,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Actifity</label>
 		<div class="col-sm-7">
-			<select class="form-control select2" name="actifity" id="actifity" style="width: 90%;">
+			<select class="form-control select2 actifity" name="actifity" id="" style="width: 90%;">
 				@foreach($actifity as $val)
 					<option value="{{$val['id']}}">{{$val['nama_actifity']}}</option>
 				@endforeach

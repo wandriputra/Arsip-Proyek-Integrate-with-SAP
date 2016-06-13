@@ -2,7 +2,6 @@
 
 @section('costom_style_pages')
 	<link rel="stylesheet" href="{{url('asset/plugins/select2/select2.min.css')}}">
-	<link rel="stylesheet" href="{{url('asset/plugins/iCheck/all.css')}}">
 	<style>
 		.detail-kode{
 			margin-top: 10px;

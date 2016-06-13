@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="{{url('asset/dist/css/ionicons.min.css')}}">
 
   @yield('costom_style_pages')
-
   <link rel="stylesheet" href="{{url('asset/dist/css/AdminLTE.css')}}">
   <link rel="stylesheet" href="{{url('asset/dist/css/skins/skin-red.css')}}">
 

@@ -18,10 +18,11 @@
             @endif
             <?php $j++ ?>
             <td>{{$val['sub_jenis_dok']['nama_sub']}}</td>
+            <td class="hide jenis_dokumen_id">{{$val['sub_jenis_dok']['id']}}</td>
             <td>
-                @if($data['has_dokumen']->count() > 0)
-                    <a href="" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Dokumen</a>
-                @endif
+                @unless($data['has_dokumen']->count())
+                    <a class="btn btn-xs btn-success show-modal" href="{{url('dokumen/modal-upload').'?actifity='.$val['actifity']['id'].'&jenis='.$val['sub_jenis_dok']['id'].'&checklist='.$val['checklist']['id'].'&unit='.$val['checklist']['unit']['id']}}"><i class="fa fa-plus"></i> Dokumen</a>
+                @endunless
             </td>
         </tr>
     @endforeach

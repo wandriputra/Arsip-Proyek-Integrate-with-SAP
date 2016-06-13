@@ -366,15 +366,18 @@ class dokumenController extends Controller
             \Session::flash('alert-warning', 'Lengkapi Kembali Input Sebelum Upload');
             return redirect()->back();
         }
+
         
         $data['pr']= '';
         $data['po']= '';
         $data['gr']= '';
         $data['cd']= '';
+        $data['checklist_id'] = '';
 
         $file = $request->file('file_pdf');
 
         $data = array_merge($data, $request->all());
+
 
         $jra_dokumen_id = Jra_dokumen::select('id')
             ->where('kode', $data['kode_jra'])
@@ -415,7 +418,12 @@ class dokumenController extends Controller
         }
 
         $dokumen = Dokumen::create($data);
-
+        
+        if ($data['checklist_id'] != '') {
+            $checklist_dokumen['checklist_id'] = $data['checklist_id'];
+            $checklist_dokumen['dokumen_id'] = $dokumen['id'];
+            $dokumen->has_dokumen()->attach($checklist_dokumen);
+        }
         //dokumen pengadaan
         $this->insertDokumenPRPO($dokumen, $data['pr'], $data['po'], $data['gr'], $data['cd']);
         $this->insertFolder($data, $dokumen);
@@ -436,7 +444,10 @@ class dokumenController extends Controller
 
     public function cekWBS($value)
     {
-        $sap = Sap::select('wbs')->where('purchase_requisition', $value)->where('purchase_requisition', '!=', 'null')->groupBy('wbs');
+        $sap = Sap::select('wbs')
+            ->where('purchase_requisition', $value)
+            ->where('purchase_requisition', '!=', 'null')
+            ->groupBy('wbs');
         return true;
     }
 
@@ -727,4 +738,21 @@ class dokumenController extends Controller
         Dokumen_sap::create($data);
         return redirect("dokumen/detail/".$data['dokumen_id']);
     }
+
+    public function getModalUpload(Request $request)
+    {
+        $jenis_id = $request->input('jenis');
+        $checklist_id = $request->input('checklist');
+        $unit_id = $request->input('unit');
+        $actifity_id = $request->input('actifity');
+
+        $actifity = Actifity::where('id', $actifity_id)->firstOrFail();
+        $unit = unit::where('id', $unit_id)->firstOrFail();
+        $jenis = Sub_jenis_dokumen::where('id', $jenis_id)->firstOrFail(); 
+        $unit_tujuan = unit::all();
+        $visibility = Visibility::all();
+        // dd($unit);
+        return view('checklist._upload-dokumen-modal', compact('jenis_id', 'jenis', 'checklist_id', 'actifity', 'unit', 'unit_tujuan', 'visibility'));
+    }
+
 }

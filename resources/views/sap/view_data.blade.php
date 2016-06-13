@@ -50,6 +50,7 @@
 	// $(function() {
 	    var arsiptable = $('#arsip').DataTable({
 	        dom: '<<t>p>',
+	        iDisplayLength: 15,
 	        processing: true,
 	        serverSide: true,
 	        ajax: '{!!url("hrga/ajax-file-upload")!!}',

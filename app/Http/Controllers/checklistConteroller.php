@@ -68,7 +68,10 @@ class checklistConteroller extends Controller
     {
         //TODO: check jika user punya authentifikasi untuk mengakses module
         $data = Checklist::find($id)->firstOrFail();
-        $list = Checklist_relasion::with('checklist', 'actifity', 'sub_jenis_dok')->where('checklist_id', $id)->orderBy('actifity_id')->get();
+        $list = Checklist_relasion::with('checklist', 'actifity', 'sub_jenis_dok')
+            ->where('checklist_id', $id)
+            ->orderBy('actifity_id')
+            ->get();
         $name ='';
         $i= 1;
         foreach($list as $val){
@@ -95,7 +98,7 @@ class checklistConteroller extends Controller
 
     public function getEdit($id)
     {
-        $data = Checklist::find($id)
+        $data = Checklist::where('id',$id)
             ->firstOrFail();
         $list = Checklist_relasion::with('checklist', 'actifity', 'sub_jenis_dok')
             ->where('checklist_id', $id)

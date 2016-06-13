@@ -45,20 +45,21 @@
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Nama Checklist</label>
                     <div class="col-md-8">
-                        <input type="text" name="nama_checklist" class="form-control kode" disabled value="{{$data['nama_checklist']}}">
+                        <input type="text" name="nama_checklist" class="form-control" disabled value="{{$data['nama_checklist']}}">
                     </div>
-                    <label class="detail-kode"> </label>
                 </div>
 
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Unit</label>
                     <div class="col-md-8">
-                        <input type="text" name="nama_unit" class="form-control kode" disabled value="{{$data['unit']['nama_unit']}}">
+                        <input type="text" name="nama_unit" class="form-control" disabled value="{{$data['unit']['nama_unit']}}">
                     </div>
                 </div>
 
                 <hr>
+                
                 @include('checklist._table_detail')
+
                 <hr>
                 <input type="hidden" name="checklist_id" value="{{$data['id']}}">
                 <input type="hidden" name="unit_id" value="{{$data['unit_id']}}" id="asal_surat">
@@ -74,6 +75,9 @@
         </div><!-- /.box-footer -->
         </form>
     </div>
+
+@include('checklist._modal_upload')
+
 @stop
 
 @section('costom_js_pages')
