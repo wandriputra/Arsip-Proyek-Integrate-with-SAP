@@ -155,7 +155,7 @@ class Dokumen extends Model
         return $this->belongsTo('App\Models\Status_dokumen', 'status_dokumen_id');
     }
 
-    public function has_dokumen()
+    public function has_checklist()
     {
         return $this->belongsToMany('App\Models\Checklist', 'checklist_has_dokumen', 'dokumen_id', 'checklist_id');
     }

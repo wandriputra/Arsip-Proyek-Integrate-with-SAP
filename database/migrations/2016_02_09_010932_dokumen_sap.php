@@ -12,13 +12,6 @@ class DokumenSap extends Migration
      */
     public function up()
     {
-        Schema::create('dokumen_sap', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('no_sap', 25)->nullable();
-            $table->integer('dokumen_id')->unsigned()->nullable();
-            $table->string('type',2)->nullable();
-            $table->timestamps();
-        });
 
         Schema::table('dokumen_sap', function (Blueprint $table) {
             //
@@ -37,6 +30,5 @@ class DokumenSap extends Migration
      */
     public function down()
     {
-        Schema::drop('dokumen_sap');
     }
 }

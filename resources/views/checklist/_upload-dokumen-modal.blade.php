@@ -1,7 +1,9 @@
 <form class="form-horizontal" action="{{url('dokumen/upload')}}" method="post" enctype="multipart/form-data">
 	{{csrf_field()}}
+
 	<input type="hidden" name="checklist_id" value="{{$checklist_id}}">
-	<input type="hidden" name="actifity_id" value="{{$actifity['id']}}" class="actifity">
+	<input type="hidden" name="actifity_id" value="{{$actifity['id']}}">
+
 	<div class="form-group">
 		<label for="" class="col-sm-4 control-label">Asal Surat</label>
 		<div class="col-md-8">
@@ -14,7 +16,7 @@
 		<label class="col-sm-4 control-label">Jenis Dokumen</label>
 		<div class="col-sm-8">
 			<input type="text" value="{{$jenis['nama_sub']}}" class="form-control" disabled="true">
-			<input type="hidden" name="sub_jenis_dokumen" value="{{$jenis['id']}}" >
+			<input type="hidden" name="jenis_dokumen" value="{{$jenis['id']}}" >
 		</div>
 	</div>
 
@@ -64,7 +66,7 @@
 	<div class="form-group">
   		<label for="exampleInputFile" class="col-sm-4 control-label">File input</label>
   		<div class="col-sm-8">
-  			<input type="file" id="file_pdf" name="file_pdf">
+  			<input type="file" name="file_pdf">
   			<p class="help-block">*Dokumen hanya dokumen final Format File PDF</p>
 		</div>
 	</div>
@@ -82,22 +84,25 @@
 			</select> <a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
 		</div>
 	</div>
+
 	<div class="form-group">
 		<label class="col-sm-4 control-label">Tembusan</label>
 		<div class="col-sm-8">
-			<select class="form-control select2" name="tembusan" multiple="multiple" data-placeholder="Tembusan Surat" style="width: 100%;">
+			<select class="form-control select2" name="tembusan[]" multiple="multiple" data-placeholder="Tembusan Surat" style="width: 100%;">
 				@foreach($unit_tujuan as $tembusan)
 					<option value="{{$tembusan['id']}}">{{$tembusan['nama_unit'].' ('.$tembusan['singkatan'].')'}}</option>
 				@endforeach
 			</select>
 		</div>
 	</div>
+
 	<div class="form-group">
 		<label for="" class="col-sm-4 control-label">Lokator Penyimpanan</label>
 		<div class="col-md-8">
 			<input type="text" name="lokasi_file" placeholder="Lokator Penyimpanan" class="form-control" value="">
 		</div>
 	</div>
+
 	<div class="form-group">
 		<label class="col-sm-4 control-label">Visibility Dokumen</label>
 		<div class="radio">
@@ -109,11 +114,13 @@
 		@endforeach
 		</div>
 	</div>
+
 	<div class="box-footer">
 		<div class="">
 			<button type="reset" class="btn btn-default col-md-2">Reset</button>
 			<button type="submit" class="btn btn-success col-md-2 pull-right">Upload</button>
 		</div>
 	</div><!-- /.box-footer -->
+
 </form>
 @include('checklist._script_upload_dokumen')

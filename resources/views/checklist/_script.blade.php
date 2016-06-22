@@ -122,9 +122,12 @@
     $('.show-modal').click(function(e) {
         var modal = $('#myModal'), modalBody = $('#myModal .modal-body');
 
+        modalBody.load(e.currentTarget.href);
+        modal.modal();
+        /*
         modal.on('show.bs.modal', function () {
-            modalBody.load(e.currentTarget.href)
-        }).modal();
+           php 
+        */
         e.preventDefault();
     });
 </script>

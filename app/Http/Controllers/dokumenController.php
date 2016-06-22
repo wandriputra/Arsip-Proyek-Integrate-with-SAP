@@ -356,9 +356,10 @@ class dokumenController extends Controller
     public function postUpload(Request $request)
     {
 
+
         $validator = Validator::make($request->all(), [
             'file_pdf' => 'required|mimes:pdf',
-            'sub_jenis_dokumen' => 'required',
+            'jenis_dokumen' => 'required',
             'kode_jra' => 'required'
         ]);
 
@@ -367,7 +368,6 @@ class dokumenController extends Controller
             return redirect()->back();
         }
 
-        
         $data['pr']= '';
         $data['po']= '';
         $data['gr']= '';
@@ -403,7 +403,7 @@ class dokumenController extends Controller
 
         $data['nama_dokumen'] = $filename['nama_file'];
         $data['status_id'] = $this->status_id;
-        $data['sub_jenis_id'] = $data['sub_jenis_dokumen'];
+        $data['sub_jenis_id'] = $data['jenis_dokumen'];
         $data['visibility_id'] = $data['visibility'];
         $data['lokasi_file_pdf'] = $this->lokasi_file($data);
         $data['status_dokumen_id'] = '2';
@@ -411,28 +411,22 @@ class dokumenController extends Controller
         $data['unit_tujuan'] = (isset($data['tembusan']) && $data['unit_tujuan']!='') ? $data['unit_tujuan'] : null ;
         $data['tembusan'] = (isset($data['tembusan'])) ? $data['tembusan'] : null ;
 
-//        dd($data);
+       // dd($data);
 
-        if($data['pr']!=''){
-            $this->cekWBS($data['pr']);
-        }
+        // if($data['pr']!=''){
+        //     $this->cekWBS($data['pr']);
+        // }
 
         $dokumen = Dokumen::create($data);
         
         if ($data['checklist_id'] != '') {
-            $checklist_dokumen['checklist_id'] = $data['checklist_id'];
-            $checklist_dokumen['dokumen_id'] = $dokumen['id'];
-            $dokumen->has_dokumen()->attach($checklist_dokumen);
+            $dokumen->has_checklist()->attach($data['checklist_id']);
         }
         //dokumen pengadaan
         $this->insertDokumenPRPO($dokumen, $data['pr'], $data['po'], $data['gr'], $data['cd']);
         $this->insertFolder($data, $dokumen);
         if ($data['tembusan']!= null) {
-            // $i=0;
-            // foreach ($data['tembusan'] as $key => $value) {
-                $dokumen->dokumen_tembusan()->attach($data['tembusan']);
-                // $i++;
-            // }
+            $dokumen->dokumen_tembusan()->attach($data['tembusan']);
         }
         if($dokumen){
             $dataupload = $this->uploadfile($data, $file);
@@ -542,7 +536,7 @@ class dokumenController extends Controller
     private function lokasi_file($value){
         $unit_asal = unit::find($value['unit_asal']);
         $folder1 = $unit_asal['nama_unit'] ;
-        $sub = Sub_jenis_dokumen::find($value['sub_jenis_dokumen']);
+        $sub = Sub_jenis_dokumen::find($value['jenis_dokumen']);
         $folder2 = $sub['nama_sub'].'('.$sub['singkatan'].')';
         return $lokasi = $folder1.'/';
     }
@@ -557,7 +551,6 @@ class dokumenController extends Controller
 
     public function getTambahSapDokumen()
     {
-
         return view('dokumen.tambah_dokumen_sap');
     }
 

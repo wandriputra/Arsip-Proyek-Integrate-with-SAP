@@ -9,7 +9,7 @@
 		});
 
 
-		$(".select-remote-data").select2({
+		$(".jenis_dokumen").select2({
 			placeholder: "Type Something...",
 			ajax: {
 				minimumInputLength: 3,
@@ -20,7 +20,7 @@
 				data: function (params) {
 					return {
 						q: params.term,
-						act: $('#actifity').val(),
+						act: $('.actifity').val(),
 						page: params.page
 					};
 				},
@@ -126,7 +126,7 @@
 		});
 
 
-        $('#asal_surat').change(add_actifity);
+        $('.asal_surat').change(add_actifity);
 
         add_actifity();
 

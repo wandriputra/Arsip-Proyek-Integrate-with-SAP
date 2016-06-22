@@ -28,14 +28,21 @@
 			File SAP yang digunakan diupdate tanggal {{$sap_log['created_at']}}
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		</p>
+		<form class="form-horizontal" method="post" 
+				action="{{url('dokumen/upload')}}" 
+				enctype="multipart/form-data">
+				{{csrf_field()}}
 		<div class="box-body">
-			<form class="form-horizontal" method="post" action="{{url('dokumen/upload')}}" enctype="multipart/form-data">
-				@include($view)
-			</form>
+			@include($view)
 		</div><!-- /.box -->
+		<div class="box-footer">
+			<button type="reset" class="btn btn-default col-md-2">Reset</button>
+			<button type="submit" class="btn btn-success col-md-2 pull-right">Upload</button>
+		</div><!-- /.box-footer -->
+		</form>
 	</div>
 @stop
 
 @section('costom_js_pages')
-	@include('checklist._script')
+	@include('dokumen._script')
 @stop
