@@ -10,15 +10,11 @@
 		<h3 class="box-title">Tambah Sub Jenis Dokumen</h3>
 	</div>
 	<div class="box-body">
-	@if (count($errors) > 0)
-		<div class="alert alert-dismissible alert-error">
-			<button type="button" class="close" data-dismiss="alert">×</button>
-			Mohon Periksa Kembali input.
-		</div>
-	@endif
 		<form method="post" class="form-horizontal" action="{{{ isset($url) ? url($url) : url('data/insert-sub-jenis')}}}">
 			{{csrf_field()}}
+
 			<input type="hidden" name="prev_url" value="{{URL::previous()}}">
+			
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Nama Unit</label>
 				<div class="col-md-8">
@@ -31,23 +27,24 @@
 					</select> <a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Actifity Dokumen</label>
-				<div class="col-md-5">
+				<div class="col-md-8">
 					<select name="actifity_id" class="form-control select2" id="actifity" style="width:90%">
 					</select><a href="{{url('data/tambah-actifity')}}"><i class="fa fa-fw fa-plus"></i></a>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="" class="col-sm-2 control-label">Nama Sub Jenis</label>
+				<label for="" class="col-sm-2 control-label">Jenis Dokumen</label>
 				<div class="col-md-7">
-					<input type="text" name="nama_sub" class="form-control" placeholder: "Choose an option…" value="{{{$edit['nama_sub'] or ''}}}">
+					<input type="text" name="nama_sub" class="form-control" placeholder= "Choose an option…" value="{{{$edit['nama_sub'] or ''}}}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="" class="col-sm-2 control-label">Singkatan</label>
 				<div class="col-md-3">
-					<input type="text" name="singkatan" class="form-control" value="{{{$edit['singkatan'] or ''}}}">
+					<input type="text" name="singkatan" class="form-control" value="{{{$edit['singkatan'] or ''}}}" placeholder="Singkatan">
 				</div>
 			</div>
 	</div>
@@ -66,21 +63,30 @@
 	<script>
 		$(function() {
 			$(".select2").select2({
-				placeholder: "Choose an option…"
-			}); 
+				placeholder: "Type Something ....."
+			});
+
+			populateActifity();
+
+			$('#nama_unit').change(function(){
+				populateActifity();
+			});
+
+			function populateActifity(){
+				unit_id = $('#nama_unit').val();
+				$.getJSON("{{url('dokumen/ajax-actifity')}}"+"/"+unit_id, function(data) {
+					var options = '<option value=""></option>';
+				    for (var i = 0; i < data.length; i++) {
+						options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
+					}
+					$('#actifity option').remove();
+					$('#actifity').append(options);
+					
+				});
+			}
+			
 		});
 
-		$('#nama_unit').change(function(){
-			unit_id = $('#nama_unit').val();
-			$.getJSON("{{url('dokumen/ajax-actifity')}}"+"/"+unit_id, function(data) {
-				var options = '<option value=""></option>';
-			    for (var i = 0; i < data.length; i++) {
-					options += '<option value="' + data[i].id + '">' + data[i].nama_actifity + '</option>';
-				}
-				$('#actifity option').remove();
-				$('#actifity').append(options);
-				
-			});
-		});
+		
 	</script>
 @stop

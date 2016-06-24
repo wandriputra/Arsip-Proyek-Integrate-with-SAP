@@ -108,11 +108,11 @@ class userController extends Controller
                 return $user['personil']['nama_personil'];
             })
             ->addColumn('action', function($user){
-                $edit_b = '<a href="'.route('edit-user').'/'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a> ';
+                $edit_b = '<div class="btn-group"><a href="'.route('edit-user').'/'.$user->id.'" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-edit"></i></a> ';
                 if ($user['status'] === 'A') {
-                    $status_b = '<a href="'.route('delete-user').'/'.$user->id.'/A" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-trash"></i> Nonaktifkan</a>';
+                    $status_b = '<a href="'.route('delete-user').'/'.$user->id.'/A" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i></a></div>';
                 }else{
-                    $status_b = '<a href="'.route('delete-user').'/'.$user->id.'/N" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-eyes"></i> Aktfikan</a>';
+                    $status_b = '<a href="'.route('delete-user').'/'.$user->id.'/N" class="btn btn-xs btn-info"><i class="glyphicon glyphicon-ok   "></i></a></div>';
                 }
                return $edit_b.$status_b;
             })

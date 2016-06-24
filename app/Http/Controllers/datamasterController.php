@@ -27,13 +27,23 @@ class datamasterController extends Controller
 
     public function getInsertSubJenis()
     {
-        $actifity = Actifity::all();
         $unit = Unit::all();
-        return view('datamaster.tambah_sub_jenis', compact('actifity','unit'));
+        return view('datamaster.tambah_sub_jenis', compact('unit'));
     }
 
     public function postInsertSubJenis(Request $request)
     {
+        $validator = \Validator::make($request->all(), [
+            'unit_asal' => 'required',
+            'actifity_id' => 'required',
+            'nama_sub' => 'required'
+        ]);
+
+        if($validator->fails()){
+            \Session::flash('alert-warning', 'Mohon Lengkapi Kembali Input');
+            return redirect()->back();
+        }
+
     	$data = $request->all();
         $data['created_by'] = Auth::user()->id;
     	$sub_jenis = Sub_jenis_dokumen::create($data);

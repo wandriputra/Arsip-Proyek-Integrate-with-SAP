@@ -17,7 +17,7 @@
 	                <th>Username</th>
 	                <th>Nama Personil</th>
 	                <th>Email</th>
-	                <th>Created by</th>
+	                <th>Action</th>
 	            </tr>
 	        </thead>
 	    </table>

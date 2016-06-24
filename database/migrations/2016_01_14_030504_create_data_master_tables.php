@@ -56,6 +56,7 @@ class CreateDataMasterTables extends Migration
         Schema::create('role_user', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_role','40');
+            $table->string('keterangan','80')->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();
         });
@@ -78,6 +79,9 @@ class CreateDataMasterTables extends Migration
             $table->integer('sub_jenis_id')->unsigned(); //jenis_dokumen_id
             $table->integer('unit_asal')->unsigned(); //personil
             $table->integer('unit_tujuan')->unsigned()->nullable(); //personil
+            $table->string('locator')->nullable();
+            $table->integer('status_dokumen_id')->unsigned();
+            $table->integer('jra_dokumen_id')->unsigned();
             $table->integer('visibility_id')->unsigned(); //personil
             $table->integer('created_by')->unsigned(); //user_id
             $table->softDeletes();
@@ -206,13 +210,42 @@ class CreateDataMasterTables extends Migration
 
         Schema::create('jra_dokumens', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode',20);
+            $table->string('kode',20)->unique();
             $table->string('jenis_arsip');
             $table->string('waktu_aktif');
             $table->string('waktu_inaktif');
             $table->string('keterangan');
             $table->char('level');
             $table->integer('kode_induk')->unsigned()->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('module_app', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nama_module');
+            $table->string('description');
+            $table->timestamps();
+        });
+
+        Schema::create('role_user_has_module', function (Blueprint $table) {
+            $table->integer('role_user_id')->unsigned()->nullable();
+            $table->integer('module_id')->unsigned()->nullable();
+            $table->integer('created_by')->unsigned()->nullable();
+        });
+
+        Schema::create('sap_log', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('file_name',50);
+            $table->string('jumlah_row');
+            $table->char('status',2);
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('logs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->string('module_name');
             $table->timestamps();
         });
 
@@ -226,30 +259,34 @@ class CreateDataMasterTables extends Migration
      */
     public function down()
     {
-        Schema::drop(["user",
-                "personil",
-                "unit",
-                "jabatan",
-                "role_user",
-                "actifity",
-                "dokumen",
-                "jenis_dokumen",
-                "sub_jenis_dokumen",
-                "approval_dokumen",
-                "jenis_approval",
-                "tag_dokumen",
-                "status_dokumen",
-                "visibility", 
-                "checklist",
-                "unit_dokumen",
-                "tembusan_dokumen",
-                "dokumen_has_tag",
-                "folder",
-                "share_folders",
-                "folder_dokumen",
-                "checklist_has_activity_jenis",
-                "checklist_has_dokumen",
-                "dokumen_sap",
-                "jra_dokumens" ]);
+        Schema::drop("user");
+        Schema::drop("personil");
+        Schema::drop("unit");
+        Schema::drop("jabatan");
+        Schema::drop("role_user");
+        Schema::drop("actifity");
+        Schema::drop("dokumen");
+        Schema::drop("jenis_dokumen");
+        Schema::drop("sub_jenis_dokumen");
+        Schema::drop("approval_dokumen");
+        Schema::drop("jenis_approval");
+        Schema::drop("tag_dokumen");
+        Schema::drop("status_dokumen");
+        Schema::drop("visibility",);
+        Schema::drop("checklist");
+        Schema::drop("unit_dokumen");
+        Schema::drop("tembusan_dokumen");
+        Schema::drop("dokumen_has_tag");
+        Schema::drop("folder");
+        Schema::drop("share_folders");
+        Schema::drop("folder_dokumen");
+        Schema::drop("checklist_has_activity_jenis");
+        Schema::drop("checklist_has_dokumen");
+        Schema::drop("dokumen_sap");
+        Schema::drop("jra_dokumens");
+        Schema::drop("module_app");
+        Schema::drop("role_user_has_module");
+        Schema::drop("sap_log");
+        Schema::drop("logs" );
     }
 }

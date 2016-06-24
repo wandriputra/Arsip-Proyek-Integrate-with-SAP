@@ -748,4 +748,16 @@ class dokumenController extends Controller
         return view('checklist._upload-dokumen-modal', compact('jenis_id', 'jenis', 'checklist_id', 'actifity', 'unit', 'unit_tujuan', 'visibility'));
     }
 
+    public function getTestDokumen()
+    {
+
+        $dokumen = Dokumen::where("id", 1)->firstOrFail();
+        if ( \Gate::denies('view-dokumen', $dokumen) ) {
+            abort(404);
+        }
+
+        echo "string";
+
+    }
+
 }

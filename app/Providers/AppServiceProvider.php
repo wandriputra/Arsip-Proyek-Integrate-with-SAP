@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,9 +12,18 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
         //
+    public function boot(GateContract $gate)
+    {
+        $this->registerPolicies($gate);
+
+        $gate->define('view-dokumen', function ($user, $dokumen) {
+            return $user->id === $dokumen->created_by;
+        });
+
+        $gate->define('upload-admin', function ($user, $dokumen) {
+            return $user->id === $dokumen->created_by;
+        });
     }
 
     /**

@@ -89,7 +89,6 @@ class UpdateForeinKey extends Migration
         });                
 
         Schema::table('dokumen', function (Blueprint $table) {
-            //
             $table->foreign('sub_jenis_id')
                 ->references('id')
                 ->on('sub_jenis_dokumen')
@@ -119,6 +118,18 @@ class UpdateForeinKey extends Migration
                 ->on('user')                
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->foreign('status_dokumen_id')
+                ->references('id')
+                ->on('status_dokumen')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('jra_dokumen_id')
+                ->references('id')
+                ->on('jra_dokumens')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
 
         Schema::table('jenis_dokumen', function (Blueprint $table) {
@@ -131,7 +142,6 @@ class UpdateForeinKey extends Migration
         });
 
         Schema::table('sub_jenis_dokumen', function (Blueprint $table) {
-            //
             $table->foreign('actifity_id')
                 ->references('id')
                 ->on('actifity')
@@ -146,7 +156,6 @@ class UpdateForeinKey extends Migration
         });
 
         Schema::table('approval_dokumen', function (Blueprint $table) {
-            //
             $table->foreign('dokumen_upload_id')
                 ->references('id')
                 ->on('dokumen')
@@ -173,7 +182,6 @@ class UpdateForeinKey extends Migration
         });
 
         Schema::table('jenis_approval', function (Blueprint $table) {
-            //
             $table->foreign('created_by')
                 ->references('id')
                 ->on('user')                
@@ -182,7 +190,6 @@ class UpdateForeinKey extends Migration
         });
 
         Schema::table('tag_dokumen', function (Blueprint $table) {
-            //
             $table->foreign('created_by')
                 ->references('id')
                 ->on('user')                
@@ -191,7 +198,6 @@ class UpdateForeinKey extends Migration
         });
 
         Schema::table('status_dokumen', function (Blueprint $table) {
-            //
             $table->foreign('created_by')
                 ->references('id')
                 ->on('user')                
@@ -200,7 +206,6 @@ class UpdateForeinKey extends Migration
         });
 
         Schema::table('visibility', function (Blueprint $table) {
-            //
             $table->foreign('created_by')
                 ->references('id')
                 ->on('user')                
@@ -209,7 +214,6 @@ class UpdateForeinKey extends Migration
         });
 
         Schema::table('unit_dokumen', function (Blueprint $table) {
-            //
             $table->foreign('created_by')
                 ->references('id')
                 ->on('user')                
@@ -218,7 +222,6 @@ class UpdateForeinKey extends Migration
         }); 
 
         Schema::table('tembusan_dokumen', function (Blueprint $table) {
-            //
             $table->foreign('dokumen_id')
                 ->references('id')
                 ->on('dokumen')                
@@ -232,7 +235,6 @@ class UpdateForeinKey extends Migration
         });
 
         Schema::table('dokumen_has_tag', function (Blueprint $table) {
-            //
             $table->foreign('tag_id')
                 ->references('id')
                 ->on('tag_dokumen')                
@@ -310,7 +312,94 @@ class UpdateForeinKey extends Migration
                 ->on('jenis_dokumen')                
                 ->onDelete('cascade')
                 ->onUpdate('cascade');              
-        });            
+        });
+
+        Schema::table('dokumen_sap', function (Blueprint $table) {
+            $table->foreign('dokumen_id')
+                ->references('id')
+                ->on('dokumen')
+                ->onDelete('cascade')
+                ->onUpdate('cascade'); 
+        }); 
+
+
+
+        Schema::table('jra_dokumens', function (Blueprint $table) {
+            $table->foreign('kode_induk')
+                ->references('id')
+                ->on('jra_dokumens')
+                ->onUpdate('cascade');
+        });
+
+        Schema::table('sap_log', function (Blueprint $table) {
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('user')
+                ->onUpdate('cascade');
+        });
+
+        Schema::table('role_user_has_module', function (Blueprint $table) {
+            $table->foreign('role_user_id')
+                ->references('id')
+                ->on('role_user')
+                ->onUpdate('cascade');
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('user')
+                ->onUpdate('cascade');
+            $table->foreign('module_id')
+                ->references('id')
+                ->on('module_app')
+                ->onUpdate('cascade');
+        });
+
+        Schema::table('checklist', function (Blueprint $table) {
+           $table->foreign('unit_id')
+               ->references('id')
+               ->on('unit')
+                ->onDelete('cascade')
+               ->onUpdate('cascade');
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('user')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+
+
+
+        Schema::table('checklist_has_activity_jenis', function(Blueprint $table){
+            $table->foreign('checklist_id')
+                ->references('id')
+                ->on('checklist')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('actifity_id')
+                ->references('id')
+                ->on('actifity')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('sub_jenis_id')
+                ->references('id')
+                ->on('sub_jenis_dokumen')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
+
+        
+
+        Schema::table('checklist_has_dokumen', function(Blueprint $table){
+            $table->foreign('checklist_id')
+                ->references('id')
+                ->on('checklist')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('dokumen_id')
+                ->references('id')
+                ->on('dokumen')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
         
     }
 
