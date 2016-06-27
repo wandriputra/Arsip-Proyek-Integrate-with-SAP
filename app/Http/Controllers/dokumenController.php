@@ -78,15 +78,17 @@ class dokumenController extends Controller
         $unit_id = $request->input('unit');
         $sap_log = Saplog::where('status', 'A')->firstOrFail();
 
+        $array = ['asal_surat', 'actifity', 'jenis_dokumen', 'kode_jra', 'pr', 'po', 'cd', 'gr', 'file_pdf', 'unit_tujuan', 'lokasi_file', 'visibility'];
+
 //        TODO; bagi view ke beberapa module
         switch ($role) {
             case 'admin':
                 $view = 'dokumen.upload_'.$role;
                 $actifity = Actifity::all();
                 if ($request->input('unit')!=null) {
-                    $unit = unit::where('id', $unit_id)->get();
+                    $unit = unit::where('id', $unit_id)->where('id','!=', '1')->get();
                 }else{
-                    $unit = unit::all();
+                    $unit = unit::where('id','!=', '1')->get();
                 }
                 $unit_tujuan = unit::all();
                 $visibility = Visibility::all();
@@ -127,7 +129,7 @@ class dokumenController extends Controller
             default:
                 break;
         }
-        return view('dokumen/upload', compact('unit', 'visibility', 'view', 'actifity', 'unit_tujuan', 'sap_log'));
+        return view('dokumen/upload', compact('array', 'unit', 'visibility', 'view', 'actifity', 'unit_tujuan', 'sap_log'));
     }
 
     /**
@@ -137,10 +139,17 @@ class dokumenController extends Controller
     public function getDetail($id='', $no_sap='')
     {
         if($id === '') return redirect("folder");
+
         $dokumen = Dokumen::with('sub_jenis_dokumen', 'asal_surat', 'tujuan_surat', 'dokumen_sap', 'dokumen_tembusan', 'jra_dokumen' )
             ->where('id', $id)
             ->orWhere('no_dokumen', $id)
             ->firstOrFail();
+
+        if ( \Gate::denies('view-dokumen', $dokumen) ) {
+            \Session::flash('alert-warning', 'Maaf anda tidak ada akses untuk melihat dokumen');
+            return redirect('/pencarian?type=file_pdf&q=');
+        }
+
         if ($no_sap != ''){
             $no_sap = $no_sap;
         }else{
@@ -542,7 +551,15 @@ class dokumenController extends Controller
     }
 
     public function getFile($id){
-        $data = Dokumen::where('id', $id)->firstOrFail();
+        $data = Dokumen::with('sub_jenis_dokumen', 'asal_surat', 'tujuan_surat', 'dokumen_sap', 'dokumen_tembusan', 'jra_dokumen' )
+            ->where('id', $id)
+            ->orWhere('no_dokumen', $id)
+            ->firstOrFail();
+
+        if ( \Gate::denies('view-dokumen', $data) ) {
+            return false;
+        }
+
         $lokasi = $data->lokasi_file_pdf.$data->file_name_pdf;
         $file = Storage::disk('local')->get($lokasi);
         return  response($file, 200)
@@ -597,7 +614,7 @@ class dokumenController extends Controller
         if ($unit==null) {
             $dataSql = Dokumen::all();
         }else{
-            $dataSql = Dokumen::where('unit_asal', Auth::user()->personil->unit->id)->get();
+            $dataSql = Dokumen::where('unit_asal', Auth::user()->personil->unit->id)->orWhere('unit_tujuan', '1')->get();
         }
         return Datatables::of($dataSql)
             ->addColumn('link_to_file', function($dataSql){

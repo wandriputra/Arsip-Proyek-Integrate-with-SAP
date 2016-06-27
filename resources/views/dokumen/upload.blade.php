@@ -33,7 +33,10 @@
 				enctype="multipart/form-data">
 				{{csrf_field()}}
 		<div class="box-body">
-			@include($view)
+			
+			@foreach($array as $val)
+				@include('dokumen._form_upload.'.$val)
+			@endforeach
 		</div><!-- /.box -->
 		<div class="box-footer">
 			<button type="reset" class="btn btn-default col-md-2">Reset</button>
