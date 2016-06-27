@@ -26,6 +26,7 @@
 		</div>
 		<label class="detail-kode"> </label>
 	</div>
+	
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Clearing Dokumen</label>
 		<div class="col-sm-3">

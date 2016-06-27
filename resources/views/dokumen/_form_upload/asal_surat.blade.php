@@ -1,4 +1,5 @@
 <!-- Aasal Surat-->
+@can('upload-cek', 'admin')
 <div class="form-group">
 	<label for="" class="col-sm-3 control-label">Asal Surat</label>
 	<div class="col-md-8">
@@ -16,5 +17,6 @@
 		<a href="{{url('unit/tambah-unit')}}"><i class="fa fa-fw fa-plus"></i></a>
 	</div>
 </div>
-
-<!-- <input type="hidden" name="unit_asal" value="{{Auth::user()->personil->unit->id}}"> -->
+@else
+<input type="hidden" name="unit_asal"  class="asal_surat" value="{{Auth::user()->personil->unit->id}}">
+@endcan

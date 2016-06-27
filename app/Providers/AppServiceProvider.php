@@ -41,11 +41,19 @@ class AppServiceProvider extends ServiceProvider
          * 
          */
         $gate->define('upload-cek', function ($user, $role) {
+
             $array = ['admin', 'warehouse', 'afis', 'procurement', 'logistik', 'legal'];
-            foreach ($array as $key => $value) {
-                
+            $boo = false;
+
+//             $module =  $user->role_user->module_user;
+// dd($module);
+            // $module->contains('$role');
+            foreach ($user->role_user->module_user as $key => $value) {
+                if($value->nama_module === "upload_".$role){
+                    $boo = true;
+                }
             }
-            return true;
+            return $boo;
         });
     }
 

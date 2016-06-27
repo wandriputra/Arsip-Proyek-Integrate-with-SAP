@@ -80,56 +80,24 @@ class dokumenController extends Controller
 
         $array = ['asal_surat', 'actifity', 'jenis_dokumen', 'kode_jra', 'pr', 'po', 'cd', 'gr', 'file_pdf', 'unit_tujuan', 'lokasi_file', 'visibility'];
 
-//        TODO; bagi view ke beberapa module
-        switch ($role) {
-            case 'admin':
-                $view = 'dokumen.upload_'.$role;
-                $actifity = Actifity::all();
-                if ($request->input('unit')!=null) {
-                    $unit = unit::where('id', $unit_id)->where('id','!=', '1')->get();
-                }else{
-                    $unit = unit::where('id','!=', '1')->get();
-                }
-                $unit_tujuan = unit::all();
-                $visibility = Visibility::all();
-                break;
-
-            case 'user':
-                $view = 'dokumen.upload_'.$role;
-                $unit = unit::where('id', Auth::user()->personil->unit->id)->get();
-                $unit_tujuan = unit::all();
-                $actifity = Actifity::where('unit_id', 1)->get();
-                $visibility = Visibility::all();
-                break;
-
-            case 'procurement':
-                $view = 'dokumen.upload_'.$role;
-                $unit = unit::where('id', 19)->get();
-                $unit_tujuan = unit::all();
-                $actifity = Actifity::where('unit_id', 19)->get();
-                $visibility = Visibility::all();
-                break;
-
-            case 'warehouse':
-                $view = 'dokumen.upload_'.$role;
-                $unit = unit::where('id', $unit_id)->get();
-                $unit_tujuan = unit::all();
-                $actifity = Actifity::where('unit_id', 23)->get();
-                $visibility = Visibility::all();
-                break;
-
-            case 'accounting':
-                $view = 'dokumen.upload_'.$role;
-                $unit = unit::where('id', $unit_id)->get();
-                $unit_tujuan = unit::all();
-                $actifity = Actifity::where('unit_id', 25)->get();
-                $visibility = Visibility::all();
-                break;
-
-            default:
-                break;
+        if ( \Gate::allows('upload-cek', 'admin') ) {
+            if ($request->input('unit')!=null) {
+                $unit = unit::where('id', $unit_id)->where('id','!=', '1')->get();
+            }else{
+                $unit = unit::where('id','!=', '1')->get();
+            }
+            $actifity = Actifity::all();
+            $unit_tujuan = unit::all();
+            $visibility = Visibility::all();
+        }else{
+            $unit = unit::where('id', Auth::user()->personil->unit->id)->get();
+            $unit_tujuan = unit::all();
+            $actifity = Actifity::where('unit_id', Auth::user()->personil->unit->id)->get();
+            $visibility = Visibility::all();
         }
-        return view('dokumen/upload', compact('array', 'unit', 'visibility', 'view', 'actifity', 'unit_tujuan', 'sap_log'));
+
+
+        return view('dokumen/upload', compact('array', 'unit', 'visibility', 'actifity', 'unit_tujuan', 'sap_log'));
     }
 
     /**
